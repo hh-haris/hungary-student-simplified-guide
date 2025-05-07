@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,26 +10,25 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Link } from "react-router-dom";
 
 // Mock data for universities
 const universities = [
   {
-    id: 1,
+    id: "1",
     name: "Budapest University of Technology and Economics",
     city: "Budapest",
     intro: "Leading technical university in Hungary with strong engineering and IT programs.",
     minScore: 75
   },
   {
-    id: 2,
+    id: "2",
     name: "University of Debrecen",
     city: "Debrecen",
     intro: "One of the largest universities with comprehensive programs including medical sciences.",
     minScore: 70
   },
   {
-    id: 3,
+    id: "3",
     name: "University of Szeged",
     city: "Szeged",
     intro: "Prestigious university with strong research focus and diverse academic programs.",

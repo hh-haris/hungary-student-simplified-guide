@@ -1,46 +1,135 @@
 
+import React from 'react';
 import { Link } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const Footer = () => {
   return (
-    <footer className="bg-deep-teal text-white py-8 mt-16">
+    <footer className="bg-white border-t border-gray-200 py-10">
       <div className="container mx-auto px-4">
-        <div className="mb-6 text-center md:text-left">
-          <h2 className="font-syne font-bold text-xl mb-2">Stipendium Hungaricum Simplified</h2>
-          <p className="text-sm opacity-80">Created to simplify access to higher education in Hungary for Pakistani students.</p>
+        <div className="md:hidden">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="quicklinks">
+              <AccordionTrigger className="text-left font-syne font-medium">
+                Quick Links
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul className="space-y-3 py-2">
+                  <li>
+                    <Link to="/usat" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      USAT Guide
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/university-finder" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      University Finder
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/apply/tempus" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      Apply for Scholarship
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/visa" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      Visa Process
+                    </Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+            
+            <AccordionItem value="moreinfo">
+              <AccordionTrigger className="text-left font-syne font-medium">
+                More Information
+              </AccordionTrigger>
+              <AccordionContent>
+                <ul className="space-y-3 py-2">
+                  <li>
+                    <Link to="/documents" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      Document Guide
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/first-month" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      First Month in Hungary
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/alternative" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      Alternative Scholarships
+                    </Link>
+                  </li>
+                </ul>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
         </div>
-
-        <div className="flex flex-col md:flex-row justify-between">
-          <div className="mb-6 md:mb-0">
-            <h3 className="font-syne font-medium text-light-teal mb-3">Quick Links</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/" className="hover:text-accent-orange transition-colors">Home</Link></li>
-              <li><Link to="/usat" className="hover:text-accent-orange transition-colors">USAT Guide</Link></li>
-              <li><Link to="/university-finder" className="hover:text-accent-orange transition-colors">University Finder</Link></li>
-              <li><Link to="/apply/tempus" className="hover:text-accent-orange transition-colors">Apply for Scholarship</Link></li>
-            </ul>
-          </div>
-
-          <div className="mb-6 md:mb-0">
-            <h3 className="font-syne font-medium text-light-teal mb-3">Resources</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/documents" className="hover:text-accent-orange transition-colors">Document Guide</Link></li>
-              <li><Link to="/visa" className="hover:text-accent-orange transition-colors">Visa Process</Link></li>
-              <li><Link to="/first-month" className="hover:text-accent-orange transition-colors">First Month in Hungary</Link></li>
-              <li><Link to="/seniors" className="hover:text-accent-orange transition-colors">Connect with Seniors</Link></li>
-            </ul>
-          </div>
-
+        
+        <div className="hidden md:grid md:grid-cols-3 gap-8">
           <div>
-            <h3 className="font-syne font-medium text-light-teal mb-3">About</h3>
-            <p className="text-sm max-w-xs opacity-80">
-              A comprehensive guide created by students for students to navigate the Stipendium Hungaricum scholarship process.
+            <h3 className="font-syne font-bold text-lg mb-4">Quick Links</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/usat" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  USAT Guide
+                </Link>
+              </li>
+              <li>
+                <Link to="/university-finder" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  University Finder
+                </Link>
+              </li>
+              <li>
+                <Link to="/apply/tempus" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  Apply for Scholarship
+                </Link>
+              </li>
+              <li>
+                <Link to="/visa" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  Visa Process
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-syne font-bold text-lg mb-4">More Information</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/documents" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  Document Guide
+                </Link>
+              </li>
+              <li>
+                <Link to="/first-month" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  First Month in Hungary
+                </Link>
+              </li>
+              <li>
+                <Link to="/alternative" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                  Alternative Scholarships
+                </Link>
+              </li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 className="font-syne font-bold text-lg mb-4">Join Our Community</h3>
+            <p className="text-sm text-gray-500 mb-4">
+              Connect with fellow students and get personalized assistance for your Stipendium Hungaricum application.
             </p>
+            <Button className="bg-deep-teal hover:bg-deep-teal/90 text-white">
+              Join WhatsApp Group
+            </Button>
           </div>
         </div>
         
-        <div className="border-t border-light-teal/30 mt-8 pt-4 text-center text-xs opacity-70">
-          <p>© {new Date().getFullYear()} Stipendium Hungaricum Simplified. All rights reserved.</p>
+        <div className="mt-12 text-center">
+          <Button variant="link" className="text-xs text-gray-500">
+            Created to simplify access to higher education in Hungary for Pakistani students.
+          </Button>
         </div>
       </div>
     </footer>

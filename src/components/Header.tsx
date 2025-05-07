@@ -1,70 +1,96 @@
 
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Bell, Menu } from 'lucide-react';
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import Navigation from './Navigation';
+import MobileMenu from './MobileMenu';
 
 const Header = () => {
-  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-sm">
-      {/* Mobile Top Banner */}
-      <div className="md:hidden bg-accent-orange text-white p-2">
-        <div className="container flex justify-between items-center text-xs">
-          <span>🎓 Fully Funded</span>
-          <span>🇭🇺 Study in Hungary</span>
-          <span>🇵🇰 For Pakistani Students</span>
+    <header 
+      className={`sticky top-0 w-full z-40 transition-all duration-300 ${
+        scrolled ? "bg-white/90 shadow-sm backdrop-blur-sm" : "bg-transparent"
+      }`}
+    >
+      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
+        <Link 
+          to="/" 
+          className="font-syne font-bold text-xl leading-tight md:text-2xl"
+        >
+          <div className="flex flex-col">
+            <span>Stipendium</span>
+            <span>Hungaricum</span>
+            <span className="text-accent-orange">Simplified</span>
+          </div>
+        </Link>
+        
+        <div className="hidden md:flex items-center space-x-6">
+          <Link 
+            to="/usat"
+            className={`text-sm font-medium hover:text-deep-teal transition-colors ${
+              location.pathname.includes('/usat') ? 'text-deep-teal' : ''
+            }`}
+          >
+            USAT Guide
+          </Link>
+          <Link 
+            to="/join-group"
+            className="text-sm font-medium hover:text-deep-teal transition-colors"
+          >
+            Join Group
+          </Link>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="relative"
+          >
+            <Bell className="h-5 w-5" />
+            <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-deep-teal"></span>
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => setIsOpen(true)}
+            aria-label="Open menu"
+          >
+            <Menu className="h-5 w-5" />
+          </Button>
+        </div>
+        
+        <div className="flex md:hidden items-center space-x-4">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="relative h-8 w-8"
+          >
+            <Bell className="h-4 w-4" />
+            <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-deep-teal"></span>
+          </Button>
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={() => setIsOpen(true)}
+            aria-label="Open menu"
+            className="h-8 w-8"
+          >
+            <Menu className="h-4 w-4" />
+          </Button>
         </div>
       </div>
-
-      {/* Main Header */}
-      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div className="flex flex-col">
-          <h1 className="font-syne font-bold text-2xl md:text-3xl leading-tight">
-            <span className="block">Stipendium</span>
-            <span className="block">Hungaricum</span>
-            <span className="block text-accent-orange">Simplified</span>
-          </h1>
-        </div>
-
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-6">
-          <Button variant="ghost" className="hover:text-accent-orange">USAT Guide</Button>
-          <Button variant="ghost" className="hover:text-accent-orange">Join Group</Button>
-          <Button variant="outline" className="hover:text-accent-orange">
-            <Bell size={20} />
-          </Button>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline">
-                <Menu size={20} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <Navigation />
-            </SheetContent>
-          </Sheet>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div className="flex md:hidden items-center gap-2">
-          <Button variant="outline" size="icon" className="h-8 w-8">
-            <Bell size={16} />
-          </Button>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="h-8 w-8">
-                <Menu size={16} />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85%]">
-              <Navigation />
-            </SheetContent>
-          </Sheet>
-        </div>
-      </div>
+      
+      <MobileMenu isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </header>
   );
 };

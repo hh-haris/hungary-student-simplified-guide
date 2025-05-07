@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -96,6 +97,25 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-syne;
   }
+}
+
+/* Make sure to always have some padding at the bottom of the page for better mobile UX */
+main {
+  padding-bottom: 2rem;
+}
+
+/* Improve tap target size on mobile */
+button, a {
+  @apply outline-none focus:ring-2 focus:ring-accent-orange/40;
+}
+
+/* Smoother transitions */
+.transition-all, 
+.transition-colors,
+.transition-opacity,
+.transition-shadow,
+.transition-transform {
+  @apply duration-300;
 }

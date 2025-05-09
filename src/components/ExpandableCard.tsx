@@ -8,13 +8,14 @@ interface ExpandableCardProps {
   title: string;
   children: React.ReactNode;
   initialExpanded?: boolean;
+  className?: string;
 }
 
-const ExpandableCard = ({ title, children, initialExpanded = false }: ExpandableCardProps) => {
+const ExpandableCard = ({ title, children, initialExpanded = false, className = '' }: ExpandableCardProps) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
   return (
-    <Card className="mb-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+    <Card className={`mb-4 border border-gray-100 shadow-sm hover:shadow-md transition-shadow ${className}`}>
       <CardHeader className="p-4 cursor-pointer" onClick={() => setIsExpanded(!isExpanded)}>
         <div className="flex justify-between items-center">
           <CardTitle className="text-lg font-syne">{title}</CardTitle>

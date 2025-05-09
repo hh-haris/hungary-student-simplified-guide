@@ -239,6 +239,12 @@ const UniversityDetail = () => {
     <div className="min-h-screen flex flex-col bg-off-white">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
+        <div className="mb-4">
+          <Link to="/university-finder" className="text-deep-teal hover:underline inline-flex items-center mb-2">
+            <MapPin size={16} className="mr-1" /> Back to University Finder
+          </Link>
+        </div>
+        
         <div className="bg-white rounded-lg shadow-sm p-5 mb-6">
           <h1 className="font-syne font-bold text-2xl md:text-3xl mb-2">{university.name}</h1>
           <div className="flex items-center text-light-teal mb-4">
@@ -275,8 +281,14 @@ const UniversityDetail = () => {
           </div>
         </div>
 
+        <div className="mb-4">
+          <Link to="/apply" className="inline-flex items-center justify-center text-white bg-deep-teal py-2 px-4 rounded-md hover:bg-deep-teal/90 transition-colors mr-2">
+            Apply for Scholarship
+          </Link>
+        </div>
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-          <TabsList className="grid grid-cols-3 md:grid-cols-4 w-full">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-4">
             <TabsTrigger value="info">Info</TabsTrigger>
             <TabsTrigger value="prepare">Prepare</TabsTrigger>
             <TabsTrigger value="interview">Interview</TabsTrigger>
@@ -287,11 +299,30 @@ const UniversityDetail = () => {
             <Card>
               <CardContent className="pt-6">
                 <ExpandableCard title="Documents Required">
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-2">Select Program</label>
+                    <select 
+                      className="w-full md:w-auto border border-gray-300 rounded-md p-2"
+                      value={selectedProgram}
+                      onChange={(e) => setSelectedProgram(e.target.value)}
+                    >
+                      {Object.keys(university.interviewQuestions).map(program => (
+                        <option key={program} value={program}>{program}</option>
+                      ))}
+                    </select>
+                  </div>
                   <ul className="list-disc pl-6 space-y-1">
                     {university.documentsRequired.map((doc, i) => (
                       <li key={i}>{doc}</li>
                     ))}
                   </ul>
+                  {university.requiresIELTS && (
+                    <div className="mt-2 p-2 bg-purple-50 rounded">
+                      <p className="text-sm text-purple-800">
+                        <strong>Note:</strong> This program requires IELTS with a minimum score of {university.ieltScore}
+                      </p>
+                    </div>
+                  )}
                 </ExpandableCard>
                 
                 <ExpandableCard title="FAQs">

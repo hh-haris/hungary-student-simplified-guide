@@ -2,13 +2,15 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
 
+interface SubtopicDetail {
+  name: string;
+  mcqCount: number;
+}
+
 interface TopicDetail {
   name: string;
   mcqCount: number;
-  subtopics?: Array<{
-    name: string;
-    mcqCount: number;
-  }>;
+  subtopics?: SubtopicDetail[];
 }
 
 interface SubjectSyllabusProps {

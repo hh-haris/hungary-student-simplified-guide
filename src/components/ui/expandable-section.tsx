@@ -7,12 +7,14 @@ interface ExpandableSectionProps {
   title: string;
   children: React.ReactNode;
   defaultOpen?: boolean;
+  className?: string;
 }
 
 const ExpandableSection: React.FC<ExpandableSectionProps> = ({ 
   title, 
   children, 
-  defaultOpen = false 
+  defaultOpen = false,
+  className = ''
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -20,7 +22,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="border border-gray-200 rounded-lg overflow-hidden"
+      className={`border border-gray-200 rounded-lg overflow-hidden ${className}`}
     >
       <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-left font-syne font-medium">
         {title}

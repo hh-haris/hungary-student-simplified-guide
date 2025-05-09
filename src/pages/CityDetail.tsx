@@ -1,11 +1,10 @@
-
 import { useParams, Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ExpandableCard from "@/components/ExpandableCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, MapPin, Building, GraduationCap, Heart, Briefcase, Landmark, Users } from "lucide-react";
+import { ArrowRight, MapPin, Building, GraduationCap, Heart, Briefcase, Landmark, Users, CheckCircle } from "lucide-react";
 
 // Mock city data
 const cities = [

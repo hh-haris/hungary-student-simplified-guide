@@ -1,4 +1,3 @@
-
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -6,7 +5,7 @@ import ExpandableCard from "@/components/ExpandableCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { FileText, Calendar, MessageCircle, Suitcase, AlertTriangle, CheckCircle, ArrowRight } from "lucide-react";
+import { FileText, Calendar, MessageCircle, Briefcase, AlertTriangle, CheckCircle, ArrowRight } from "lucide-react";
 
 const VisaProcess = () => {
   const visaSteps = [
@@ -210,7 +209,7 @@ const VisaProcess = () => {
             <CardContent className="p-6">
               <div className="mb-4">
                 <h3 className="font-syne font-semibold text-lg mb-4 flex items-center">
-                  <Suitcase className="h-5 w-5 mr-2 text-deep-teal" />
+                  <Briefcase className="h-5 w-5 mr-2 text-deep-teal" />
                   Essential Items Checklist
                 </h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">

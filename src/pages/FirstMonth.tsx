@@ -5,8 +5,7 @@ import ExpandableCard from "@/components/ExpandableCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { CheckCircle, AlertTriangle, Calendar, Lightbulb, Clock, Landmark, Globe, ArrowRight } from "lucide-react";
-import { Suitcase } from "lucide-react";
+import { CheckCircle, AlertTriangle, Calendar, Lightbulb, Clock, Landmark, Globe, ArrowRight, Briefcase } from "lucide-react";
 
 const FirstMonth = () => {
   const firstWeekTasks = [
@@ -203,7 +202,7 @@ const FirstMonth = () => {
         
         <div className="mb-12">
           <h2 className="font-syne font-semibold text-2xl mb-6 flex items-center">
-            <Suitcase className="h-6 w-6 mr-2 text-accent-orange" />
+            <Briefcase className="h-6 w-6 mr-2 text-accent-orange" />
             Packing List
           </h2>
           

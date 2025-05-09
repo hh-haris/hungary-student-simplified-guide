@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, Youtube } from "lucide-react";
 import ExpandableCard from "@/components/ExpandableCard";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const TempusPortal = () => {
   // Sample motivation letters for different programs

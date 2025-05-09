@@ -1,33 +1,12 @@
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ExpandableCard from "@/components/ExpandableCard";
 import TimelineStep from "@/components/TimelineStep";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { ArrowRight, BookOpen } from "lucide-react";
 
 const Index = () => {
-  const scholarshipBenefits = [
-    {
-      title: "Fully Funded Tuition",
-      description: "Complete coverage of tuition fees for bachelor's, master's, and doctoral programs."
-    },
-    {
-      title: "Monthly Stipend",
-      description: "Receive a monthly allowance to cover your living expenses while in Hungary."
-    },
-    {
-      title: "Accommodation Contribution",
-      description: "Assistance with housing expenses or dormitory placement at Hungarian universities."
-    },
-    {
-      title: "Health Insurance",
-      description: "Medical insurance coverage throughout your study period in Hungary."
-    },
-    {
-      title: "Travel Allowance",
-      description: "One-time travel support to help with your journey to Hungary."
-    }
-  ];
-
   const timelineSteps = [
     {
       title: "USAT Exam",
@@ -42,7 +21,7 @@ const Index = () => {
     {
       title: "Apply via Tempus & HEC",
       description: "Complete your applications through both required portals",
-      linkTo: "/apply/tempus"
+      linkTo: "/apply"
     },
     {
       title: "Document Verification",
@@ -64,32 +43,48 @@ const Index = () => {
   return (
     <div className="min-h-screen flex flex-col bg-off-white">
       <Header />
-      <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <section className="mb-12">
-          <h2 className="font-syne font-bold text-2xl md:text-3xl mb-6 text-center md:text-left">Scholarship Benefits</h2>
-          <div className="space-y-4">
-            {scholarshipBenefits.map((benefit, index) => (
-              <ExpandableCard key={index} title={benefit.title} initialExpanded={index === 0}>
-                <p className="text-gray-700">{benefit.description}</p>
-              </ExpandableCard>
-            ))}
+      
+      {/* Hero Section */}
+      <section className="bg-gradient-to-r from-deep-teal/5 to-accent-orange/5 py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="font-syne font-bold text-4xl md:text-5xl mb-6 text-deep-teal">
+            Your Path to <span className="text-accent-orange">Hungarian</span> Education
+          </h1>
+          <p className="text-gray-700 max-w-2xl mx-auto mb-8">
+            A comprehensive guide for Pakistani students applying to the Stipendium Hungaricum scholarship program.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Button asChild className="bg-accent-orange hover:bg-accent-orange/90 text-white rounded-full shadow-md">
+              <Link to="/usat">Start with USAT <ArrowRight className="ml-1 h-4 w-4" /></Link>
+            </Button>
+            <Button asChild variant="outline" className="border-deep-teal text-deep-teal hover:bg-deep-teal/10 rounded-full">
+              <Link to="/university-finder"><BookOpen className="mr-1 h-4 w-4" /> Explore Universities</Link>
+            </Button>
           </div>
-        </section>
-
+        </div>
+      </section>
+      
+      <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
         <section>
-          <h2 className="font-syne font-bold text-2xl md:text-3xl mb-6 text-center md:text-left">Application Timeline</h2>
-          <div className="space-y-1">
+          <h2 className="font-syne font-bold text-2xl md:text-3xl mb-8 text-center">Application Timeline</h2>
+          <div className="max-w-3xl mx-auto relative">
+            {/* Timeline track */}
+            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-accent-orange/20"></div>
+            
+            {/* Timeline steps */}
             {timelineSteps.map((step, index) => (
               <TimelineStep 
                 key={index}
                 title={step.title}
                 description={step.description}
                 linkTo={step.linkTo}
+                stepNumber={index + 1}
               />
             ))}
           </div>
         </section>
       </main>
+      
       <Footer />
     </div>
   );

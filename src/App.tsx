@@ -15,6 +15,10 @@ import Seniors from "./pages/Seniors";
 import ApplyScholarship from "./pages/ApplyScholarship";
 import TempusPortal from "./pages/TempusPortal";
 import HecPortal from "./pages/HecPortal";
+import Documents from "./pages/Documents";
+import VisaProcess from "./pages/VisaProcess";
+import FirstMonth from "./pages/FirstMonth";
+import AlternativeScholarships from "./pages/AlternativeScholarships";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -38,6 +42,10 @@ const App = () => {
             <Route path="/apply" element={<ApplyScholarship />} />
             <Route path="/apply/tempus" element={<TempusPortal />} />
             <Route path="/apply/hec" element={<HecPortal />} />
+            <Route path="/documents" element={<Documents />} />
+            <Route path="/visa" element={<VisaProcess />} />
+            <Route path="/first-month" element={<FirstMonth />} />
+            <Route path="/alternative-scholarships" element={<AlternativeScholarships />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

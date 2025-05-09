@@ -19,6 +19,8 @@ import Documents from "./pages/Documents";
 import VisaProcess from "./pages/VisaProcess";
 import FirstMonth from "./pages/FirstMonth";
 import AlternativeScholarships from "./pages/AlternativeScholarships";
+import NotificationSystem from "./pages/NotificationSystem";
+import LetterOfMotivation from "./pages/LetterOfMotivation";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -46,6 +48,8 @@ const App = () => {
             <Route path="/visa" element={<VisaProcess />} />
             <Route path="/first-month" element={<FirstMonth />} />
             <Route path="/alternative-scholarships" element={<AlternativeScholarships />} />
+            <Route path="/notifications" element={<NotificationSystem />} />
+            <Route path="/letter-of-motivation" element={<LetterOfMotivation />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

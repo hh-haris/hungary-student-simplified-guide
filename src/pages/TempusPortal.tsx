@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -80,8 +79,7 @@ const TempusPortal = () => {
                 
                 <div className="space-y-6">
                   {/* Step 1 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 1: Create an Account</h3>
+                  <ExpandableSection title="Step 1: Create an Account" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Visit the <a href="https://apply.stipendiumhungaricum.hu/" target="_blank" rel="noopener noreferrer" className="text-deep-teal hover:underline">Tempus Application Portal</a> and register with your email address. You'll receive a confirmation email to activate your account.
                     </p>
@@ -90,11 +88,10 @@ const TempusPortal = () => {
                         <strong>Tip:</strong> Use a professional email address and make sure to check your spam folder if you don't receive the confirmation email.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 2 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 2: Complete Your Profile</h3>
+                  <ExpandableSection title="Step 2: Complete Your Profile" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Fill in your personal information including your name (as it appears on your passport), contact information, and identification details. Upload a passport-style photo that meets the requirements.
                     </p>
@@ -103,11 +100,10 @@ const TempusPortal = () => {
                         <strong>Important:</strong> Ensure your name matches exactly how it appears on your passport. Discrepancies can cause issues later with visa applications.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 3 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 3: Choose Programs</h3>
+                  <ExpandableSection title="Step 3: Choose Programs" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Select up to two programs from the available options. You can filter by institution, field of study, and degree level. Research your options thoroughly before selecting.
                     </p>
@@ -121,11 +117,10 @@ const TempusPortal = () => {
                         Use University Finder Tool
                       </Button>
                     </Link>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 4 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 4: Education History</h3>
+                  <ExpandableSection title="Step 4: Education History" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Enter details of your previous education, including institution names, dates attended, degrees received, and academic results. You'll need to upload scanned copies of your certificates and transcripts.
                     </p>
@@ -134,24 +129,24 @@ const TempusPortal = () => {
                         <strong>Document requirements:</strong> All educational documents must be attested and translated if not in English or Hungarian.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 5 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 5: Write Your Motivation Letter</h3>
+                  <ExpandableSection title="Step 5: Write Your Motivation Letter" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Craft a compelling motivation letter explaining why you want to study in Hungary, why you've chosen your specific program, and how it aligns with your career goals. This is a crucial part of your application.
                     </p>
                     <div className="flex flex-wrap gap-2 mt-3">
-                      <Button size="sm" className="bg-deep-teal hover:bg-deep-teal/90">
-                        <FileText size={16} className="mr-1" /> Guide to Writing Motivation Letters
-                      </Button>
+                      <Link to="/letter-of-motivation">
+                        <Button size="sm" className="bg-deep-teal hover:bg-deep-teal/90">
+                          <FileText size={16} className="mr-1" /> Comprehensive Motivation Letter Guide
+                        </Button>
+                      </Link>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 6 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 6: Upload Documents</h3>
+                  <ExpandableSection title="Step 6: Upload Documents" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Upload all required documents, including:
                     </p>
@@ -169,11 +164,10 @@ const TempusPortal = () => {
                         <strong>Format requirements:</strong> Documents should be in PDF format, clearly legible, and under the file size limit (typically 4MB per document).
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 7 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 7: Review and Submit</h3>
+                  <ExpandableSection title="Step 7: Review and Submit" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Carefully review all information before submitting. The portal will indicate if any required fields are missing. Once submitted, you cannot make changes to your application.
                     </p>
@@ -182,35 +176,54 @@ const TempusPortal = () => {
                         <strong>Important deadline:</strong> Applications typically close around the end of January each year. Submit well before the deadline to avoid technical issues.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                 </div>
               </CardContent>
             </Card>
             
-            {/* YouTube Tutorial Section */}
-            <div className="mt-8">
-              <h2 className="font-syne font-semibold text-xl mb-4">Video Tutorial</h2>
-              <div className="aspect-w-16 aspect-h-9 bg-gray-100 flex items-center justify-center rounded-lg border border-gray-200">
-                <div className="text-center p-6">
-                  <Youtube size={48} className="mx-auto mb-3 text-red-600" />
-                  <p className="text-gray-600">Video tutorial coming soon!</p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    A step-by-step walkthrough of the Tempus application process
-                  </p>
-                </div>
-              </div>
-            </div>
-            
             {/* FAQs Section */}
             <div className="mt-8">
               <h2 className="font-syne font-semibold text-xl mb-4">Frequently Asked Questions</h2>
-              <div className="space-y-3">
-                {faqs.map((faq, index) => (
-                  <ExpandableSection key={index} title={faq.question}>
-                    <p className="text-gray-700">{faq.answer}</p>
+              <Tabs defaultValue="general">
+                <TabsList className="grid w-full grid-cols-2 mb-4">
+                  <TabsTrigger value="general">General</TabsTrigger>
+                  <TabsTrigger value="technical">Technical</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="general" className="space-y-3">
+                  <ExpandableSection title="How many programs can I apply to?">
+                    <p className="text-gray-700">
+                      You can apply to a maximum of two study programs. These can be at the same university or at different universities in Hungary.
+                    </p>
                   </ExpandableSection>
-                ))}
-              </div>
+                  
+                  <ExpandableSection title="Do I need to upload a medical certificate?">
+                    <p className="text-gray-700">
+                      Yes, you need to upload a medical certificate that is not older than 3 months at the time of application submission. The certificate should state that you are in good health condition and don't have any infectious diseases.
+                    </p>
+                  </ExpandableSection>
+                  
+                  <ExpandableSection title="Can I edit my application after submission?">
+                    <p className="text-gray-700">
+                      No, once you've submitted your application, you cannot edit it. Make sure to review all information carefully before final submission.
+                    </p>
+                  </ExpandableSection>
+                </TabsContent>
+                
+                <TabsContent value="technical" className="space-y-3">
+                  <ExpandableSection title="What if my documents are not in English or Hungarian?">
+                    <p className="text-gray-700">
+                      All documents must be in English or Hungarian, or accompanied by an official translation into one of these languages. Translations must be stamped and signed by the translator or translating office.
+                    </p>
+                  </ExpandableSection>
+                  
+                  <ExpandableSection title="How do I know my application is complete?">
+                    <p className="text-gray-700">
+                      The Tempus portal will indicate if your application is complete. All required fields must be filled, and all mandatory documents must be uploaded before you can submit your application.
+                    </p>
+                  </ExpandableSection>
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
           
@@ -242,65 +255,40 @@ const TempusPortal = () => {
               </CardContent>
             </Card>
             
-            {/* Motivation Letter Tools */}
-            <Card className="bg-white shadow-sm">
+            {/* Motivation Letter Link */}
+            <Card className="bg-white shadow-sm border-t-4 border-deep-teal">
               <CardContent className="p-5">
-                <h3 className="font-syne font-medium text-lg mb-3">Writing Tools</h3>
+                <h3 className="font-syne font-medium text-lg mb-3">Letter of Motivation</h3>
                 <p className="text-gray-700 mb-4">
-                  Useful resources to help you craft a compelling motivation letter:
+                  Your motivation letter is one of the most critical parts of your application. We've created a comprehensive guide to help you write an effective letter.
                 </p>
-                <ul className="space-y-3 mb-4">
-                  <li className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center mr-3">
-                      <span className="text-blue-600 text-xs font-bold">AI</span>
-                    </div>
-                    <span className="text-gray-700">ChatGPT (for structure and ideas)</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                      <span className="text-green-600 text-xs font-bold">G</span>
-                    </div>
-                    <span className="text-gray-700">Grammarly (for proofreading)</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center mr-3">
-                      <span className="text-purple-600 text-xs font-bold">H</span>
-                    </div>
-                    <span className="text-gray-700">Hemingway Editor (for clarity)</span>
-                  </li>
-                </ul>
-                <div className="p-3 bg-yellow-50 rounded-md">
-                  <p className="text-sm text-yellow-800">
-                    <strong>Important:</strong> Tools should only assist your writing. Your motivation letter must be personal and original.
-                  </p>
-                </div>
+                <Link to="/letter-of-motivation">
+                  <Button className="w-full bg-deep-teal hover:bg-deep-teal/90">
+                    <FileText className="h-4 w-4 mr-2" />
+                    Motivation Letter Guide
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
             
-            {/* Motivation Letter Samples */}
-            <div>
-              <h3 className="font-syne font-medium text-lg mb-3">Motivation Letter Samples</h3>
-              <p className="text-gray-700 mb-4">
-                Preview examples for different programs (not downloadable):
-              </p>
-              <div className="space-y-3">
-                {motivationLetterSamples.map((sample, index) => (
-                  <ExpandableCard 
-                    key={index} 
-                    title={sample.title}
-                    initialExpanded={false}
-                  >
-                    <p className="text-sm text-gray-600 italic mb-2">Sample for {sample.program} students</p>
-                    <div className="p-3 bg-gray-50 rounded border border-gray-200">
-                      <p className="text-gray-700">{sample.content}</p>
-                      <p className="text-sm text-gray-500 mt-3">
-                        [This is just a preview to give you an idea of structure and content]
-                      </p>
-                    </div>
-                  </ExpandableCard>
-                ))}
-              </div>
-            </div>
+            {/* YouTube Tutorial Link */}
+            <Card className="bg-white shadow-sm">
+              <CardContent className="p-5">
+                <h3 className="font-syne font-medium text-lg mb-3">Video Tutorial</h3>
+                <p className="text-gray-700 mb-4">
+                  Watch our step-by-step video guide on completing the Tempus application process.
+                </p>
+                <a 
+                  href="https://www.youtube.com/watch?v=example" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="flex items-center text-blue-600 hover:underline font-medium"
+                >
+                  <Youtube className="h-5 w-5 text-red-600 mr-2" />
+                  Watch on YouTube
+                </a>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </main>

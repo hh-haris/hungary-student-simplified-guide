@@ -1,15 +1,19 @@
 
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 interface TimelineStepProps {
   title: string;
   description: string;
   linkTo: string;
   stepNumber?: number;
+  date?: string; // Added date prop
 }
 
-const TimelineStep = ({ title, description, linkTo, stepNumber }: TimelineStepProps) => {
+const TimelineStep = ({ title, description, linkTo, stepNumber, date }: TimelineStepProps) => {
+  const [isHovered, setIsHovered] = useState(false);
+  
   return (
     <div className="relative">
       {/* Timeline Connector */}
@@ -19,9 +23,11 @@ const TimelineStep = ({ title, description, linkTo, stepNumber }: TimelineStepPr
       <Link 
         to={linkTo}
         className="block pl-12 relative mb-8 group"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       >
         {/* Circle Marker */}
-        <div className="absolute left-4 -translate-x-1/2 w-8 h-8 rounded-full bg-accent-orange flex items-center justify-center text-white font-syne font-medium shadow-lg z-10">
+        <div className="absolute left-4 -translate-x-1/2 w-8 h-8 rounded-full bg-accent-orange flex items-center justify-center text-white font-syne font-medium shadow-lg z-10 transition-all duration-300 transform">
           {stepNumber || ""}
         </div>
         
@@ -31,8 +37,15 @@ const TimelineStep = ({ title, description, linkTo, stepNumber }: TimelineStepPr
             <div>
               <h3 className="font-syne font-bold text-lg text-deep-teal">{title}</h3>
               <p className="text-gray-600 mt-1">{description}</p>
+              {date && (
+                <p className="text-accent-orange text-sm mt-1 font-medium">
+                  {date}
+                </p>
+              )}
             </div>
-            <ChevronRight className="text-accent-orange transition-transform group-hover:translate-x-1" />
+            <ChevronRight 
+              className={`text-accent-orange transition-transform duration-300 ${isHovered ? 'translate-x-1' : ''}`} 
+            />
           </div>
         </div>
       </Link>

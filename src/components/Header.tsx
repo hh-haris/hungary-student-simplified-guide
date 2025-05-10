@@ -46,10 +46,12 @@ const Header = () => {
             USAT Guide
           </Link>
           <Link 
-            to="/join-group"
-            className="text-sm font-medium hover:text-deep-teal transition-colors"
+            to="/alternative-scholarships"
+            className={`text-sm font-medium hover:text-deep-teal transition-colors ${
+              location.pathname === '/alternative-scholarships' ? 'text-deep-teal' : ''
+            }`}
           >
-            Join Group
+            Alternative Scholarships
           </Link>
           <Button 
             variant="ghost" 

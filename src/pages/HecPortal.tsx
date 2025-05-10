@@ -3,9 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import ExpandableSection from "@/components/ui/expandable-section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import ExpandableSection from "@/components/ui/expandable-section";
+import { ExternalLink, FileText } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const HecPortal = () => {
   // Technical FAQs
@@ -69,11 +71,10 @@ const HecPortal = () => {
               <CardContent className="p-6">
                 <h2 className="font-syne font-semibold text-xl mb-6">Application Process</h2>
                 
-                {/* Step-by-step guide */}
+                {/* Step-by-step guide with expandable sections */}
                 <div className="space-y-6">
                   {/* Step 1 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 1: Register on the HEC Portal</h3>
+                  <ExpandableSection title="Step 1: Register on the HEC Portal" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Visit the <a href="https://scholarships.hec.gov.pk/" target="_blank" rel="noopener noreferrer" className="text-deep-teal hover:underline">HEC Scholarship Portal</a> and create an account if you don't already have one. If you already have an account from previous applications, use the same login credentials.
                     </p>
@@ -82,11 +83,10 @@ const HecPortal = () => {
                         <strong>Note:</strong> Use the same email address that you used for your Tempus application to avoid confusion.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 2 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 2: Find the Stipendium Hungaricum Scholarship</h3>
+                  <ExpandableSection title="Step 2: Find the Stipendium Hungaricum Scholarship" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       After logging in, navigate to "Available Scholarships" or "Current Opportunities" section. Look for "Stipendium Hungaricum Scholarship Program" and click on "Apply Now" or "Start Application".
                     </p>
@@ -95,50 +95,64 @@ const HecPortal = () => {
                         <strong>Tip:</strong> If you don't see the scholarship listed, it might mean that the application period has not started yet or has already ended.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 3 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 3: Complete Personal Information</h3>
+                  <ExpandableSection title="Step 3: Complete Personal Information" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Fill in all required personal details including your name, CNIC, contact information, and address. Ensure that your name exactly matches your passport and Tempus application to avoid complications.
                     </p>
+                    <ul className="list-disc pl-5 text-gray-700 space-y-1 mb-3">
+                      <li>Enter your name exactly as it appears on your passport</li>
+                      <li>Provide accurate contact information</li>
+                      <li>Double-check your CNIC number</li>
+                      <li>Verify all information before proceeding</li>
+                    </ul>
                     <div className="bg-blue-50 p-3 rounded-md">
                       <p className="text-sm text-blue-800">
                         <strong>Important:</strong> Double-check your contact information as HEC will use this to communicate with you throughout the process.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 4 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 4: Enter Academic Details</h3>
+                  <ExpandableSection title="Step 4: Enter Academic Details" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Provide information about your educational background, including institutions attended, degrees earned, and academic performance. You'll need to enter your FSc/HSSC results, bachelor's degree details (if applying for master's), and USAT score.
                     </p>
+                    <ul className="list-disc pl-5 text-gray-700 space-y-1 mb-3">
+                      <li>Enter all educational qualifications chronologically</li>
+                      <li>Include accurate information about your degrees and grades</li>
+                      <li>Add your latest USAT score</li>
+                      <li>List all academic achievements if applicable</li>
+                    </ul>
                     <div className="bg-blue-50 p-3 rounded-md">
                       <p className="text-sm text-blue-800">
                         <strong>Tip:</strong> Have your transcripts and certificates handy while filling this section to ensure accurate information.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 5 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 5: Program Selection</h3>
+                  <ExpandableSection title="Step 5: Program Selection" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Select your desired programs and universities. Ensure that your choices here match exactly with what you selected on the Tempus portal. Discrepancies between the two applications can lead to disqualification.
                     </p>
+                    <ul className="list-disc pl-5 text-gray-700 space-y-1 mb-3">
+                      <li>Select the same universities as on your Tempus application</li>
+                      <li>Choose the exact same programs in the same order</li>
+                      <li>Double check field of study and degree level</li>
+                      <li>Maintain the same preference order as in Tempus</li>
+                    </ul>
                     <div className="bg-red-50 p-3 rounded-md">
                       <p className="text-sm text-red-800">
                         <strong>Critical:</strong> Your program selections on HEC and Tempus portals MUST match exactly. This includes the specific university, program name, and level of study.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 6 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 6: Upload Documents</h3>
+                  <ExpandableSection title="Step 6: Upload Documents" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Upload all required documents in the specified format (usually PDF). Required documents typically include:
                     </p>
@@ -155,24 +169,28 @@ const HecPortal = () => {
                         <strong>Format requirements:</strong> Documents should typically be clear, legible PDFs under 1-2MB each. Follow the specific guidelines provided on the portal.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 7 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 7: Review and Submit</h3>
+                  <ExpandableSection title="Step 7: Review and Submit" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       Carefully review all information before submitting. Once submitted, modifications are generally not allowed. Print or save a PDF copy of your submission for your records.
                     </p>
+                    <ul className="list-disc pl-5 text-gray-700 space-y-1 mb-3">
+                      <li>Double-check all entered information for accuracy</li>
+                      <li>Verify all required documents are uploaded</li>
+                      <li>Submit your application well before the deadline</li>
+                      <li>Save the confirmation page and application number</li>
+                    </ul>
                     <div className="bg-red-50 p-3 rounded-md">
                       <p className="text-sm text-red-800">
                         <strong>Important deadline:</strong> The HEC deadline is typically EARLIER than the Tempus deadline. Don't wait until the last minute to submit.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                   
                   {/* Step 8 */}
-                  <div className="border-l-4 border-deep-teal pl-4 py-1">
-                    <h3 className="font-syne font-medium text-lg mb-2">Step 8: Track Your Application</h3>
+                  <ExpandableSection title="Step 8: Track Your Application" defaultOpen={false}>
                     <p className="text-gray-700 mb-3">
                       After submission, regularly check the portal for any updates or additional requirements. HEC may contact you for further information or documents if needed.
                     </p>
@@ -181,37 +199,44 @@ const HecPortal = () => {
                         <strong>Tip:</strong> Check your email (including spam folder) regularly for communications from HEC regarding your application.
                       </p>
                     </div>
-                  </div>
+                  </ExpandableSection>
                 </div>
               </CardContent>
             </Card>
             
-            {/* Technical FAQs */}
+            {/* FAQs Section with tabs like in Tempus Portal */}
             <div className="mt-8">
-              <h2 className="font-syne font-semibold text-xl mb-4">Technical Issues & Solutions</h2>
-              <div className="space-y-3">
-                {technicalFaqs.map((faq, index) => (
-                  <ExpandableSection key={index} title={faq.question}>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </ExpandableSection>
-                ))}
-              </div>
-            </div>
-            
-            {/* General FAQs */}
-            <div className="mt-8">
-              <h2 className="font-syne font-semibold text-xl mb-4">General FAQs</h2>
-              <div className="space-y-3">
-                {generalFaqs.map((faq, index) => (
-                  <ExpandableSection key={index} title={faq.question}>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </ExpandableSection>
-                ))}
-              </div>
+              <h2 className="font-syne font-semibold text-xl mb-4">Frequently Asked Questions</h2>
+              <Tabs defaultValue="general">
+                <TabsList className="grid w-full grid-cols-2 mb-4">
+                  <TabsTrigger value="general">General</TabsTrigger>
+                  <TabsTrigger value="technical">Technical</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="general" className="space-y-3">
+                  {generalFaqs.map((faq, index) => (
+                    <ExpandableSection key={index} title={faq.question}>
+                      <p className="text-gray-700">
+                        {faq.answer}
+                      </p>
+                    </ExpandableSection>
+                  ))}
+                </TabsContent>
+                
+                <TabsContent value="technical" className="space-y-3">
+                  {technicalFaqs.map((faq, index) => (
+                    <ExpandableSection key={index} title={faq.question}>
+                      <p className="text-gray-700">
+                        {faq.answer}
+                      </p>
+                    </ExpandableSection>
+                  ))}
+                </TabsContent>
+              </Tabs>
             </div>
           </div>
           
-          {/* Sidebar */}
+          {/* Right Sidebar - styled like in Tempus Portal */}
           <div className="space-y-6">
             {/* Deadlines Card */}
             <Card className="bg-white shadow-sm border-t-4 border-red-500">
@@ -239,8 +264,8 @@ const HecPortal = () => {
               </CardContent>
             </Card>
             
-            {/* Required Documents */}
-            <Card className="bg-white shadow-sm">
+            {/* Required Documents - styled like in Tempus Portal */}
+            <Card className="bg-white shadow-sm border-t-4 border-deep-teal">
               <CardContent className="p-5">
                 <h3 className="font-syne font-medium text-lg mb-3">Document Checklist</h3>
                 <p className="text-gray-700 mb-4">
@@ -267,18 +292,11 @@ const HecPortal = () => {
                     <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
                     <span className="text-gray-700">USAT result card</span>
                   </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">Passport-sized photo</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">Tempus application proof</span>
-                  </li>
                 </ul>
                 <div className="mt-4">
                   <Link to="/documents">
-                    <Button variant="outline" size="sm" className="w-full">
+                    <Button className="w-full bg-deep-teal hover:bg-deep-teal/90">
+                      <FileText className="h-4 w-4 mr-2" />
                       Document Attestation Guide
                     </Button>
                   </Link>
@@ -286,7 +304,7 @@ const HecPortal = () => {
               </CardContent>
             </Card>
             
-            {/* Contact Support */}
+            {/* Contact Support - styled like in Tempus Portal */}
             <Card className="bg-white shadow-sm">
               <CardContent className="p-5">
                 <h3 className="font-syne font-medium text-lg mb-3">HEC Support Contacts</h3>
@@ -301,15 +319,22 @@ const HecPortal = () => {
                     <p className="font-medium">Phone Support:</p>
                     <p>051-111-119-432</p>
                   </li>
-                  <li>
-                    <p className="font-medium">Technical Support Hours:</p>
-                    <p className="text-gray-700">Monday to Friday, 9 AM - 5 PM</p>
-                  </li>
                 </ul>
                 <div className="mt-4 p-3 bg-yellow-50 rounded-md">
                   <p className="text-sm text-yellow-800">
                     <strong>Tip:</strong> When contacting support, always mention "Stipendium Hungaricum" in your subject line and include your application ID if available.
                   </p>
+                </div>
+                <div className="mt-4">
+                  <a 
+                    href="https://www.youtube.com/watch?v=example-hec" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center text-blue-600 hover:underline font-medium"
+                  >
+                    <ExternalLink className="h-5 w-5 text-red-600 mr-2" />
+                    Video Guide to HEC Portal
+                  </a>
                 </div>
               </CardContent>
             </Card>

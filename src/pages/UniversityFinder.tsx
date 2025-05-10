@@ -1,6 +1,8 @@
 
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -9,45 +11,27 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Loader2 } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
-// Mock data for universities
-const universities = [
-  {
-    id: "1",
-    name: "Budapest University of Technology and Economics",
-    city: "Budapest",
-    intro: "Leading technical university in Hungary with strong engineering and IT programs.",
-    minScore: 75
-  },
-  {
-    id: "2",
-    name: "University of Debrecen",
-    city: "Debrecen",
-    intro: "One of the largest universities with comprehensive programs including medical sciences.",
-    minScore: 70
-  },
-  {
-    id: "3",
-    name: "University of Szeged",
-    city: "Szeged",
-    intro: "Prestigious university with strong research focus and diverse academic programs.",
-    minScore: 72
-  }
-];
+// Define types for our data
+interface University {
+  id: string;
+  name: string;
+  city: string;
+  intro: string;
+  min_usat_score: number;
+  website?: string;
+  programs: string[];
+  image_url?: string;
+}
 
-// Mock programs
-const programs = [
-  "Computer Science",
-  "Mechanical Engineering",
-  "Civil Engineering",
-  "Electrical Engineering",
-  "Medicine",
-  "Dentistry",
-  "Pharmacy",
-  "Business Administration",
-  "Economics"
-];
+interface Program {
+  id: string;
+  name: string;
+  degree_level: string;
+  field_of_study: string;
+}
 
 const UniversityFinder = () => {
   const [fscMarks, setFscMarks] = useState(75);
@@ -55,9 +39,58 @@ const UniversityFinder = () => {
   const [selectedProgram, setSelectedProgram] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
-  const [filteredFirstChoice, setFilteredFirstChoice] = useState<typeof universities>([]);
-  const [filteredSecondChoice, setFilteredSecondChoice] = useState<typeof universities>([]);
+  const [filteredFirstChoice, setFilteredFirstChoice] = useState<University[]>([]);
+  const [filteredSecondChoice, setFilteredSecondChoice] = useState<University[]>([]);
   const [allFiltersApplied, setAllFiltersApplied] = useState(false);
+
+  // Fetch universities from Supabase
+  const { data: universities, isLoading: loadingUniversities, error: universitiesError } = useQuery({
+    queryKey: ['universities'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('universities')
+        .select('*')
+        .order('name');
+      
+      if (error) throw error;
+      return data as University[];
+    }
+  });
+
+  // Fetch unique programs from Supabase
+  const { data: programsList, isLoading: loadingPrograms, error: programsError } = useQuery({
+    queryKey: ['programs'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('programs')
+        .select('id, name, degree_level, field_of_study')
+        .order('name');
+      
+      if (error) throw error;
+      return data as Program[];
+    }
+  });
+
+  // Show error toast if there are any fetch errors
+  useEffect(() => {
+    if (universitiesError) {
+      toast({
+        title: "Error loading universities",
+        description: "Please try again later",
+        variant: "destructive"
+      });
+      console.error("Universities error:", universitiesError);
+    }
+
+    if (programsError) {
+      toast({
+        title: "Error loading programs",
+        description: "Please try again later",
+        variant: "destructive"
+      });
+      console.error("Programs error:", programsError);
+    }
+  }, [universitiesError, programsError]);
 
   useEffect(() => {
     const allApplied = fscMarks > 0 && usatScore >= 70 && selectedProgram !== "";
@@ -65,7 +98,7 @@ const UniversityFinder = () => {
   }, [fscMarks, usatScore, selectedProgram]);
 
   const handleFind = () => {
-    if (!allFiltersApplied) {
+    if (!allFiltersApplied || !universities) {
       return;
     }
     
@@ -73,12 +106,17 @@ const UniversityFinder = () => {
     setShowWarning(usatScore < 73);
     
     // Filter universities
-    const topChoices = universities.filter(uni => uni.minScore <= usatScore && uni.minScore >= 73);
-    const secondaryChoices = universities.filter(uni => uni.minScore <= usatScore && uni.minScore < 73);
+    const topChoices = universities.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score >= 73);
+    const secondaryChoices = universities.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score < 73);
     
     setFilteredFirstChoice(topChoices);
     setFilteredSecondChoice(secondaryChoices);
   };
+
+  // Create a unique list of program fields
+  const uniquePrograms = programsList 
+    ? Array.from(new Set(programsList.map(p => p.name)))
+    : [];
 
   return (
     <div className="min-h-screen flex flex-col bg-off-white">
@@ -89,77 +127,86 @@ const UniversityFinder = () => {
         <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
           <h2 className="font-syne font-semibold text-xl mb-6">Enter Your Details</h2>
 
-          <div className="space-y-6">
-            <div>
-              <Label className="mb-2 block">FSc Marks (%): {fscMarks}</Label>
-              <Slider
-                defaultValue={[75]}
-                max={100}
-                min={50}
-                step={1}
-                onValueChange={(val) => setFscMarks(val[0])}
-                className="mb-2"
-              />
-              <div className="flex justify-between text-xs text-gray-500">
-                <span>50%</span>
-                <span>100%</span>
-              </div>
+          {(loadingUniversities || loadingPrograms) && (
+            <div className="flex justify-center items-center py-8">
+              <Loader2 className="h-8 w-8 animate-spin text-deep-teal" />
+              <span className="ml-2">Loading data...</span>
             </div>
+          )}
 
-            <div>
-              <Label className="mb-2 block">USAT Score: {usatScore}</Label>
-              <Slider
-                defaultValue={[85]}
-                max={100}
-                min={70}
-                step={1}
-                onValueChange={(val) => setUsatScore(val[0])}
-                className="mb-2"
-              />
-              <div className="flex justify-between text-xs text-gray-500">
-                <span>70</span>
-                <span>100</span>
+          {!loadingUniversities && !loadingPrograms && (
+            <div className="space-y-6">
+              <div>
+                <Label className="mb-2 block">FSc Marks (%): {fscMarks}</Label>
+                <Slider
+                  defaultValue={[75]}
+                  max={100}
+                  min={50}
+                  step={1}
+                  onValueChange={(val) => setFscMarks(val[0])}
+                  className="mb-2"
+                />
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>50%</span>
+                  <span>100%</span>
+                </div>
               </div>
-              {usatScore < 73 && (
-                <p className="text-amber-600 text-sm mt-1">
-                  <AlertCircle className="inline-block h-4 w-4 mr-1" />
-                  We recommend retaking USAT to improve your chances (aim for 73+)
+
+              <div>
+                <Label className="mb-2 block">USAT Score: {usatScore}</Label>
+                <Slider
+                  defaultValue={[85]}
+                  max={100}
+                  min={70}
+                  step={1}
+                  onValueChange={(val) => setUsatScore(val[0])}
+                  className="mb-2"
+                />
+                <div className="flex justify-between text-xs text-gray-500">
+                  <span>70</span>
+                  <span>100</span>
+                </div>
+                {usatScore < 73 && (
+                  <p className="text-amber-600 text-sm mt-1">
+                    <AlertCircle className="inline-block h-4 w-4 mr-1" />
+                    We recommend retaking USAT to improve your chances (aim for 73+)
+                  </p>
+                )}
+              </div>
+
+              <div>
+                <Label htmlFor="program" className="mb-2 block">Program <span className="text-red-500">*</span></Label>
+                <Select onValueChange={(value) => setSelectedProgram(value)}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select program" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {uniquePrograms.map((program) => (
+                      <SelectItem key={program} value={program}>{program}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <Button 
+                className={`w-full ${
+                  allFiltersApplied 
+                    ? "bg-accent-orange hover:bg-accent-orange/90" 
+                    : "bg-gray-300 hover:bg-gray-300 cursor-not-allowed"
+                } text-white`}
+                onClick={handleFind}
+                disabled={!allFiltersApplied}
+              >
+                Find Universities
+              </Button>
+              
+              {!allFiltersApplied && (
+                <p className="text-sm text-gray-500 text-center">
+                  Please fill in all fields to find matching universities
                 </p>
               )}
             </div>
-
-            <div>
-              <Label htmlFor="program" className="mb-2 block">Program <span className="text-red-500">*</span></Label>
-              <Select onValueChange={(value) => setSelectedProgram(value)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select program" />
-                </SelectTrigger>
-                <SelectContent>
-                  {programs.map((program) => (
-                    <SelectItem key={program} value={program}>{program}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <Button 
-              className={`w-full ${
-                allFiltersApplied 
-                  ? "bg-accent-orange hover:bg-accent-orange/90" 
-                  : "bg-gray-300 hover:bg-gray-300 cursor-not-allowed"
-              } text-white`}
-              onClick={handleFind}
-              disabled={!allFiltersApplied}
-            >
-              Find Universities
-            </Button>
-            
-            {!allFiltersApplied && (
-              <p className="text-sm text-gray-500 text-center">
-                Please fill in all fields to find matching universities
-              </p>
-            )}
-          </div>
+          )}
         </div>
 
         {showResults && (
@@ -184,7 +231,7 @@ const UniversityFinder = () => {
                         <p className="text-light-teal mb-3">{university.city}</p>
                         <p className="text-gray-600 mb-4">{university.intro}</p>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">USAT requirement: {university.minScore}+</span>
+                          <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
                           <Link to={`/universities/${university.id}`}>
                             <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
                           </Link>
@@ -207,7 +254,7 @@ const UniversityFinder = () => {
                         <p className="text-light-teal mb-3">{university.city}</p>
                         <p className="text-gray-600 mb-4">{university.intro}</p>
                         <div className="flex justify-between items-center">
-                          <span className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">USAT requirement: {university.minScore}+</span>
+                          <span className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
                           <Link to={`/universities/${university.id}`}>
                             <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
                           </Link>

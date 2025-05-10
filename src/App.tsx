@@ -21,6 +21,7 @@ import FirstMonth from "./pages/FirstMonth";
 import AlternativeScholarships from "./pages/AlternativeScholarships";
 import NotificationSystem from "./pages/NotificationSystem";
 import LetterOfMotivation from "./pages/LetterOfMotivation";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
             <Route path="/alternative-scholarships" element={<AlternativeScholarships />} />
             <Route path="/notifications" element={<NotificationSystem />} />
             <Route path="/letter-of-motivation" element={<LetterOfMotivation />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

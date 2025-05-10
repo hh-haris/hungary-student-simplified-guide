@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -10,6 +11,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { toast } from "@/components/ui/use-toast";
 import { Loader2, PlusCircle, Edit, Trash2 } from "lucide-react";
 import SampleDataButton from "@/components/SampleDataButton";
+
+// Define valid table names as a type
+type TableName = "universities" | "programs" | "timeline" | "usat_categories";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("universities");
@@ -86,8 +90,8 @@ const AdminDashboard = () => {
     }
   });
 
-  // Function to handle delete
-  const handleDelete = async (table: string, id: string) => {
+  // Function to handle delete - fixed with proper type
+  const handleDelete = async (table: TableName, id: string) => {
     try {
       const { error } = await supabase
         .from(table)

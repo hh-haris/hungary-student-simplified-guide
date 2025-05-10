@@ -28,7 +28,7 @@ const SampleDataButton = ({ onSuccess }: SampleDataButtonProps) => {
       } else {
         toast({
           title: "Error",
-          description: result.message,
+          description: result.message || "Unknown error occurred",
           variant: "destructive"
         });
       }

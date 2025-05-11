@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import FileUpload from "./FileUpload";
 
+// Define the Note type explicitly with the shape that matches our database
 interface Note {
   id: string;
   title: string;
@@ -36,13 +37,14 @@ const NotesTab = () => {
   const { data: notes, isLoading } = useQuery({
     queryKey: ['admin-notes'],
     queryFn: async () => {
+      // Use a type assertion to handle the fact that "notes" table is not in TypeScript types yet
       const { data, error } = await supabase
-        .from('notes')
+        .from('notes' as any)
         .select('*')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data || [];
+      return data as Note[] || [];
     },
   });
 
@@ -64,14 +66,15 @@ const NotesTab = () => {
 
   const handleAddNote = async () => {
     try {
+      // Use a type assertion for the insert operation
       const { error } = await supabase
-        .from('notes')
+        .from('notes' as any)
         .insert([{
           title: newNote.title,
           content: newNote.content,
           attachment_url: newNote.attachment_url || null,
           attachment_name: newNote.attachment_name || null
-        }]);
+        }] as any);
 
       if (error) throw error;
 
@@ -103,8 +106,9 @@ const NotesTab = () => {
 
   const handleDeleteNote = async (id: string) => {
     try {
+      // Use a type assertion for the delete operation
       const { error } = await supabase
-        .from('notes')
+        .from('notes' as any)
         .delete()
         .eq('id', id);
 

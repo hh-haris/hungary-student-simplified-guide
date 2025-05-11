@@ -20,11 +20,11 @@ type TableName = "universities" | "programs" | "timeline" | "usat_categories" | 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("universities");
 
-  // Function to handle delete - fixed with proper type
+  // Function to handle delete - fixed with proper type casting
   const handleDelete = async (table: TableName, id: string) => {
     try {
       const { error } = await supabase
-        .from(table)
+        .from(table as any)
         .delete()
         .eq('id', id);
       
@@ -53,6 +53,7 @@ const AdminDashboard = () => {
   const handleDeleteProgram = (id: string) => handleDelete("programs", id);
   const handleDeleteTimeline = (id: string) => handleDelete("timeline", id);
   const handleDeleteUsatCategory = (id: string) => handleDelete("usat_categories", id);
+  const handleDeleteNote = (id: string) => handleDelete("notes", id);
 
   return (
     <div className="min-h-screen flex flex-col">

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -18,11 +17,12 @@ const TimelineForm = ({ timelineEntry, onSuccess, onCancel }: TimelineFormProps)
   const isEditing = !!timelineEntry;
   
   const [formData, setFormData] = useState({
-    step_number: timelineEntry?.step_number || 1,
-    title: timelineEntry?.title || "",
-    description: timelineEntry?.description || "",
-    date_range: timelineEntry?.date_range || "",
-    link: timelineEntry?.link || ""
+    id: timelineEntry?.id || '',
+    step_number: timelineEntry?.step_number || 0,
+    title: timelineEntry?.title || '',
+    date_range: timelineEntry?.date_range || '',
+    description: timelineEntry?.description || '',
+    link: timelineEntry?.link || ''
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);

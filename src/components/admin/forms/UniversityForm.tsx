@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -19,13 +18,14 @@ const UniversityForm = ({ university, onSuccess, onCancel }: UniversityFormProps
   const isEditing = !!university;
   
   const [formData, setFormData] = useState({
+    id: university?.id || "",
     name: university?.name || "",
     city: university?.city || "",
-    min_usat_score: university?.min_usat_score || 60,
     intro: university?.intro || "",
     website: university?.website || "",
-    image_url: university?.image_url || "",
-    programs: university?.programs || []
+    min_usat_score: university?.min_usat_score || 0,
+    programs: university?.programs || [],
+    image_url: university?.image_url || ""
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);

@@ -1,13 +1,85 @@
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ExpandableCard from "@/components/ExpandableCard";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-import { CheckCircle, AlertTriangle, Calendar, Lightbulb, Clock, Landmark, Globe, ArrowRight, Briefcase } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Home, ShoppingCart, Bus, Coffee, CreditCard, 
+  Utensils, Phone, Wifi, MapPin, FileText, AlertCircle 
+} from "lucide-react";
+import WhatToDoAfterArrival from "@/components/afterArrival/WhatToDoAfterArrival";
 
 const FirstMonth = () => {
+  // Data for the "What to Do After Arrival" section
+  const arrivalSteps = [
+    {
+      title: "Residence Permit Registration",
+      description: "Register for your residence permit within 3 days of arrival in Hungary.",
+      deadline: "Within 3 days of arrival",
+      where: "Immigration Office (National Directorate-General for Aliens Policing)",
+      documents: [
+        "Passport with visa",
+        "Letter of acceptance from university",
+        "Proof of accommodation",
+        "Passport-sized photos (3-4 copies)",
+        "Application form (available at the office)"
+      ],
+      tips: "Schedule an appointment online before going to avoid long waiting times. Your university international office can help with the process."
+    },
+    {
+      title: "University Enrollment & Student ID",
+      description: "Complete your enrollment process at the university and get your student ID card.",
+      deadline: "First week of the semester",
+      where: "University Registrar's Office / International Office",
+      documents: [
+        "Passport with visa and residence permit",
+        "Original educational documents",
+        "Medical certificate",
+        "Passport-sized photos",
+        "Letter of acceptance"
+      ],
+      tips: "Attend orientation sessions arranged by your university for international students. They will guide you through the enrollment process."
+    },
+    {
+      title: "Open a Bank Account",
+      description: "Open a Hungarian bank account to receive your scholarship funds and manage your finances.",
+      deadline: "Within first 2 weeks",
+      where: "Any local bank (OTP, K&H, Erste, etc.)",
+      documents: [
+        "Passport",
+        "Residence permit",
+        "Proof of address",
+        "Student ID card",
+        "Tax identification number (if already obtained)"
+      ],
+      tips: "Compare different banks for student-friendly accounts with lower fees. Some banks offer special packages for scholarship students."
+    },
+    {
+      title: "Register with a General Practitioner",
+      description: "Register with a local doctor for basic healthcare services.",
+      deadline: "Within first month",
+      where: "Local clinic near your residence",
+      documents: [
+        "Health insurance card",
+        "Passport",
+        "Residence permit",
+        "Proof of address"
+      ],
+      tips: "Your university usually provides information about healthcare services for students. Many universities have their own health centers."
+    },
+    {
+      title: "Public Transportation Pass",
+      description: "Get a monthly or semester pass for public transportation.",
+      deadline: "First week of arrival",
+      where: "BKK Customer Service Centers or automated ticket machines",
+      documents: [
+        "Student ID card",
+        "Passport"
+      ],
+      tips: "Students get significant discounts on public transportation. Check if your university is accessible by public transport and plan your route."
+    }
+  ];
+
   const firstWeekTasks = [
     {
       task: "Register at university",
@@ -198,8 +270,14 @@ const FirstMonth = () => {
     <div className="min-h-screen flex flex-col bg-off-white">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <h1 className="font-syne font-bold text-3xl md:text-4xl mb-6 text-deep-teal">First Month in Hungary</h1>
+        <h1 className="font-syne font-bold text-3xl md:text-4xl mb-6">Your First Month in Hungary</h1>
         
+        {/* What to Do After Arrival Section */}
+        <section className="mb-12">
+          <h2 className="font-syne font-semibold text-2xl mb-6">Essential Steps After Arrival</h2>
+          <WhatToDoAfterArrival steps={arrivalSteps} />
+        </section>
+
         <div className="mb-12">
           <h2 className="font-syne font-semibold text-2xl mb-6 flex items-center">
             <Briefcase className="h-6 w-6 mr-2 text-accent-orange" />

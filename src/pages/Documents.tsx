@@ -3,11 +3,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ExpandableSection from "@/components/ui/expandable-section";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FileText, CheckCircle, AlertCircle, ArrowRight, ExternalLink } from "lucide-react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { FileText } from "lucide-react";
+import DocumentAttestation from "@/components/documents/DocumentAttestation";
+import MedicalRequirements from "@/components/documents/MedicalRequirements";
+import DocumentFAQs from "@/components/documents/DocumentFAQs";
+import DocumentSidebar from "@/components/documents/DocumentSidebar";
 
 const Documents = () => {
   // Data for document attestation
@@ -37,26 +38,11 @@ const Documents = () => {
 
   // Data for medical requirements
   const medicalTests = [
-    {
-      test: "Complete Blood Count (CBC)",
-      purpose: "Basic health screening"
-    },
-    {
-      test: "Chest X-Ray",
-      purpose: "To rule out tuberculosis or other lung diseases"
-    },
-    {
-      test: "HIV Test",
-      purpose: "Required for long-term visa"
-    },
-    {
-      test: "Hepatitis B & C Screening",
-      purpose: "Health screening requirement"
-    },
-    {
-      test: "General Physical Examination",
-      purpose: "Overall health assessment"
-    }
+    { test: "Complete Blood Count (CBC)", purpose: "Basic health screening" },
+    { test: "Chest X-Ray", purpose: "To rule out tuberculosis or other lung diseases" },
+    { test: "HIV Test", purpose: "Required for long-term visa" },
+    { test: "Hepatitis B & C Screening", purpose: "Health screening requirement" },
+    { test: "General Physical Examination", purpose: "Overall health assessment" }
   ];
 
   // FAQs separated by category
@@ -118,36 +104,7 @@ const Documents = () => {
             <Card className="bg-white shadow-sm">
               <CardContent className="p-6">
                 <h2 className="font-syne font-semibold text-xl mb-6">Document Attestation Process</h2>
-                
-                <div className="space-y-6">
-                  {attestationSteps.map((step, index) => (
-                    <ExpandableSection key={index} title={step.title} defaultOpen={index === 0}>
-                      <p className="text-gray-700 mb-4">{step.description}</p>
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                        <div className="bg-gray-50 p-4 rounded-md">
-                          <p className="text-sm font-medium text-gray-500">Fee</p>
-                          <p className="font-medium">{step.fee}</p>
-                        </div>
-                        <div className="bg-gray-50 p-4 rounded-md">
-                          <p className="text-sm font-medium text-gray-500">Time Required</p>
-                          <p className="font-medium">{step.timeRequired}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-start">
-                        <AlertCircle className="h-5 w-5 text-accent-orange mr-2 mt-0.5 flex-shrink-0" />
-                        <p className="text-gray-600 text-sm">{step.tips}</p>
-                      </div>
-                    </ExpandableSection>
-                  ))}
-                </div>
-                
-                <div className="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-lg">
-                  <p className="text-blue-800 text-center">
-                    <strong>Important:</strong> Start the attestation process at least 2 months before your expected application submission date.
-                  </p>
-                </div>
+                <DocumentAttestation steps={attestationSteps} />
               </CardContent>
             </Card>
             
@@ -155,190 +112,19 @@ const Documents = () => {
             <Card className="bg-white shadow-sm mt-8">
               <CardContent className="p-6">
                 <h2 className="font-syne font-semibold text-xl mb-6">Medical Requirements</h2>
-                
-                <ExpandableSection title="Required Medical Tests" defaultOpen={true}>
-                  <div className="mb-6">
-                    <div className="bg-gray-50 p-4 rounded-md mb-4">
-                      <h4 className="font-medium mb-2">General Information</h4>
-                      <p className="text-gray-700">Medical examination must be conducted by a licensed physician. The medical certificate should be in English or translated by a certified translator.</p>
-                    </div>
-                    
-                    <div className="overflow-x-auto">
-                      <table className="min-w-full divide-y divide-gray-200">
-                        <thead className="bg-gray-50">
-                          <tr>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Test</th>
-                            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Purpose</th>
-                          </tr>
-                        </thead>
-                        <tbody className="bg-white divide-y divide-gray-200">
-                          {medicalTests.map((item, index) => (
-                            <tr key={index}>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.test}</td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.purpose}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </ExpandableSection>
-                
-                <ExpandableSection title="Submission Process">
-                  <ul className="space-y-2 list-disc pl-4 text-gray-700">
-                    <li>Medical certificates should be submitted with your visa application</li>
-                    <li>The certificate should not be older than 3 months at the time of visa application</li>
-                    <li>The medical certificate must be stamped and signed by the doctor</li>
-                    <li>A copy should be uploaded to the Tempus application portal as well</li>
-                  </ul>
-                  <div className="mt-4 bg-yellow-50 p-3 rounded-md">
-                    <p className="text-sm text-yellow-800">
-                      <strong>Note:</strong> Some universities may have additional medical requirements. Always check your chosen university's specific requirements.
-                    </p>
-                  </div>
-                </ExpandableSection>
-                
-                <ExpandableSection title="Finding a Medical Center">
-                  <p className="text-gray-700 mb-3">
-                    It's recommended to get your medical examination done at a recognized medical center or hospital. Here are some options:
-                  </p>
-                  <ul className="space-y-2 list-disc pl-4 text-gray-700">
-                    <li>Government hospitals with international medical certificate facilities</li>
-                    <li>Private hospitals that regularly provide medical certificates for visa purposes</li>
-                    <li>Medical centers recommended by the Hungarian Embassy</li>
-                  </ul>
-                  <div className="mt-4 bg-blue-50 p-3 rounded-md">
-                    <p className="text-sm text-blue-800">
-                      <strong>Tip:</strong> Call ahead and explain that you need a medical certificate for a student visa to Hungary. This ensures they include all required tests.
-                    </p>
-                  </div>
-                </ExpandableSection>
+                <MedicalRequirements medicalTests={medicalTests} />
               </CardContent>
             </Card>
             
             {/* FAQs Section with tabs */}
             <div className="mt-8">
-              <h2 className="font-syne font-semibold text-xl mb-4">Frequently Asked Questions</h2>
-              <Tabs defaultValue="general">
-                <TabsList className="grid w-full grid-cols-2 mb-4">
-                  <TabsTrigger value="general">General</TabsTrigger>
-                  <TabsTrigger value="technical">Technical</TabsTrigger>
-                </TabsList>
-                
-                <TabsContent value="general" className="space-y-3">
-                  {generalFaqs.map((faq, index) => (
-                    <ExpandableSection key={index} title={faq.question}>
-                      <p className="text-gray-700">
-                        {faq.answer}
-                      </p>
-                    </ExpandableSection>
-                  ))}
-                </TabsContent>
-                
-                <TabsContent value="technical" className="space-y-3">
-                  {technicalFaqs.map((faq, index) => (
-                    <ExpandableSection key={index} title={faq.question}>
-                      <p className="text-gray-700">
-                        {faq.answer}
-                      </p>
-                    </ExpandableSection>
-                  ))}
-                </TabsContent>
-              </Tabs>
+              <DocumentFAQs generalFaqs={generalFaqs} technicalFaqs={technicalFaqs} />
             </div>
           </div>
           
-          {/* Right Sidebar - styled like in Tempus Portal */}
-          <div className="space-y-6">
-            {/* Important Timeline Card */}
-            <Card className="bg-white shadow-sm border-t-4 border-red-500">
-              <CardContent className="p-5">
-                <h3 className="font-syne font-medium text-lg mb-3">Document Timeline</h3>
-                <ul className="space-y-3">
-                  <li className="flex justify-between">
-                    <span className="text-gray-700">Start Attestation:</span>
-                    <span className="font-medium">November 2025</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-gray-700">Get Medical Tests:</span>
-                    <span className="font-medium">December 2025</span>
-                  </li>
-                  <li className="flex justify-between">
-                    <span className="text-gray-700">Final Submission:</span>
-                    <span className="font-medium text-red-600">January 2026</span>
-                  </li>
-                </ul>
-                <div className="mt-4 p-3 bg-red-50 rounded-md">
-                  <p className="text-sm text-red-800">
-                    <strong>Note:</strong> Allow extra time for any unexpected delays in the attestation process.
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-            
-            {/* Document Checklist Card */}
-            <Card className="bg-white shadow-sm border-t-4 border-deep-teal">
-              <CardContent className="p-5">
-                <h3 className="font-syne font-medium text-lg mb-3">Document Checklist</h3>
-                <p className="text-gray-700 mb-4">
-                  Ensure you have these documents attested:
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">SSC/Matric Certificate & Transcript</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">HSSC/FSc Certificate & Transcript</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">Bachelor's Degree & Transcript</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">Master's Degree & Transcript (if applicable)</span>
-                  </li>
-                  <li className="flex items-center">
-                    <div className="w-5 h-5 border border-gray-300 rounded mr-3 flex-shrink-0"></div>
-                    <span className="text-gray-700">Medical Certificate</span>
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-            
-            {/* Next Steps Card */}
-            <Card className="bg-white shadow-sm">
-              <CardContent className="p-5">
-                <h3 className="font-syne font-medium text-lg mb-3">Next Steps</h3>
-                <p className="text-gray-700 mb-4">
-                  After preparing your documents, proceed with your application on both portals:
-                </p>
-                <div className="space-y-3">
-                  <Link to="/apply/tempus">
-                    <Button variant="outline" className="w-full">
-                      Tempus Portal Guide
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                  <Link to="/apply/hec">
-                    <Button variant="outline" className="w-full">
-                      HEC Portal Guide
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-                <div className="mt-4">
-                  <Link to="/visa">
-                    <Button className="w-full bg-deep-teal hover:bg-deep-teal/90">
-                      Visa Process Guide
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
+          {/* Right Sidebar */}
+          <div>
+            <DocumentSidebar />
           </div>
         </div>
       </main>

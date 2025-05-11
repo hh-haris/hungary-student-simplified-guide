@@ -39,6 +39,7 @@ const UniversityFinder = () => {
   const [selectedProgram, setSelectedProgram] = useState("");
   const [showResults, setShowResults] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const [showNominationWarning, setShowNominationWarning] = useState(false);
   const [filteredFirstChoice, setFilteredFirstChoice] = useState<University[]>([]);
   const [filteredSecondChoice, setFilteredSecondChoice] = useState<University[]>([]);
   const [allFiltersApplied, setAllFiltersApplied] = useState(false);
@@ -95,6 +96,10 @@ const UniversityFinder = () => {
   useEffect(() => {
     const allApplied = fscMarks > 0 && usatScore >= 70 && selectedProgram !== "";
     setAllFiltersApplied(allApplied);
+    
+    // Set warnings based on USAT score
+    setShowWarning(usatScore < 75);
+    setShowNominationWarning(usatScore < 72);
   }, [fscMarks, usatScore, selectedProgram]);
 
   const handleFind = () => {
@@ -103,7 +108,6 @@ const UniversityFinder = () => {
     }
     
     setShowResults(true);
-    setShowWarning(usatScore < 73);
     
     // Filter universities
     const topChoices = universities.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score >= 73);
@@ -166,10 +170,10 @@ const UniversityFinder = () => {
                   <span>70</span>
                   <span>100</span>
                 </div>
-                {usatScore < 73 && (
+                {showWarning && (
                   <p className="text-amber-600 text-sm mt-1">
                     <AlertCircle className="inline-block h-4 w-4 mr-1" />
-                    We recommend retaking USAT to improve your chances (aim for 73+)
+                    We recommend improving your USAT score to 75+ for better chances
                   </p>
                 )}
               </div>
@@ -177,10 +181,10 @@ const UniversityFinder = () => {
               <div>
                 <Label htmlFor="program" className="mb-2 block">Program <span className="text-red-500">*</span></Label>
                 <Select onValueChange={(value) => setSelectedProgram(value)}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger id="program-select" className="w-full">
                     <SelectValue placeholder="Select program" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent position="popper" className="bg-white">
                     {uniquePrograms.map((program) => (
                       <SelectItem key={program} value={program}>{program}</SelectItem>
                     ))}
@@ -211,11 +215,19 @@ const UniversityFinder = () => {
 
         {showResults && (
           <div>
-            {showWarning && (
+            {showNominationWarning && (
+              <Alert className="mb-6 bg-red-50 border-red-200">
+                <AlertCircle className="h-4 w-4 text-red-800" />
+                <AlertDescription className="text-red-800">
+                  With a USAT score below 72, there are very low chances of nomination. We strongly recommend improving your score.
+                </AlertDescription>
+              </Alert>
+            )}
+            {showWarning && !showNominationWarning && (
               <Alert className="mb-6 bg-amber-50 border-amber-200">
                 <AlertCircle className="h-4 w-4 text-amber-800" />
                 <AlertDescription className="text-amber-800">
-                  We recommend retaking USAT to improve your nomination chance. A score of 73+ is ideal for competitive programs.
+                  We recommend improving your USAT score to 75+ to enhance your nomination chances for competitive programs.
                 </AlertDescription>
               </Alert>
             )}

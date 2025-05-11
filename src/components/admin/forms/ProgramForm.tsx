@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -55,9 +56,11 @@ const ProgramForm = ({ program, onSuccess, onCancel }: ProgramFormProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     
-    let parsedValue = value;
-    if (name === "min_usat_score" || name === "credit_hours") {
+    let parsedValue: string | number | null = value;
+    if (name === "min_usat_score") {
       parsedValue = parseInt(value) || 0;
+    } else if (name === "credit_hours") {
+      parsedValue = value.trim() === '' ? null : (parseInt(value) || 0);
     }
     
     setFormData(prev => ({
@@ -78,11 +81,17 @@ const ProgramForm = ({ program, onSuccess, onCancel }: ProgramFormProps) => {
     setIsSubmitting(true);
     
     try {
+      const dataToSubmit = {
+        ...formData,
+        min_usat_score: Number(formData.min_usat_score), // Ensure min_usat_score is a number when submitting
+        credit_hours: formData.credit_hours !== null ? Number(formData.credit_hours) : null // Ensure credit_hours is a number or null
+      };
+      
       if (isEditing) {
         // Update existing program
         const { error } = await supabase
           .from('programs')
-          .update(formData)
+          .update(dataToSubmit)
           .eq('id', program.id);
           
         if (error) throw error;
@@ -95,7 +104,7 @@ const ProgramForm = ({ program, onSuccess, onCancel }: ProgramFormProps) => {
         // Create new program
         const { error } = await supabase
           .from('programs')
-          .insert(formData);
+          .insert(dataToSubmit);
           
         if (error) throw error;
         

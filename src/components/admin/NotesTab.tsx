@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -37,14 +36,13 @@ const NotesTab = () => {
   const { data: notes, isLoading } = useQuery({
     queryKey: ['admin-notes'],
     queryFn: async () => {
-      // Use a type assertion to handle the fact that "notes" table is not in TypeScript types yet
       const { data, error } = await supabase
-        .from('notes' as any)
+        .from('notes')
         .select('*')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as Note[] || [];
+      return data as Note[];
     },
   });
 
@@ -66,15 +64,14 @@ const NotesTab = () => {
 
   const handleAddNote = async () => {
     try {
-      // Use a type assertion for the insert operation
       const { error } = await supabase
-        .from('notes' as any)
+        .from('notes')
         .insert([{
           title: newNote.title,
           content: newNote.content,
           attachment_url: newNote.attachment_url || null,
           attachment_name: newNote.attachment_name || null
-        }] as any);
+        }]);
 
       if (error) throw error;
 
@@ -83,7 +80,6 @@ const NotesTab = () => {
         description: "Your note has been saved successfully."
       });
 
-      // Reset form and close modal
       setNewNote({
         title: "",
         content: "",
@@ -92,7 +88,6 @@ const NotesTab = () => {
       });
       setIsAddNoteOpen(false);
       
-      // Refresh notes list
       queryClient.invalidateQueries({ queryKey: ['admin-notes'] });
     } catch (error: any) {
       console.error('Error adding note:', error);
@@ -106,9 +101,8 @@ const NotesTab = () => {
 
   const handleDeleteNote = async (id: string) => {
     try {
-      // Use a type assertion for the delete operation
       const { error } = await supabase
-        .from('notes' as any)
+        .from('notes')
         .delete()
         .eq('id', id);
 
@@ -119,10 +113,8 @@ const NotesTab = () => {
         description: "Your note has been deleted successfully."
       });
       
-      // Refresh notes list
       queryClient.invalidateQueries({ queryKey: ['admin-notes'] });
       
-      // Close view modal if the deleted note is currently being viewed
       if (selectedNote?.id === id) {
         setIsViewNoteOpen(false);
         setSelectedNote(null);

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -30,9 +31,9 @@ const TimelineForm = ({ timelineEntry, onSuccess, onCancel }: TimelineFormProps)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     
-    let parsedValue = value;
+    let parsedValue: string | number = value;
     if (name === "step_number") {
-      parsedValue = parseInt(value) || 1;
+      parsedValue = parseInt(value) || 0;
     }
     
     setFormData(prev => ({
@@ -46,11 +47,16 @@ const TimelineForm = ({ timelineEntry, onSuccess, onCancel }: TimelineFormProps)
     setIsSubmitting(true);
     
     try {
+      const dataToSubmit = {
+        ...formData,
+        step_number: Number(formData.step_number) // Ensure step_number is a number when submitting
+      };
+      
       if (isEditing) {
         // Update existing timeline entry
         const { error } = await supabase
           .from('timeline')
-          .update(formData)
+          .update(dataToSubmit)
           .eq('id', timelineEntry.id);
           
         if (error) throw error;
@@ -63,7 +69,7 @@ const TimelineForm = ({ timelineEntry, onSuccess, onCancel }: TimelineFormProps)
         // Create new timeline entry
         const { error } = await supabase
           .from('timeline')
-          .insert(formData);
+          .insert(dataToSubmit);
           
         if (error) throw error;
         

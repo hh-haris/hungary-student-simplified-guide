@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -34,7 +35,7 @@ const UniversityForm = ({ university, onSuccess, onCancel }: UniversityFormProps
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     
-    let parsedValue = value;
+    let parsedValue: string | number = value;
     if (name === "min_usat_score") {
       parsedValue = parseInt(value) || 0;
     }
@@ -58,11 +59,16 @@ const UniversityForm = ({ university, onSuccess, onCancel }: UniversityFormProps
     setIsSubmitting(true);
     
     try {
+      const dataToSubmit = {
+        ...formData,
+        min_usat_score: Number(formData.min_usat_score) // Ensure min_usat_score is a number when submitting
+      };
+      
       if (isEditing) {
         // Update existing university
         const { error } = await supabase
           .from('universities')
-          .update(formData)
+          .update(dataToSubmit)
           .eq('id', university.id);
           
         if (error) throw error;
@@ -75,7 +81,7 @@ const UniversityForm = ({ university, onSuccess, onCancel }: UniversityFormProps
         // Create new university
         const { error } = await supabase
           .from('universities')
-          .insert(formData);
+          .insert(dataToSubmit);
           
         if (error) throw error;
         

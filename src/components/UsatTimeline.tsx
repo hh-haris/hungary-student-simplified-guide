@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
-import { Card, CardContent } from "@/components/ui/card";
+import { ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface UsatTimelineStep {
   id: string;
@@ -31,33 +31,30 @@ const UsatTimeline = ({ steps }: UsatTimelineProps) => {
 
   return (
     <div className="relative">
-      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border"></div>
-      <div className="space-y-6">
-        {steps.map((step, index) => (
-          <div key={step.id} className="relative pl-10">
+      {/* Timeline Connector */}
+      <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-accent-orange/20"></div>
+      
+      <div className="space-y-0">
+        {steps.map((step) => (
+          <div key={step.id} className="relative">
+            {/* Circle Marker */}
+            <div className="absolute left-4 -translate-x-1/2 w-8 h-8 rounded-full bg-accent-orange flex items-center justify-center text-white font-syne font-medium shadow-lg z-10 transition-all duration-300 transform">
+              {/* You can add a number or icon here if needed */}
+            </div>
+            
+            {/* Content Card */}
             <div 
-              className={`absolute left-2 -translate-x-1/2 w-4 h-4 rounded-full ${
-                expandedStep === step.id ? 'bg-primary' : 'bg-primary/60'
-              } transform transition-all duration-300 ${
-                expandedStep === step.id ? 'scale-125' : ''
-              }`}
-            ></div>
-            <Card 
-              className={`bg-white rounded-lg transition-all duration-300 border ${
-                expandedStep === step.id ? 'border-primary shadow-md' : 'border-border shadow-sm'
-              }`}
+              className="block pl-12 relative mb-8 group cursor-pointer"
               onClick={() => toggleStep(step.id)}
             >
-              <CardContent className="p-4">
-                <div className="flex justify-between items-center cursor-pointer">
+              <div className={`bg-white backdrop-blur-sm border ${expandedStep === step.id ? 'border-accent-orange/40' : 'border-gray-100'} hover:border-accent-orange/20 rounded-lg p-5 transition-all shadow-sm hover:shadow-md`}>
+                <div className="flex justify-between items-center">
                   <div>
-                    <h3 className="font-syne font-bold text-lg mb-1">{step.title}</h3>
-                    <p className="text-muted-foreground">{step.date}</p>
+                    <h3 className="font-syne font-bold text-lg text-deep-teal">{step.title}</h3>
+                    <p className="text-gray-600 mt-1">{step.date}</p>
                   </div>
-                  <ChevronDown 
-                    className={`h-5 w-5 text-primary transition-transform duration-300 ${
-                      expandedStep === step.id ? 'rotate-180' : ''
-                    }`}
+                  <ChevronRight 
+                    className={`text-accent-orange transition-transform duration-300 ${expandedStep === step.id ? 'rotate-90' : ''}`} 
                   />
                 </div>
                 
@@ -82,8 +79,8 @@ const UsatTimeline = ({ steps }: UsatTimelineProps) => {
                     )}
                   </div>
                 )}
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         ))}
       </div>

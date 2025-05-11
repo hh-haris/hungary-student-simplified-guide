@@ -1,16 +1,23 @@
 
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { PlusCircle } from "lucide-react";
 import AdminDataTable from "./AdminDataTable";
+import FormModal from "./FormModal";
+import ProgramForm from "./forms/ProgramForm";
 
 interface ProgramsTabProps {
   onDelete: (id: string) => void;
 }
 
 const ProgramsTab = ({ onDelete }: ProgramsTabProps) => {
+  const queryClient = useQueryClient();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProgram, setSelectedProgram] = useState<any>(null);
+  
   const { 
     data: programs, 
     isLoading 
@@ -27,6 +34,21 @@ const ProgramsTab = ({ onDelete }: ProgramsTabProps) => {
     }
   });
 
+  const handleEdit = (item: any) => {
+    setSelectedProgram(item);
+    setIsModalOpen(true);
+  };
+
+  const handleAdd = () => {
+    setSelectedProgram(null);
+    setIsModalOpen(true);
+  };
+
+  const handleSuccess = () => {
+    setIsModalOpen(false);
+    queryClient.invalidateQueries({ queryKey: ['admin-programs'] });
+  };
+
   const programColumns = [
     { key: 'name', label: 'Name' },
     { 
@@ -39,24 +61,39 @@ const ProgramsTab = ({ onDelete }: ProgramsTabProps) => {
   ];
 
   return (
-    <Card>
-      <CardContent className="p-6">
-        <div className="flex justify-between items-center mb-6">
-          <h2 className="font-syne text-xl font-semibold">All Programs</h2>
-          <Button className="bg-deep-teal hover:bg-deep-teal/90">
-            <PlusCircle className="mr-2 h-4 w-4" /> Add Program
-          </Button>
-        </div>
-        
-        <AdminDataTable 
-          data={programs || []}
-          columns={programColumns}
-          isLoading={isLoading}
-          emptyMessage="No programs found"
-          onDelete={(id) => onDelete(id)}
+    <>
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="font-syne text-xl font-semibold">All Programs</h2>
+            <Button className="bg-deep-teal hover:bg-deep-teal/90" onClick={handleAdd}>
+              <PlusCircle className="mr-2 h-4 w-4" /> Add Program
+            </Button>
+          </div>
+          
+          <AdminDataTable 
+            data={programs || []}
+            columns={programColumns}
+            isLoading={isLoading}
+            emptyMessage="No programs found"
+            onDelete={(id) => onDelete(id)}
+            onEdit={handleEdit}
+          />
+        </CardContent>
+      </Card>
+
+      <FormModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)}
+        title={selectedProgram ? "Edit Program" : "Add New Program"}
+      >
+        <ProgramForm 
+          program={selectedProgram}
+          onSuccess={handleSuccess}
+          onCancel={() => setIsModalOpen(false)}
         />
-      </CardContent>
-    </Card>
+      </FormModal>
+    </>
   );
 };
 

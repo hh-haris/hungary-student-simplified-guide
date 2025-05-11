@@ -12,9 +12,10 @@ import UniversitiesTab from "@/components/admin/UniversitiesTab";
 import ProgramsTab from "@/components/admin/ProgramsTab";
 import TimelineTab from "@/components/admin/TimelineTab";
 import UsatCategoriesTab from "@/components/admin/UsatCategoriesTab";
+import NotesTab from "@/components/admin/NotesTab";
 
 // Define valid table names as a type
-type TableName = "universities" | "programs" | "timeline" | "usat_categories";
+type TableName = "universities" | "programs" | "timeline" | "usat_categories" | "notes";
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("universities");
@@ -66,11 +67,12 @@ const AdminDashboard = () => {
         </div>
         
         <Tabs defaultValue={activeTab} onValueChange={setActiveTab}>
-          <TabsList className="grid grid-cols-4 mb-6">
+          <TabsList className="grid grid-cols-5 mb-6">
             <TabsTrigger value="universities">Universities</TabsTrigger>
             <TabsTrigger value="programs">Programs</TabsTrigger>
             <TabsTrigger value="timeline">Timeline</TabsTrigger>
             <TabsTrigger value="usat">USAT Categories</TabsTrigger>
+            <TabsTrigger value="notes">Notes</TabsTrigger>
           </TabsList>
           
           {/* Universities Tab */}
@@ -91,6 +93,11 @@ const AdminDashboard = () => {
           {/* USAT Categories Tab */}
           <TabsContent value="usat">
             <UsatCategoriesTab onDelete={handleDeleteUsatCategory} />
+          </TabsContent>
+
+          {/* Notes Tab */}
+          <TabsContent value="notes">
+            <NotesTab />
           </TabsContent>
         </Tabs>
       </main>

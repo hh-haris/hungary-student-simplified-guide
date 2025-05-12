@@ -42,40 +42,77 @@ const UsatGuide = () => {
 
   const usatTimelineSteps = [
     {
-      id: "registration-open",
-      title: "Registration Opens",
-      date: "November 2024",
+      id: "usat-exam",
+      title: "USAT Exam",
+      date: "October-November 2025",
       details: {
-        startDate: "November 15, 2024",
-        notes: "Registration opens on the HEC portal. Create your account early to avoid last-minute issues."
+        notes: "USAT test dates will be announced by HEC. Create your account early to avoid last-minute issues."
       }
     },
     {
-      id: "registration-deadline",
-      title: "Registration Deadline",
-      date: "December 2024",
+      id: "program-selection",
+      title: "Program Selection",
+      date: "November-December 2025",
       details: {
-        endDate: "December 20, 2024",
-        notes: "All registrations must be completed by this date. No extensions will be provided."
+        notes: "Select your preferred programs and universities based on your USAT results."
       }
     },
     {
-      id: "test-dates",
-      title: "Test Dates",
-      date: "January 2025",
+      id: "application-deadline",
+      title: "Application Deadline",
+      date: "15 January 2026",
       details: {
-        startDate: "January 10, 2025",
-        endDate: "January 15, 2025",
-        notes: "Exact test date and time will be communicated via your roll number slip."
+        endDate: "January 15, 2026",
+        notes: "Deadline to apply at both portals. All applications must be completed by this date."
       }
     },
     {
-      id: "results",
-      title: "Results Announcement",
-      date: "February 2025",
+      id: "hec-nomination",
+      title: "Nomination by HEC",
+      date: "February-March 2026",
       details: {
-        endDate: "January 31, 2025",
-        notes: "Results will be available on the HEC portal. You'll receive an email notification."
+        notes: "HEC will review applications and nominate candidates for the Stipendium Hungaricum scholarship."
+      }
+    },
+    {
+      id: "medical-submission",
+      title: "Medical Report Submission",
+      date: "15 April 2026",
+      details: {
+        endDate: "April 15, 2026",
+        notes: "Deadline to submit medical reports required for the scholarship application."
+      }
+    },
+    {
+      id: "entrance-exams",
+      title: "University Entrance Exams",
+      date: "March-May 2026",
+      details: {
+        notes: "Universities will conduct entrance exams and interviews for nominated candidates."
+      }
+    },
+    {
+      id: "scholarship-award",
+      title: "Scholarship Award",
+      date: "June 2026",
+      details: {
+        notes: "Tempus Public Foundation will announce scholarship awards."
+      }
+    },
+    {
+      id: "visa-process",
+      title: "Visa Process",
+      date: "July-August 2026",
+      details: {
+        notes: "Complete visa application and prepare for travel."
+      }
+    },
+    {
+      id: "arrival",
+      title: "Arrival in Hungary",
+      date: "September-October 2026",
+      details: {
+        notes: "Arrival in Hungary and beginning of studies."
       }
     }
   ];
@@ -143,7 +180,7 @@ const UsatGuide = () => {
             </p>
           </div>
 
-          <h2 className="font-syne font-bold text-xl mb-4 text-accent-orange">2025-26 Schedule</h2>
+          <h2 className="font-syne font-bold text-xl mb-4 text-accent-orange">2026-27 Schedule</h2>
           <UsatTimeline steps={usatTimelineSteps} />
         </section>
 

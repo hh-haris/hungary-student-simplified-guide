@@ -35,6 +35,70 @@ const sampleUniversities = [
     min_usat_score: 74,
     programs: ["Business Administration", "International Economics", "Political Science"],
     image_url: "https://picsum.photos/id/4/800/400"
+  },
+  {
+    name: "Eötvös Loránd University",
+    city: "Budapest",
+    intro: "Hungary's largest university with a wide range of programs across various disciplines.",
+    min_usat_score: 73,
+    programs: ["Psychology", "Computer Science", "International Relations"],
+    image_url: "https://picsum.photos/id/5/800/400"
+  },
+  {
+    name: "University of Pécs",
+    city: "Pécs",
+    intro: "One of Hungary's oldest universities with strong medical and arts programs.",
+    min_usat_score: 71,
+    programs: ["Medicine", "Arts", "Engineering"],
+    image_url: "https://picsum.photos/id/6/800/400"
+  },
+  {
+    name: "Hungarian University of Agriculture and Life Sciences",
+    city: "Gödöllő",
+    intro: "Leading institution in agricultural sciences and research.",
+    min_usat_score: 70,
+    programs: ["Agricultural Engineering", "Food Engineering", "Environmental Sciences"],
+    image_url: "https://picsum.photos/id/7/800/400"
+  },
+  {
+    name: "Széchenyi István University",
+    city: "Győr",
+    intro: "Major university focusing on engineering, economics, and health sciences.",
+    min_usat_score: 72,
+    programs: ["Mechanical Engineering", "Economics", "Computer Science Engineering"],
+    image_url: "https://picsum.photos/id/8/800/400"
+  },
+  {
+    name: "University of Miskolc",
+    city: "Miskolc",
+    intro: "Technical university with a focus on engineering and technology.",
+    min_usat_score: 71,
+    programs: ["Materials Engineering", "Mechanical Engineering", "Business Administration"],
+    image_url: "https://picsum.photos/id/9/800/400"
+  },
+  {
+    name: "Semmelweis University",
+    city: "Budapest",
+    intro: "Hungary's leading medical university with world-renowned healthcare programs.",
+    min_usat_score: 78,
+    programs: ["Medicine", "Dentistry", "Pharmacy"],
+    image_url: "https://picsum.photos/id/10/800/400"
+  },
+  {
+    name: "Budapest Metropolitan University",
+    city: "Budapest",
+    intro: "Modern university specializing in creative arts, business and communication.",
+    min_usat_score: 70,
+    programs: ["Animation", "Media Studies", "Business Administration"],
+    image_url: "https://picsum.photos/id/11/800/400"
+  },
+  {
+    name: "University of Nyíregyháza",
+    city: "Nyíregyháza",
+    intro: "Regional university with strong focus on teacher training and applied sciences.",
+    min_usat_score: 70,
+    programs: ["Teacher Training", "Agricultural Engineering", "Business Administration"],
+    image_url: "https://picsum.photos/id/12/800/400"
   }
 ];
 
@@ -46,11 +110,27 @@ const createSamplePrograms = (universitiesData: any[]) => {
   const universityMap = new Map();
   universitiesData.forEach(uni => universityMap.set(uni.name, uni.id));
   
-  // Use a subset of our full program data for sample data
-  // Filter for programs that belong to the universities we've added
-  for (const program of fullProgramData.slice(0, 50)) {
+  // Use all of our full program data
+  for (const program of fullProgramData) {
     // Skip if the program's university is not in our sample universities
-    if (!program.university_name || !universityMap.has(program.university_name)) continue;
+    if (!program.university_name || !universityMap.has(program.university_name)) {
+      // For programs without university, assign to first university for testing
+      const firstUniId = universitiesData[0]?.id;
+      if (firstUniId) {
+        programs.push({
+          university_id: firstUniId,
+          name: program.name,
+          degree_level: program.degree_level.toLowerCase(),
+          field_of_study: program.field_of_study,
+          min_usat_score: 70 + Math.floor(Math.random() * 10),
+          description: `${program.name} program is designed to provide students with comprehensive knowledge and skills in the field.`,
+          language: program.language || "English",
+          credit_hours: program.credit_hours || 180 + Math.floor(Math.random() * 60),
+          duration: program.duration || (program.degree_level === "Bachelor" ? "3 years" : "2 years")
+        });
+      }
+      continue;
+    }
     
     programs.push({
       university_id: universityMap.get(program.university_name),
@@ -85,12 +165,17 @@ export const populateSampleData = async () => {
     if (universitiesData && universitiesData.length > 0) {
       const samplePrograms = createSamplePrograms(universitiesData);
       
-      const { error: programsError } = await supabase
-        .from('programs')
-        .insert(samplePrograms);
-      
-      if (programsError) {
-        throw programsError;
+      // Insert in smaller batches to avoid request size limitations
+      const chunkSize = 50;
+      for (let i = 0; i < samplePrograms.length; i += chunkSize) {
+        const chunk = samplePrograms.slice(i, i + chunkSize);
+        const { error: programsError } = await supabase
+          .from('programs')
+          .insert(chunk);
+        
+        if (programsError) {
+          console.error(`Error inserting programs batch ${i}-${i+chunkSize}:`, programsError);
+        }
       }
     }
     

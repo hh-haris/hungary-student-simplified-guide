@@ -4,49 +4,39 @@ import TimelineStep from "@/components/TimelineStep";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Bell } from "lucide-react";
-
 const Index = () => {
-  const timelineSteps = [
-    {
-      title: "USAT Exam",
-      description: "First step: Pass the Universities & Standardised Admissions Test",
-      linkTo: "/usat",
-      date: "November 2024 - January 2025"
-    },
-    {
-      title: "University Selection",
-      description: "Choose Hungarian universities that match your academic profile",
-      linkTo: "/university-finder",
-      date: "January - February 2025"
-    },
-    {
-      title: "Apply via Tempus & HEC",
-      description: "Complete your applications through both required portals",
-      linkTo: "/apply",
-      date: "February 2025"
-    },
-    {
-      title: "Document Verification",
-      description: "Prepare and verify all required documentation",
-      linkTo: "/documents",
-      date: "February - March 2025"
-    },
-    {
-      title: "Visa Process",
-      description: "Apply for your student visa after acceptance",
-      linkTo: "/visa",
-      date: "May - July 2025"
-    },
-    {
-      title: "Prepare for Hungary",
-      description: "Essential tips for your first month abroad",
-      linkTo: "/first-month",
-      date: "August 2025"
-    }
-  ];
-
-  return (
-    <div className="min-h-screen flex flex-col bg-off-white">
+  const timelineSteps = [{
+    title: "USAT Exam",
+    description: "First step: Pass the Universities & Standardised Admissions Test",
+    linkTo: "/usat",
+    date: "November 2024 - January 2025"
+  }, {
+    title: "University Selection",
+    description: "Choose Hungarian universities that match your academic profile",
+    linkTo: "/university-finder",
+    date: "January - February 2025"
+  }, {
+    title: "Apply via Tempus & HEC",
+    description: "Complete your applications through both required portals",
+    linkTo: "/apply",
+    date: "February 2025"
+  }, {
+    title: "Document Verification",
+    description: "Prepare and verify all required documentation",
+    linkTo: "/documents",
+    date: "February - March 2025"
+  }, {
+    title: "Visa Process",
+    description: "Apply for your student visa after acceptance",
+    linkTo: "/visa",
+    date: "May - July 2025"
+  }, {
+    title: "Prepare for Hungary",
+    description: "Essential tips for your first month abroad",
+    linkTo: "/first-month",
+    date: "August 2025"
+  }];
+  return <div className="min-h-screen flex flex-col bg-off-white">
       <Header />
       
       {/* Hero Section */}
@@ -77,32 +67,18 @@ const Index = () => {
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-accent-orange/20"></div>
             
             {/* Timeline steps */}
-            {timelineSteps.map((step, index) => (
-              <TimelineStep 
-                key={index}
-                title={step.title}
-                description={step.description}
-                linkTo={step.linkTo}
-                stepNumber={index + 1}
-                date={step.date}
-              />
-            ))}
+            {timelineSteps.map((step, index) => <TimelineStep key={index} title={step.title} description={step.description} linkTo={step.linkTo} stepNumber={index + 1} date={step.date} />)}
           </div>
           
           <div className="text-center mt-8">
             <Button asChild variant="outline" className="backdrop-blur-sm bg-white/70 hover:bg-white/90 border border-gray-200 shadow-sm">
-              <Link to="/notifications">
-                <Bell className="mr-1 h-4 w-4" />
-                Set Deadline Reminders
-              </Link>
+              
             </Button>
           </div>
         </section>
       </main>
       
       <Footer />
-    </div>
-  );
+    </div>;
 };
-
 export default Index;

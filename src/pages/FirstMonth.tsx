@@ -3,17 +3,15 @@ import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
-  Home, ShoppingCart, Bus, Coffee, CreditCard, 
-  Utensils, Phone, Wifi, MapPin, FileText, AlertCircle,
+  Coffee, FileText, AlertCircle,
   Briefcase, CheckCircle, Clock, Globe, AlertTriangle,
   Lightbulb, Landmark, ArrowRight
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import WhatToDoAfterArrival from "@/components/afterArrival/WhatToDoAfterArrival";
-import ExpandableCard from "@/components/ExpandableCard";
+import ExpandableSection from "@/components/ui/expandable-section";
 
 const FirstMonth = () => {
   // Data for the "What to Do After Arrival" section
@@ -280,7 +278,10 @@ const FirstMonth = () => {
         
         {/* What to Do After Arrival Section */}
         <section className="mb-12">
-          <h2 className="font-syne font-semibold text-2xl mb-6">Essential Steps After Arrival</h2>
+          <h2 className="font-syne font-semibold text-2xl mb-6 flex items-center">
+            <AlertCircle className="h-6 w-6 mr-2 text-accent-orange" />
+            Essential Steps After Arrival
+          </h2>
           <WhatToDoAfterArrival steps={arrivalSteps} />
         </section>
 
@@ -292,13 +293,13 @@ const FirstMonth = () => {
           
           <div className="space-y-4">
             {packingList.map((category, index) => (
-              <ExpandableCard key={index} title={category.category}>
+              <ExpandableSection key={index} title={category.category}>
                 <ul className="list-disc pl-5 space-y-1">
                   {category.items.map((item, i) => (
                     <li key={i} className="text-gray-700">{item}</li>
                   ))}
                 </ul>
-              </ExpandableCard>
+              </ExpandableSection>
             ))}
           </div>
           
@@ -315,14 +316,11 @@ const FirstMonth = () => {
             Skills to Learn Before Arrival
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
             {skillsToLearn.map((skill, index) => (
-              <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                <CardContent className="p-5">
-                  <h3 className="font-syne font-semibold text-lg mb-2">{skill.skill}</h3>
-                  <p className="text-gray-600">{skill.why}</p>
-                </CardContent>
-              </Card>
+              <ExpandableSection key={index} title={skill.skill}>
+                <p className="text-gray-600">{skill.why}</p>
+              </ExpandableSection>
             ))}
           </div>
         </div>
@@ -336,53 +334,45 @@ const FirstMonth = () => {
           <div className="mb-8">
             <h3 className="font-syne font-semibold text-xl mb-4">First Week Checklist</h3>
             
-            <div className="space-y-4">
-              {firstWeekTasks.map((task, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${
-                  task.priority === 'high' ? 'border-l-4 border-l-red-500 bg-red-50' : 
-                  task.priority === 'medium' ? 'border-l-4 border-l-orange-500 bg-orange-50' : 
-                  'border-l-4 border-l-blue-500 bg-blue-50'
-                }`}>
-                  <div className="flex flex-wrap justify-between mb-2">
-                    <h4 className="font-medium text-gray-800">{task.task}</h4>
-                    <span className={`text-sm px-2 py-1 rounded ${
-                      task.priority === 'high' ? 'bg-red-200 text-red-800' : 
-                      task.priority === 'medium' ? 'bg-orange-200 text-orange-800' : 
-                      'bg-blue-200 text-blue-800'
-                    }`}>
-                      {task.deadline}
-                    </span>
-                  </div>
-                  <p className="text-gray-600">{task.description}</p>
-                </div>
-              ))}
-            </div>
+            <ExpandableSection title="First Week Tasks">
+              <div className="space-y-4">
+                {firstWeekTasks.map((task, index) => (
+                  <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex flex-wrap justify-between mb-2">
+                        <h4 className="font-medium text-gray-800">{task.task}</h4>
+                        <span className="text-sm px-2 py-1 rounded bg-gray-100 text-gray-800">
+                          {task.deadline}
+                        </span>
+                      </div>
+                      <p className="text-gray-600">{task.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ExpandableSection>
           </div>
           
           <div>
             <h3 className="font-syne font-semibold text-xl mb-4">First Month Checklist</h3>
             
-            <div className="space-y-4">
-              {firstMonthTasks.map((task, index) => (
-                <div key={index} className={`p-4 rounded-lg border ${
-                  task.priority === 'high' ? 'border-l-4 border-l-red-500 bg-red-50' : 
-                  task.priority === 'medium' ? 'border-l-4 border-l-orange-500 bg-orange-50' : 
-                  'border-l-4 border-l-blue-500 bg-blue-50'
-                }`}>
-                  <div className="flex flex-wrap justify-between mb-2">
-                    <h4 className="font-medium text-gray-800">{task.task}</h4>
-                    <span className={`text-sm px-2 py-1 rounded ${
-                      task.priority === 'high' ? 'bg-red-200 text-red-800' : 
-                      task.priority === 'medium' ? 'bg-orange-200 text-orange-800' : 
-                      'bg-blue-200 text-blue-800'
-                    }`}>
-                      {task.deadline}
-                    </span>
-                  </div>
-                  <p className="text-gray-600">{task.description}</p>
-                </div>
-              ))}
-            </div>
+            <ExpandableSection title="First Month Tasks">
+              <div className="space-y-4">
+                {firstMonthTasks.map((task, index) => (
+                  <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex flex-wrap justify-between mb-2">
+                        <h4 className="font-medium text-gray-800">{task.task}</h4>
+                        <span className="text-sm px-2 py-1 rounded bg-gray-100 text-gray-800">
+                          {task.deadline}
+                        </span>
+                      </div>
+                      <p className="text-gray-600">{task.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ExpandableSection>
           </div>
         </div>
         
@@ -394,8 +384,7 @@ const FirstMonth = () => {
           
           <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm">
             <CardContent className="p-6">
-              <div className="mb-6">
-                <h3 className="font-syne font-semibold text-lg mb-3">Dormitory Options</h3>
+              <ExpandableSection title="Dormitory Options">
                 <p className="text-gray-700 mb-3">
                   Most scholarship recipients are offered dormitory accommodation. University dormitories are affordable and convenient but may have shared facilities.
                 </p>
@@ -413,30 +402,31 @@ const FirstMonth = () => {
                     <span className="text-gray-700">Usually includes utilities and internet</span>
                   </li>
                 </ul>
+              </ExpandableSection>
+              
+              <div className="mt-4">
+                <ExpandableSection title="Private Accommodation">
+                  <p className="text-gray-700 mb-3">
+                    If you prefer private accommodation, start searching well before arrival. Shared apartments are common among students.
+                  </p>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Use websites like alberlet.hu or ingatlan.com</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Typical cost: 70,000-120,000 HUF for a shared apartment</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-gray-700">Be prepared for deposit (usually 2 months rent)</span>
+                    </li>
+                  </ul>
+                </ExpandableSection>
               </div>
               
-              <div className="mb-6">
-                <h3 className="font-syne font-semibold text-lg mb-3">Private Accommodation</h3>
-                <p className="text-gray-700 mb-3">
-                  If you prefer private accommodation, start searching well before arrival. Shared apartments are common among students.
-                </p>
-                <ul className="space-y-2">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Use websites like alberlet.hu or ingatlan.com</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Typical cost: 70,000-120,000 HUF for a shared apartment</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="text-gray-700">Be prepared for deposit (usually 2 months rent)</span>
-                  </li>
-                </ul>
-              </div>
-              
-              <div className="p-4 bg-yellow-50 border border-yellow-100 rounded-md">
+              <div className="p-4 mt-4 bg-yellow-50 border border-yellow-100 rounded-md">
                 <div className="flex items-start">
                   <AlertTriangle className="h-5 w-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
                   <p className="text-yellow-800">
@@ -456,13 +446,31 @@ const FirstMonth = () => {
           </h2>
           
           <div className="space-y-4">
-            {commonMistakes.map((mistake, index) => (
-              <Card key={index} className="backdrop-blur-sm bg-white/70 border-l-4 border-l-red-500 border-gray-100 shadow-sm">
-                <CardContent className="p-5">
-                  <h3 className="font-syne font-semibold text-lg mb-2">{mistake.mistake}</h3>
-                  <p className="text-gray-600">{mistake.consequence}</p>
-                </CardContent>
-              </Card>
+            {[
+              {
+                mistake: "Not registering for residence permit on time",
+                consequence: "Potential legal issues and fines for staying without proper documentation."
+              },
+              {
+                mistake: "Ignoring orientation sessions",
+                consequence: "Missing crucial information about university processes and available resources."
+              },
+              {
+                mistake: "Not understanding the grading system",
+                consequence: "Misconceptions about academic performance and requirements."
+              },
+              {
+                mistake: "Isolating from local community",
+                consequence: "Missing opportunities for cultural integration and language practice."
+              },
+              {
+                mistake: "Not keeping track of important deadlines",
+                consequence: "Missing course registration, scholarship requirements, or residence permit renewal."
+              }
+            ].map((mistake, index) => (
+              <ExpandableSection key={index} title={mistake.mistake}>
+                <p className="text-gray-600">{mistake.consequence}</p>
+              </ExpandableSection>
             ))}
           </div>
         </div>
@@ -473,14 +481,11 @@ const FirstMonth = () => {
             Facts about Hungary
           </h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-4">
             {hungaryFacts.map((fact, index) => (
-              <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm hover:shadow-md transition-all">
-                <CardContent className="p-5">
-                  <h3 className="font-syne font-semibold text-lg mb-2">{fact.title}</h3>
-                  <p className="text-gray-600">{fact.description}</p>
-                </CardContent>
-              </Card>
+              <ExpandableSection key={index} title={fact.title}>
+                <p className="text-gray-600">{fact.description}</p>
+              </ExpandableSection>
             ))}
           </div>
         </div>

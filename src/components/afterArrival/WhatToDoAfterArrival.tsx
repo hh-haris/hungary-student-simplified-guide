@@ -2,6 +2,7 @@
 import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, AlertCircle } from "lucide-react";
+import ExpandableSection from "@/components/ui/expandable-section";
 
 interface StepProps {
   title: string;
@@ -18,20 +19,11 @@ interface WhatToDoAfterArrivalProps {
 
 const WhatToDoAfterArrival = ({ steps }: WhatToDoAfterArrivalProps) => {
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {steps.map((step, index) => (
-        <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all">
-          <CardContent className="p-0">
-            <div className="bg-gradient-to-r from-deep-teal/10 to-transparent p-4 border-b border-gray-100">
-              <div className="flex items-center">
-                <div className="w-8 h-8 rounded-full bg-deep-teal text-white flex items-center justify-center font-medium mr-3">
-                  {index + 1}
-                </div>
-                <h3 className="font-syne font-bold text-lg text-deep-teal">{step.title}</h3>
-              </div>
-            </div>
-            
-            <div className="p-6">
+        <ExpandableSection key={index} title={step.title} defaultOpen={index === 0}>
+          <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 shadow-sm">
+            <CardContent className="p-6">
               <p className="mb-4 text-gray-700">{step.description}</p>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
@@ -63,9 +55,9 @@ const WhatToDoAfterArrival = ({ steps }: WhatToDoAfterArrivalProps) => {
                   <p className="text-blue-800 text-sm">{step.tips}</p>
                 </div>
               )}
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </ExpandableSection>
       ))}
     </div>
   );

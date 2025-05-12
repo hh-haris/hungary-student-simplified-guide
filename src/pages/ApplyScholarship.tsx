@@ -3,11 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import ExpandableSection from "@/components/ui/expandable-section";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText, Upload } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ApplyScholarship = () => {
   return (
@@ -64,36 +62,31 @@ const ApplyScholarship = () => {
         <div className="grid md:grid-cols-2 gap-8 mb-8">
           <div className="bg-white rounded-lg shadow-sm p-6">
             <h3 className="font-syne font-semibold text-lg mb-4">Application Timeline</h3>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <span className="w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs mr-3 mt-0.5">1</span>
-                <div>
-                  <p className="font-medium">November - December 2025</p>
-                  <p className="text-sm text-gray-600">USAT Exam registration and preparation</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs mr-3 mt-0.5">2</span>
-                <div>
-                  <p className="font-medium">January 2026</p>
-                  <p className="text-sm text-gray-600">Applications open on both portals</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs mr-3 mt-0.5">3</span>
-                <div>
-                  <p className="font-medium">Mid-January 2026</p>
-                  <p className="text-sm text-gray-600">HEC deadline (typically earlier)</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs mr-3 mt-0.5">4</span>
-                <div>
-                  <p className="font-medium">End of January 2026</p>
-                  <p className="text-sm text-gray-600">Tempus deadline</p>
-                </div>
-              </li>
-            </ul>
+            <div className="relative border-l-2 border-accent-orange pl-6 pb-4 space-y-6">
+              <div className="relative">
+                <div className="absolute top-0 -left-8 w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs">1</div>
+                <h4 className="font-medium text-deep-teal">November - December 2025</h4>
+                <p className="text-sm text-gray-600">USAT Exam registration and preparation</p>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute top-0 -left-8 w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs">2</div>
+                <h4 className="font-medium text-deep-teal">January 2026</h4>
+                <p className="text-sm text-gray-600">Applications open on both portals</p>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute top-0 -left-8 w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs">3</div>
+                <h4 className="font-medium text-deep-teal">Mid-January 2026</h4>
+                <p className="text-sm text-gray-600">HEC deadline (typically earlier)</p>
+              </div>
+              
+              <div className="relative">
+                <div className="absolute top-0 -left-8 w-6 h-6 rounded-full bg-accent-orange text-white flex items-center justify-center text-xs">4</div>
+                <h4 className="font-medium text-deep-teal">End of January 2026</h4>
+                <p className="text-sm text-gray-600">Tempus deadline</p>
+              </div>
+            </div>
           </div>
           
           <div className="bg-white rounded-lg shadow-sm p-6">
@@ -138,70 +131,6 @@ const ApplyScholarship = () => {
               </Link>
             </div>
           </div>
-        </div>
-        
-        <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
-          <h3 className="font-syne font-semibold text-lg mb-4">Frequently Asked Questions</h3>
-          <Tabs defaultValue="general">
-            <TabsList className="grid w-full grid-cols-2 mb-4">
-              <TabsTrigger value="general">General</TabsTrigger>
-              <TabsTrigger value="technical">Technical</TabsTrigger>
-            </TabsList>
-            
-            <TabsContent value="general">
-              <ExpandableSection title="Can I apply to multiple programs?">
-                <p className="text-gray-700">
-                  Yes, you can apply to a maximum of two different programs (study programs) at Hungarian universities through the Tempus portal. These can be at the same university or at different universities.
-                </p>
-              </ExpandableSection>
-              
-              <ExpandableSection title="What language requirements are there?">
-                <p className="text-gray-700">
-                  For English-taught programs, you typically need to demonstrate English proficiency. While some universities may accept a simple language certificate, others might require standardized tests like IELTS or TOEFL. For Hungarian-taught programs, you may need to complete a one-year preparatory Hungarian language course.
-                </p>
-              </ExpandableSection>
-              
-              <ExpandableSection title="Is there an age limit for applicants?">
-                <p className="text-gray-700">
-                  Yes, the general age limits are:
-                </p>
-                <ul className="list-disc pl-5 text-gray-700">
-                  <li>For Bachelor's programs: Applicants should be under 23 years of age</li>
-                  <li>For Master's programs: Applicants should be under 30 years of age</li>
-                  <li>For PhD programs: Applicants should be under 35 years of age</li>
-                </ul>
-                <p className="text-gray-700 mt-2">
-                  However, there may be exceptions based on specific circumstances.
-                </p>
-              </ExpandableSection>
-            </TabsContent>
-            
-            <TabsContent value="technical">
-              <ExpandableSection title="What if I have technical issues with the portals?">
-                <p className="text-gray-700">
-                  For Tempus portal issues, contact: stipendiumhungaricum@tpf.hu
-                </p>
-                <p className="text-gray-700 mt-2">
-                  For HEC portal issues, contact: helpdesk@hec.gov.pk or use the technical support section on the HEC portal.
-                </p>
-                <p className="text-gray-700 mt-2">
-                  It's recommended to start your application early to allow time for resolving any technical issues before the deadlines.
-                </p>
-              </ExpandableSection>
-              
-              <ExpandableSection title="Can I edit my application after submission?">
-                <p className="text-gray-700">
-                  No, once you've submitted your application, you cannot edit it. Make sure to review all information carefully before final submission.
-                </p>
-              </ExpandableSection>
-              
-              <ExpandableSection title="What if my documents are not in English or Hungarian?">
-                <p className="text-gray-700">
-                  All documents must be in English or Hungarian, or accompanied by an official translation into one of these languages. Translations must be stamped and signed by the translator or translating office.
-                </p>
-              </ExpandableSection>
-            </TabsContent>
-          </Tabs>
         </div>
         
         <div className="bg-gradient-to-r from-deep-teal/10 to-accent-orange/10 rounded-lg p-6">

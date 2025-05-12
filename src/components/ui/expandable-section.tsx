@@ -24,10 +24,10 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
       onOpenChange={setIsOpen}
       className={`border border-gray-200 rounded-lg overflow-hidden ${className}`}
     >
-      <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-left font-syne font-medium">
+      <CollapsibleTrigger className="flex items-center justify-between w-full p-4 text-left font-syne font-medium hover:bg-gray-50 transition-colors">
         {title}
         <ChevronDown 
-          className={`h-5 w-5 transition-transform duration-200 ${
+          className={`h-5 w-5 text-accent-orange transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`} 
         />

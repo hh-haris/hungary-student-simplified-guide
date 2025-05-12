@@ -23,7 +23,7 @@ const DocumentFAQs = ({ generalFaqs, technicalFaqs }: DocumentFAQsProps) => {
           <TabsTrigger value="technical">Technical</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="general" className="space-y-3">
+        <TabsContent value="general" className="space-y-4">
           {generalFaqs.map((faq, index) => (
             <ExpandableSection key={index} title={faq.question}>
               <p className="text-gray-700">
@@ -33,7 +33,7 @@ const DocumentFAQs = ({ generalFaqs, technicalFaqs }: DocumentFAQsProps) => {
           ))}
         </TabsContent>
         
-        <TabsContent value="technical" className="space-y-3">
+        <TabsContent value="technical" className="space-y-4">
           {technicalFaqs.map((faq, index) => (
             <ExpandableSection key={index} title={faq.question}>
               <p className="text-gray-700">

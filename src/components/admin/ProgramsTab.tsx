@@ -9,6 +9,9 @@ import AdminDataTable from "./AdminDataTable";
 import FormModal from "./FormModal";
 import ProgramForm from "./forms/ProgramForm";
 
+// Import program data for seeding and reference
+import { fullProgramData } from "@/data/programsData";
+
 interface ProgramsTabProps {
   onDelete: (id: string) => void;
 }
@@ -60,12 +63,18 @@ const ProgramsTab = ({ onDelete }: ProgramsTabProps) => {
     { key: 'field_of_study', label: 'Field' },
   ];
 
+  // The number of programs in our full dataset
+  const totalProgramsInData = fullProgramData.length;
+
   return (
     <>
       <Card>
         <CardContent className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="font-syne text-xl font-semibold">All Programs</h2>
+            <div>
+              <h2 className="font-syne text-xl font-semibold">All Programs</h2>
+              <p className="text-sm text-gray-500">Total of {totalProgramsInData} programs in database</p>
+            </div>
             <Button className="bg-deep-teal hover:bg-deep-teal/90" onClick={handleAdd}>
               <PlusCircle className="mr-2 h-4 w-4" /> Add Program
             </Button>

@@ -1,5 +1,6 @@
 
 import { supabase } from "@/integrations/supabase/client";
+import { fullProgramData } from "@/data/programsData";
 
 // Sample universities
 const sampleUniversities = [
@@ -37,44 +38,31 @@ const sampleUniversities = [
   }
 ];
 
-// Sample programs
+// Create sample programs based on our complete program database
 const createSamplePrograms = (universitiesData: any[]) => {
   const programs = [];
   
-  // For each university, create programs
-  for (const university of universitiesData) {
-    const universityId = university.id;
+  // Map university names to their IDs
+  const universityMap = new Map();
+  universitiesData.forEach(uni => universityMap.set(uni.name, uni.id));
+  
+  // Use a subset of our full program data for sample data
+  // Filter for programs that belong to the universities we've added
+  for (const program of fullProgramData.slice(0, 50)) {
+    // Skip if the program's university is not in our sample universities
+    if (!program.university_name || !universityMap.has(program.university_name)) continue;
     
-    // Add programs based on the university's programs array
-    for (const programName of university.programs) {
-      let degreeLevel = "bachelor";
-      let field = "engineering";
-      
-      // Assign appropriate fields and degree levels based on program name
-      if (programName.includes("Engineering") || programName.includes("Computer")) {
-        field = "engineering";
-      } else if (programName.includes("Medicine") || programName.includes("Pharmacy")) {
-        field = "medical";
-        degreeLevel = "master";
-      } else if (programName.includes("Business") || programName.includes("Economics")) {
-        field = "business";
-      } else if (programName.includes("Law")) {
-        field = "law";
-        degreeLevel = "master";
-      }
-      
-      programs.push({
-        university_id: universityId,
-        name: programName,
-        degree_level: degreeLevel,
-        field_of_study: field,
-        min_usat_score: university.min_usat_score + Math.floor(Math.random() * 5),
-        description: `${programName} program at ${university.name} is designed to provide students with comprehensive knowledge and skills in the field.`,
-        language: "English",
-        credit_hours: 180 + Math.floor(Math.random() * 60),
-        duration: degreeLevel === "bachelor" ? "3 years" : "2 years"
-      });
-    }
+    programs.push({
+      university_id: universityMap.get(program.university_name),
+      name: program.name,
+      degree_level: program.degree_level.toLowerCase(),
+      field_of_study: program.field_of_study,
+      min_usat_score: 70 + Math.floor(Math.random() * 10),
+      description: `${program.name} program at ${program.university_name} is designed to provide students with comprehensive knowledge and skills in the field.`,
+      language: program.language || "English",
+      credit_hours: program.credit_hours || 180 + Math.floor(Math.random() * 60),
+      duration: program.duration || (program.degree_level === "Bachelor" ? "3 years" : "2 years")
+    });
   }
   
   return programs;

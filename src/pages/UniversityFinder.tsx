@@ -13,7 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { AlertCircle, Loader2, Search } from "lucide-react";
+import { AlertCircle, ExternalLink, Loader2, Search } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ExpandableSection from "@/components/ui/expandable-section";
@@ -46,6 +46,27 @@ interface Program {
 // Import the full program dataset
 import { fullProgramData } from "@/data/programsData";
 
+// Define all the available fields of study
+const availableFields = [
+  "Agricultural Sciences",
+  "Arts",
+  "Arts and Humanities",
+  "Computer Science",
+  "Economics",
+  "Education",
+  "Engineering",
+  "Health Sciences",
+  "Humanities",
+  "Informatics",
+  "Medical Sciences",
+  "Natural Sciences",
+  "Political Science",
+  "Social Sciences",
+  "Sports Science",
+  "Teacher Training",
+  "Theology"
+];
+
 const UniversityFinder = () => {
   const [fscMarks, setFscMarks] = useState(75);
   const [usatScore, setUsatScore] = useState(85);
@@ -59,9 +80,10 @@ const UniversityFinder = () => {
   const [activeTab, setActiveTab] = useState("finder");
   
   // Search states
-  const [programSearchQuery, setprogramSearchQuery] = useState("");
+  const [programSearchQuery, setProgramSearchQuery] = useState("");
   const [selectedField, setSelectedField] = useState<string>("");
   const [selectedCity, setSelectedCity] = useState<string>("");
+  const [programFinderSearchQuery, setProgramFinderSearchQuery] = useState("");
 
   // Fetch universities from Supabase or use local data
   const { data: universities, isLoading: loadingUniversities, error: universitiesError } = useQuery({
@@ -101,8 +123,8 @@ const UniversityFinder = () => {
   }, [universitiesError]);
 
   useEffect(() => {
-    // Modified to make program selection optional
-    const allApplied = fscMarks > 0 && usatScore >= 70;
+    // Make program selection required again
+    const allApplied = fscMarks > 0 && usatScore >= 70 && !!selectedProgram;
     setAllFiltersApplied(allApplied);
     
     // Set warnings based on USAT score
@@ -143,13 +165,20 @@ const UniversityFinder = () => {
   // Filter programs based on search, field and city
   const filteredPrograms = programData.filter(program => {
     const matchesSearch = program.name.toLowerCase().includes(programSearchQuery.toLowerCase());
-    const matchesField = selectedField && selectedField !== "all-fields" ? program.field_of_study === selectedField : true;
-    const matchesCity = selectedCity && selectedCity !== "all-cities" ? program.location === selectedCity : true;
-    return matchesSearch && matchesField && matchesCity;
+    const matchesField = selectedField ? program.field_of_study === selectedField : false;
+    const matchesCity = selectedCity ? program.location === selectedCity : false;
+    
+    // Only show programs if a field or city filter is selected
+    return matchesSearch && (matchesField || matchesCity);
   });
 
   // Create a unique list of program names for the finder dropdown
   const uniquePrograms = [...new Set(programData.map(p => p.name))].sort();
+
+  // Filter programs for the finder search box
+  const programsForFinder = uniquePrograms.filter(program => 
+    program.toLowerCase().includes(programFinderSearchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen flex flex-col bg-off-white">
@@ -165,7 +194,12 @@ const UniversityFinder = () => {
           
           <TabsContent value="finder">
             <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
-              <h2 className="font-syne font-semibold text-xl mb-6">Enter Your Details</h2>
+              <div className="flex justify-between mb-6">
+                <h2 className="font-syne font-semibold text-xl">Enter Your Details</h2>
+                <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
+                  Visit Official Site <ExternalLink className="h-4 w-4" />
+                </Button>
+              </div>
 
               {loadingUniversities ? (
                 <div className="flex justify-center items-center py-8">
@@ -213,25 +247,28 @@ const UniversityFinder = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="program" className="mb-2 block">Program (Optional)</Label>
+                    <Label htmlFor="program" className="mb-2 block">Program (Required)</Label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
-                      <Select onValueChange={(value) => setSelectedProgram(value)} value={selectedProgram}>
+                      <Select 
+                        onValueChange={(value) => setSelectedProgram(value)} 
+                        value={selectedProgram}
+                        required
+                      >
                         <SelectTrigger id="program-select" className="w-full bg-white pl-10">
-                          <SelectValue placeholder="Select program (optional)" />
+                          <SelectValue placeholder="Select program" />
                         </SelectTrigger>
                         <SelectContent className="max-h-[300px] bg-white">
+                          <Input
+                            placeholder="Search programs..."
+                            className="mb-2 sticky top-0"
+                            value={programFinderSearchQuery}
+                            onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
+                          />
                           <ScrollArea className="h-[300px]">
-                            <Input
-                              placeholder="Search programs..."
-                              className="mb-2 sticky top-0"
-                              onChange={(e) => setprogramSearchQuery(e.target.value)}
-                            />
-                            {uniquePrograms
-                              .filter(program => program.toLowerCase().includes(programSearchQuery.toLowerCase()))
-                              .map((program) => (
-                                <SelectItem key={program} value={program}>{program}</SelectItem>
-                              ))}
+                            {programsForFinder.map((program) => (
+                              <SelectItem key={program} value={program}>{program}</SelectItem>
+                            ))}
                           </ScrollArea>
                         </SelectContent>
                       </Select>
@@ -341,7 +378,7 @@ const UniversityFinder = () => {
                     placeholder="Search by program name..." 
                     className="pl-10"
                     value={programSearchQuery}
-                    onChange={(e) => setprogramSearchQuery(e.target.value)}
+                    onChange={(e) => setProgramSearchQuery(e.target.value)}
                   />
                 </div>
                 
@@ -350,11 +387,10 @@ const UniversityFinder = () => {
                     <Label htmlFor="field-filter">Field of Study</Label>
                     <Select onValueChange={(value) => setSelectedField(value)} value={selectedField}>
                       <SelectTrigger id="field-filter" className="w-full bg-white">
-                        <SelectValue placeholder="All Fields" />
+                        <SelectValue placeholder="Select Field" />
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px] bg-white">
-                        <SelectItem key="all-fields" value="all-fields">All Fields</SelectItem>
-                        {programFields.map(field => (
+                        {availableFields.map(field => (
                           <SelectItem key={field} value={field}>{field}</SelectItem>
                         ))}
                       </SelectContent>
@@ -365,10 +401,9 @@ const UniversityFinder = () => {
                     <Label htmlFor="city-filter">City</Label>
                     <Select onValueChange={(value) => setSelectedCity(value)} value={selectedCity}>
                       <SelectTrigger id="city-filter" className="w-full bg-white">
-                        <SelectValue placeholder="All Cities" />
+                        <SelectValue placeholder="Select City" />
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px] bg-white">
-                        <SelectItem key="all-cities" value="all-cities">All Cities</SelectItem>
                         {allCities.map(city => (
                           <SelectItem key={city} value={city}>{city}</SelectItem>
                         ))}
@@ -378,52 +413,58 @@ const UniversityFinder = () => {
                 </div>
               </div>
               
-              <div className="space-y-4">
-                <p className="text-sm text-gray-500 mb-2">Showing {filteredPrograms.length} of {programData.length} programs</p>
-                {filteredPrograms.length > 0 ? filteredPrograms.map((program) => (
-                  <ExpandableSection 
-                    key={program.id} 
-                    title={program.name}
-                    className="hover:shadow-sm"
-                  >
-                    <div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Degree Level:</span> {program.degree_level}
-                      </div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Field of Study:</span> {program.field_of_study}
-                      </div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Language:</span> {program.language}
-                      </div>
-                      {program.duration && (
+              {!selectedField && !selectedCity ? (
+                <div className="text-center py-8">
+                  <p className="text-gray-600">Please select a field of study or city to see available programs.</p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-500 mb-2">Showing {filteredPrograms.length} of {programData.length} programs</p>
+                  {filteredPrograms.length > 0 ? filteredPrograms.map((program) => (
+                    <ExpandableSection 
+                      key={program.id} 
+                      title={program.name}
+                      className="hover:shadow-sm"
+                    >
+                      <div>
                         <div className="mb-2">
-                          <span className="font-semibold">Duration:</span> {program.duration}
+                          <span className="font-semibold">Degree Level:</span> {program.degree_level}
                         </div>
-                      )}
-                      {program.university_name && (
                         <div className="mb-2">
-                          <span className="font-semibold">University:</span> {program.university_name}
+                          <span className="font-semibold">Field of Study:</span> {program.field_of_study}
                         </div>
-                      )}
-                      {program.faculty && (
                         <div className="mb-2">
-                          <span className="font-semibold">Faculty:</span> {program.faculty}
+                          <span className="font-semibold">Language:</span> {program.language}
                         </div>
-                      )}
-                      {program.location && (
-                        <div>
-                          <span className="font-semibold">Location:</span> {program.location}
-                        </div>
-                      )}
+                        {program.duration && (
+                          <div className="mb-2">
+                            <span className="font-semibold">Duration:</span> {program.duration}
+                          </div>
+                        )}
+                        {program.university_name && (
+                          <div className="mb-2">
+                            <span className="font-semibold">University:</span> {program.university_name}
+                          </div>
+                        )}
+                        {program.faculty && (
+                          <div className="mb-2">
+                            <span className="font-semibold">Faculty:</span> {program.faculty}
+                          </div>
+                        )}
+                        {program.location && (
+                          <div>
+                            <span className="font-semibold">Location:</span> {program.location}
+                          </div>
+                        )}
+                      </div>
+                    </ExpandableSection>
+                  )) : (
+                    <div className="text-center py-8">
+                      <p>No programs found matching your search criteria.</p>
                     </div>
-                  </ExpandableSection>
-                )) : (
-                  <div className="text-center py-8">
-                    <p>No programs found matching your search criteria.</p>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
+              )}
             </div>
           </TabsContent>
         </Tabs>

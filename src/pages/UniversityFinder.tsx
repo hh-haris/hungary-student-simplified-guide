@@ -18,9 +18,6 @@ import { toast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import ExpandableSection from "@/components/ui/expandable-section";
 
-// Import the full program dataset
-import { fullProgramData } from "@/data/programsData";
-
 // Define types for our data
 interface University {
   id: string;
@@ -45,6 +42,9 @@ interface Program {
   faculty?: string;
   location?: string;
 }
+
+// Import the full program dataset
+import { fullProgramData } from "@/data/programsData";
 
 // Define all the available fields of study
 const availableFields = [
@@ -123,7 +123,7 @@ const UniversityFinder = () => {
   }, [universitiesError]);
 
   useEffect(() => {
-    // Make program selection required
+    // Make program selection required again
     const allApplied = fscMarks > 0 && usatScore >= 70 && !!selectedProgram;
     setAllFiltersApplied(allApplied);
     
@@ -141,48 +141,27 @@ const UniversityFinder = () => {
     
     const uniData = universities || universityData;
     
-    // Get all universities that match the USAT score requirement
-    const eligibleUniversities = uniData.filter(uni => uni.min_usat_score <= usatScore);
+    // Filter universities
+    const topChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score >= 73);
+    const secondaryChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score < 73);
     
-    // Filter by selected program - this is the key fix
+    // Further filter by selected program if one is chosen
     if (selectedProgram) {
-      // Find the program in our dataset to get details
-      const programInfo = programData.find(p => p.name === selectedProgram);
+      const filteredByProgram = (unis: University[]) => unis.filter(uni => 
+        uni.programs.some(prog => prog.toLowerCase() === selectedProgram.toLowerCase())
+      );
       
-      if (programInfo) {
-        // Filter universities that offer this program or have it in their programs array
-        const universityNamesWithProgram = new Set(
-          programData
-            .filter(p => p.name === selectedProgram)
-            .map(p => p.university_name)
-            .filter(Boolean)
-        );
-        
-        const matchingUniversities = eligibleUniversities.filter(uni => 
-          // Check if university name matches any from the programs data
-          universityNamesWithProgram.has(uni.name) || 
-          // Or check if program is in the university's program list
-          uni.programs.some(p => p.toLowerCase() === selectedProgram.toLowerCase())
-        );
-        
-        // Split based on USAT score requirement
-        const firstChoice = matchingUniversities.filter(uni => uni.min_usat_score >= 73);
-        const secondChoice = matchingUniversities.filter(uni => uni.min_usat_score < 73);
-        
-        setFilteredFirstChoice(firstChoice);
-        setFilteredSecondChoice(secondChoice);
-      } else {
-        // Program not found in dataset
-        setFilteredFirstChoice([]);
-        setFilteredSecondChoice([]);
-      }
+      setFilteredFirstChoice(filteredByProgram(topChoices));
+      setFilteredSecondChoice(filteredByProgram(secondaryChoices));
     } else {
-      // If no program selected, show all eligible universities
-      setFilteredFirstChoice(eligibleUniversities.filter(uni => uni.min_usat_score >= 73));
-      setFilteredSecondChoice(eligibleUniversities.filter(uni => uni.min_usat_score < 73));
+      setFilteredFirstChoice(topChoices);
+      setFilteredSecondChoice(secondaryChoices);
     }
   };
 
+  // Create unique lists for filters
+  const programFields = [...new Set(programData.map(p => p.field_of_study))].sort();
+  
   // Filter programs based on search, field and city
   const filteredPrograms = programData.filter(program => {
     const matchesSearch = program.name.toLowerCase().includes(programSearchQuery.toLowerCase());
@@ -217,6 +196,9 @@ const UniversityFinder = () => {
             <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
               <div className="flex justify-between mb-6">
                 <h2 className="font-syne font-semibold text-xl">Enter Your Details</h2>
+                <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
+                  Visit Official Site <ExternalLink className="h-4 w-4" />
+                </Button>
               </div>
 
               {loadingUniversities ? (
@@ -387,13 +369,6 @@ const UniversityFinder = () => {
           
           <TabsContent value="programs">
             <div className="bg-white rounded-lg shadow-sm p-5 mb-8">
-              <div className="flex justify-between mb-6">
-                <h2 className="font-syne font-semibold text-xl">Browse Programs</h2>
-                <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
-                  Visit Official Site <ExternalLink className="h-4 w-4" />
-                </Button>
-              </div>
-              
               <div className="mb-6 space-y-4">
                 <Label htmlFor="program-search" className="mb-2 block">Search Programs</Label>
                 <div className="relative">

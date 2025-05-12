@@ -8,7 +8,7 @@ interface TimelineStepProps {
   description: string;
   linkTo: string;
   stepNumber?: number;
-  date?: string;
+  date?: string; // Added date prop
 }
 
 const TimelineStep = ({ title, description, linkTo, stepNumber, date }: TimelineStepProps) => {

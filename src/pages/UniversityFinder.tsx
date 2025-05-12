@@ -620,7 +620,7 @@ const UniversityFinder = () => {
                         <SelectValue placeholder="All Fields" />
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px] bg-white">
-                        <SelectItem value="">All Fields</SelectItem>
+                        <SelectItem key="all-fields" value="all-fields">All Fields</SelectItem>
                         {programFields.map(field => (
                           <SelectItem key={field} value={field}>{field}</SelectItem>
                         ))}
@@ -635,7 +635,7 @@ const UniversityFinder = () => {
                         <SelectValue placeholder="All Degrees" />
                       </SelectTrigger>
                       <SelectContent className="max-h-[300px] bg-white">
-                        <SelectItem value="">All Degrees</SelectItem>
+                        <SelectItem key="all-degrees" value="all-degrees">All Degrees</SelectItem>
                         {degreeTypes.map(degree => (
                           <SelectItem key={degree} value={degree}>{degree}</SelectItem>
                         ))}

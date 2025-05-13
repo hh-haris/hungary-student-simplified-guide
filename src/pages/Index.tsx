@@ -23,7 +23,7 @@ const Index = () => {
     title: "Document Attestation",
     description: "If you are nominated by HEC in February 2026, proceed with document attestation and the medical",
     linkTo: "/documents",
-    date: "February - March 2025"
+    date: "Until 15 April 2026"
   }, {
     title: "Visa Process",
     description: "Apply for your student visa after acceptance",

@@ -20,7 +20,7 @@ const Index = () => {
     linkTo: "/apply",
     date: "December 2025 - 15 January 2026 2 pm CET (Deadline)"
   }, {
-    title: "Document Verification",
+    title: "Document Attestation",
     description: "Prepare and verify all required documentation",
     linkTo: "/documents",
     date: "February - March 2025"

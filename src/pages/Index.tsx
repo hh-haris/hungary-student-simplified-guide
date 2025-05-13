@@ -13,7 +13,7 @@ const Index = () => {
     title: "Find Your University",
     description: "Choose your university wisely, taking into account your program of study, academic performance, and your personal preferences.",
     linkTo: "/university-finder",
-    date: "January - February 2025"
+    date: "November - December 2025"
   }, {
     title: "Apply via Tempus & HEC",
     description: "Complete your applications through both required portals",

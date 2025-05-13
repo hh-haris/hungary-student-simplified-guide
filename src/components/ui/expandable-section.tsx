@@ -1,5 +1,5 @@
 
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, useEffect } from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { ChevronDown } from 'lucide-react';
 
@@ -45,6 +45,14 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
   
   // Check if this section should be open
   const isOpen = openSectionId === sectionId;
+  
+  // Effect to handle default open state on mount
+  useEffect(() => {
+    // Only set as open if defaultOpen is true and no other section is open
+    if (defaultOpen && !openSectionId) {
+      setOpenSectionId(sectionId);
+    }
+  }, []); // Empty dependency array ensures this only runs once on mount
   
   const handleToggle = (open: boolean) => {
     if (open) {

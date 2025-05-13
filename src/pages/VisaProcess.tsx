@@ -1,3 +1,4 @@
+
 import React from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -6,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { FileText, Calendar, MessageCircle, Briefcase, AlertTriangle, CheckCircle, ArrowRight } from "lucide-react";
+import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
+import ExpandableSection from "@/components/ui/expandable-section";
 
 const VisaProcess = () => {
   const visaSteps = [
@@ -105,28 +108,23 @@ const VisaProcess = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-off-white">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <h1 className="font-syne font-bold text-3xl md:text-4xl mb-6 text-deep-teal">Visa Process Guide</h1>
-        
-        <div className="mb-12">
-          <h2 className="font-syne font-semibold text-2xl mb-6">Step-by-Step Visa Guide</h2>
+    <ExpandableSectionProvider>
+      <div className="min-h-screen flex flex-col bg-off-white">
+        <Header />
+        <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
+          <h1 className="font-syne font-bold text-3xl md:text-4xl mb-6 text-deep-teal">Visa Process Guide</h1>
           
-          <div className="space-y-6">
-            {visaSteps.map((step, index) => (
-              <Card key={index} className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all">
-                <CardContent className="p-0">
-                  <div className="bg-gradient-to-r from-deep-teal/10 to-transparent p-4 border-b border-gray-100">
-                    <div className="flex items-center">
-                      <div className="w-8 h-8 rounded-full bg-deep-teal text-white flex items-center justify-center font-medium mr-3">
-                        {index + 1}
-                      </div>
-                      <h3 className="font-syne font-bold text-lg text-deep-teal">{step.title}</h3>
-                    </div>
-                  </div>
-                  
-                  <div className="p-6">
+          <div className="mb-12">
+            <h2 className="font-syne font-semibold text-2xl mb-6">Step-by-Step Visa Guide</h2>
+            
+            <div className="space-y-6">
+              {visaSteps.map((step, index) => (
+                <ExpandableSection
+                  key={index}
+                  title={`${index + 1}. ${step.title}`}
+                  className="border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all"
+                >
+                  <div>
                     <p className="mb-4 text-gray-700">{step.description}</p>
                     
                     {step.requirements && (
@@ -162,97 +160,97 @@ const VisaProcess = () => {
                       <p className="text-gray-600 text-sm">{step.tips}</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-        
-        <div className="mb-12">
-          <h2 className="font-syne font-semibold text-2xl mb-6">Interview Tips & Common Questions</h2>
-          
-          <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm">
-            <CardContent className="p-6">
-              <div className="mb-6">
-                <h3 className="font-syne font-semibold text-lg mb-4 flex items-center">
-                  <MessageCircle className="h-5 w-5 mr-2 text-deep-teal" />
-                  Common Interview Questions
-                </h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {commonInterviewQuestions.map((question, index) => (
-                    <li key={index} className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-accent-orange mr-2 flex-shrink-0" />
-                      <span className="text-gray-700">{question}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className="p-4 bg-blue-50 border border-blue-100 rounded-md">
-                <h4 className="font-medium mb-2 text-blue-800">Interview Preparation Tips</h4>
-                <ul className="list-disc pl-5 space-y-1">
-                  <li className="text-blue-700">Research about Hungary and its education system</li>
-                  <li className="text-blue-700">Know your program curriculum and career prospects</li>
-                  <li className="text-blue-700">Practice your English speaking skills</li>
-                  <li className="text-blue-700">Prepare a concise introduction about yourself</li>
-                  <li className="text-blue-700">Be honest and consistent with your answers</li>
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="mb-12">
-          <h2 className="font-syne font-semibold text-2xl mb-6">What to Carry to Hungary</h2>
-          
-          <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm">
-            <CardContent className="p-6">
-              <div className="mb-4">
-                <h3 className="font-syne font-semibold text-lg mb-4 flex items-center">
-                  <Briefcase className="h-5 w-5 mr-2 text-deep-teal" />
-                  Essential Items Checklist
-                </h3>
-                <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {whatToBring.map((item, index) => (
-                    <li key={index} className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-accent-orange mr-2 flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-        
-        <div className="mb-12">
-          <h2 className="font-syne font-semibold text-2xl mb-6">Frequently Asked Questions</h2>
-          
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <ExpandableCard key={index} title={faq.question} initialExpanded={index === 0}>
-                <p className="text-gray-700">{faq.answer}</p>
-              </ExpandableCard>
-            ))}
-          </div>
-        </div>
-        
-        <div className="bg-gradient-to-r from-deep-teal/10 to-accent-orange/10 rounded-lg p-6">
-          <div className="flex flex-col md:flex-row md:items-center justify-between">
-            <div className="mb-4 md:mb-0">
-              <h3 className="font-syne font-semibold text-lg">Next Step: Prepare for Hungary</h3>
-              <p className="text-gray-700">Learn what to expect in your first month in Hungary</p>
+                </ExpandableSection>
+              ))}
             </div>
-            <Button asChild className="bg-deep-teal hover:bg-deep-teal/90 text-white">
-              <Link to="/first-month">
-                First Month Guide <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
-            </Button>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+          
+          <div className="mb-12">
+            <h2 className="font-syne font-semibold text-2xl mb-6">Interview Tips & Common Questions</h2>
+            
+            <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm">
+              <CardContent className="p-6">
+                <div className="mb-6">
+                  <h3 className="font-syne font-semibold text-lg mb-4 flex items-center">
+                    <MessageCircle className="h-5 w-5 mr-2 text-deep-teal" />
+                    Common Interview Questions
+                  </h3>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {commonInterviewQuestions.map((question, index) => (
+                      <li key={index} className="flex items-center">
+                        <CheckCircle className="h-4 w-4 text-accent-orange mr-2 flex-shrink-0" />
+                        <span className="text-gray-700">{question}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="p-4 bg-blue-50 border border-blue-100 rounded-md">
+                  <h4 className="font-medium mb-2 text-blue-800">Interview Preparation Tips</h4>
+                  <ul className="list-disc pl-5 space-y-1">
+                    <li className="text-blue-700">Research about Hungary and its education system</li>
+                    <li className="text-blue-700">Know your program curriculum and career prospects</li>
+                    <li className="text-blue-700">Practice your English speaking skills</li>
+                    <li className="text-blue-700">Prepare a concise introduction about yourself</li>
+                    <li className="text-blue-700">Be honest and consistent with your answers</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="mb-12">
+            <h2 className="font-syne font-semibold text-2xl mb-6">What to Carry to Hungary</h2>
+            
+            <Card className="backdrop-blur-sm bg-white/70 border border-gray-100 overflow-hidden shadow-sm">
+              <CardContent className="p-6">
+                <div className="mb-4">
+                  <h3 className="font-syne font-semibold text-lg mb-4 flex items-center">
+                    <Briefcase className="h-5 w-5 mr-2 text-deep-teal" />
+                    Essential Items Checklist
+                  </h3>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {whatToBring.map((item, index) => (
+                      <li key={index} className="flex items-center">
+                        <CheckCircle className="h-4 w-4 text-accent-orange mr-2 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
+          <div className="mb-12">
+            <h2 className="font-syne font-semibold text-2xl mb-6">Frequently Asked Questions</h2>
+            
+            <div className="space-y-4">
+              {faqs.map((faq, index) => (
+                <ExpandableCard key={index} title={faq.question} initialExpanded={false}>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </ExpandableCard>
+              ))}
+            </div>
+          </div>
+          
+          <div className="bg-gradient-to-r from-deep-teal/10 to-accent-orange/10 rounded-lg p-6">
+            <div className="flex flex-col md:flex-row md:items-center justify-between">
+              <div className="mb-4 md:mb-0">
+                <h3 className="font-syne font-semibold text-lg">Next Step: Prepare for Hungary</h3>
+                <p className="text-gray-700">Learn what to expect in your first month in Hungary</p>
+              </div>
+              <Button asChild className="bg-deep-teal hover:bg-deep-teal/90 text-white">
+                <Link to="/first-month">
+                  First Month Guide <ArrowRight className="ml-1 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </ExpandableSectionProvider>
   );
 };
 

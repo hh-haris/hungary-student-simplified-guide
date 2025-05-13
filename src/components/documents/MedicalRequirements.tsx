@@ -1,5 +1,6 @@
 
-import React from "react";
+import React from 'react';
+import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
 import ExpandableSection from "@/components/ui/expandable-section";
 
 interface MedicalTest {
@@ -11,67 +12,64 @@ interface MedicalRequirementsProps {
   medicalTests: MedicalTest[];
 }
 
-const MedicalRequirements = ({ medicalTests }: MedicalRequirementsProps) => {
+const MedicalRequirements: React.FC<MedicalRequirementsProps> = ({ medicalTests }) => {
   return (
-    <>
-      <ExpandableSection title="Required Medical Tests" defaultOpen={false} className="mb-6">
-        <div className="mb-6">
-          <div className="bg-gray-50 p-4 rounded-md mb-4">
-            <h4 className="font-medium mb-2">General Information</h4>
-            <p className="text-gray-700">Medical examination must be conducted by a licensed physician. The medical certificate should be in English or translated by a certified translator.</p>
-          </div>
-          
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
+    <ExpandableSectionProvider>
+      <div className="space-y-4">
+        <ExpandableSection title="Required Medical Tests">
+          <div className="space-y-1">
+            <p className="mb-3 text-gray-700">The following tests are typically required for your visa application:</p>
+            <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Test</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Purpose</th>
+                  <th className="px-4 py-2 text-left text-gray-700 font-medium">Test</th>
+                  <th className="px-4 py-2 text-left text-gray-700 font-medium">Purpose</th>
                 </tr>
               </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {medicalTests.map((item, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.test}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.purpose}</td>
+              <tbody className="divide-y divide-gray-100">
+                {medicalTests.map((test, index) => (
+                  <tr key={index} className="hover:bg-gray-50">
+                    <td className="px-4 py-3">{test.test}</td>
+                    <td className="px-4 py-3 text-gray-600">{test.purpose}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
-      </ExpandableSection>
-      
-      <ExpandableSection title="Submission Process" className="mb-6">
-        <ul className="space-y-2 list-disc pl-4 text-gray-700">
-          <li>Medical certificates should be submitted with your visa application</li>
-          <li>The certificate should not be older than 3 months at the time of visa application</li>
-          <li>The medical certificate must be stamped and signed by the doctor</li>
-          <li>A copy should be uploaded to the Tempus application portal as well</li>
-        </ul>
-        <div className="mt-4 bg-yellow-50 p-3 rounded-md">
-          <p className="text-sm text-yellow-800">
-            <strong>Note:</strong> Some universities may have additional medical requirements. Always check your chosen university's specific requirements.
-          </p>
-        </div>
-      </ExpandableSection>
-      
-      <ExpandableSection title="Finding a Medical Center" className="mb-2">
-        <p className="text-gray-700 mb-3">
-          It's recommended to get your medical examination done at a recognized medical center or hospital. Here are some options:
-        </p>
-        <ul className="space-y-2 list-disc pl-4 text-gray-700">
-          <li>Government hospitals with international medical certificate facilities</li>
-          <li>Private hospitals that regularly provide medical certificates for visa purposes</li>
-          <li>Medical centers recommended by the Hungarian Embassy</li>
-        </ul>
-        <div className="mt-4 bg-blue-50 p-3 rounded-md">
-          <p className="text-sm text-blue-800">
-            <strong>Tip:</strong> Call ahead and explain that you need a medical certificate for a student visa to Hungary. This ensures they include all required tests.
-          </p>
-        </div>
-      </ExpandableSection>
-    </>
+        </ExpandableSection>
+        
+        <div className="my-4"></div> {/* Added space between sections */}
+        
+        <ExpandableSection title="Health Certificate Format">
+          <div className="space-y-3">
+            <p className="text-gray-700">Your health certificate should include:</p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <li>Full name matching your passport</li>
+              <li>Date of birth</li>
+              <li>Passport number</li>
+              <li>Statement confirming you are free from infectious diseases</li>
+              <li>Statement confirming you are fit to study</li>
+              <li>Doctor's signature and official stamp</li>
+              <li>Date of issue (must be recent, within 3 months)</li>
+            </ul>
+          </div>
+        </ExpandableSection>
+        
+        <div className="my-4"></div> {/* Added space between sections */}
+        
+        <ExpandableSection title="Hungarian Medical Requirements">
+          <div className="space-y-3">
+            <p className="text-gray-700">Upon arrival in Hungary, you may be required to undergo additional medical examinations:</p>
+            <ul className="list-disc list-inside space-y-2 text-gray-700">
+              <li>Tüdőszűrés (TB screening)</li>
+              <li>General health check at the university's medical center</li>
+              <li>Additional tests may be required depending on your program (especially for medical students)</li>
+            </ul>
+            <p className="mt-3 text-gray-700">These examinations are typically arranged by your university during the orientation period.</p>
+          </div>
+        </ExpandableSection>
+      </div>
+    </ExpandableSectionProvider>
   );
 };
 

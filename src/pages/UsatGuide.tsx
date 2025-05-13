@@ -8,9 +8,10 @@ import { Link } from "react-router-dom";
 import ExpandableCard from "@/components/ExpandableCard";
 import UsatTimeline from "@/components/UsatTimeline";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
 
 const UsatGuide = () => {
-  const [showTechnicalFaqs, setShowTechnicalFaqs] = useState(false);
+  const [activeTab, setActiveTab] = useState("general");
   
   const usatCategories = [
     {
@@ -127,76 +128,78 @@ const UsatGuide = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-off-white">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <section className="mb-8">
-          <h1 className="font-syne font-bold text-3xl mb-4">USAT Guide</h1>
-          <p className="text-gray-700 mb-3">
-            The Universities & Standardised Admissions Test (USAT) is a mandatory exam for Pakistani students 
-            applying to the Stipendium Hungaricum scholarship program.
-          </p>
-          
-          <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">
-            <p className="text-amber-800 font-medium">
-              <strong>Disclaimer:</strong> You can take any USAT category except if you are a medical student. However, it is strongly recommended to take the same USAT category you studied in FSc to maximize your chances of success.
+    <ExpandableSectionProvider>
+      <div className="min-h-screen flex flex-col bg-off-white">
+        <Header />
+        <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
+          <section className="mb-8">
+            <h1 className="font-syne font-bold text-3xl mb-4">USAT Guide</h1>
+            <p className="text-gray-700 mb-3">
+              The Universities & Standardised Admissions Test (USAT) is a mandatory exam for Pakistani students 
+              applying to the Stipendium Hungaricum scholarship program.
             </p>
-          </div>
+            
+            <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">
+              <p className="text-amber-800 font-medium">
+                <strong>Disclaimer:</strong> You can take any USAT category except if you are a medical student. However, it is strongly recommended to take the same USAT category you studied in FSc to maximize your chances of success.
+              </p>
+            </div>
 
-          <h2 className="font-syne font-bold text-xl mb-4 text-accent-orange">2025-26 Schedule</h2>
-          <UsatTimeline steps={usatTimelineSteps} />
-        </section>
+            <h2 className="font-syne font-bold text-xl mb-4 text-accent-orange">2025-26 Schedule</h2>
+            <UsatTimeline steps={usatTimelineSteps} />
+          </section>
 
-        <section className="mb-8">
-          <h2 className="font-syne font-bold text-2xl mb-6">Choose Your Category</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {usatCategories.map((category, index) => (
-              <Card key={index} className="hover:shadow-md transition-shadow">
-                <CardContent className="p-5">
-                  <h3 className="font-syne font-bold text-xl mb-2">{category.title}</h3>
-                  <p className="text-gray-600 mb-4">{category.description}</p>
-                  <Link to={category.path}>
-                    <Button className="w-full bg-accent-orange hover:bg-accent-orange/90 text-white">
-                      View Guide
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </section>
-        
-        <section className="mb-8">
-          <h2 className="font-syne font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+          <section className="mb-8">
+            <h2 className="font-syne font-bold text-2xl mb-6">Choose Your Category</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {usatCategories.map((category, index) => (
+                <Card key={index} className="hover:shadow-md transition-shadow">
+                  <CardContent className="p-5">
+                    <h3 className="font-syne font-bold text-xl mb-2">{category.title}</h3>
+                    <p className="text-gray-600 mb-4">{category.description}</p>
+                    <Link to={category.path}>
+                      <Button className="w-full bg-accent-orange hover:bg-accent-orange/90 text-white">
+                        View Guide
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </section>
           
-          <div className="mb-6">
-            <Tabs defaultValue="general" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-4">
-                <TabsTrigger value="general">General</TabsTrigger>
-                <TabsTrigger value="technical">Technical</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="general" className="space-y-4">
-                {generalFaqs.map((faq, index) => (
-                  <ExpandableCard key={index} title={faq.question} initialExpanded={index === 0}>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </ExpandableCard>
-                ))}
-              </TabsContent>
-              
-              <TabsContent value="technical" className="space-y-4">
-                {technicalFaqs.map((faq, index) => (
-                  <ExpandableCard key={index} title={faq.question} initialExpanded={index === 0}>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </ExpandableCard>
-                ))}
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-      </main>
-      <Footer />
-    </div>
+          <section className="mb-8">
+            <h2 className="font-syne font-bold text-2xl mb-4">Frequently Asked Questions</h2>
+            
+            <div className="mb-6">
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-4">
+                  <TabsTrigger value="general">General</TabsTrigger>
+                  <TabsTrigger value="technical">Technical</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="general" className="space-y-4">
+                  {generalFaqs.map((faq, index) => (
+                    <ExpandableCard key={index} title={faq.question} initialExpanded={false}>
+                      <p className="text-gray-700">{faq.answer}</p>
+                    </ExpandableCard>
+                  ))}
+                </TabsContent>
+                
+                <TabsContent value="technical" className="space-y-4">
+                  {technicalFaqs.map((faq, index) => (
+                    <ExpandableCard key={index} title={faq.question} initialExpanded={false}>
+                      <p className="text-gray-700">{faq.answer}</p>
+                    </ExpandableCard>
+                  ))}
+                </TabsContent>
+              </Tabs>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    </ExpandableSectionProvider>
   );
 };
 

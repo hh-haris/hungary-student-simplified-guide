@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -141,14 +140,14 @@ const UniversityFinder = () => {
     
     const uniData = universities || universityData;
     
-    // Filter universities
+    // Filter universities based on USAT score
     const topChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score >= 73);
     const secondaryChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score < 73);
     
     // Further filter by selected program if one is chosen
     if (selectedProgram) {
       const filteredByProgram = (unis: University[]) => unis.filter(uni => 
-        uni.programs.some(prog => prog.toLowerCase() === selectedProgram.toLowerCase())
+        uni.programs.some(prog => prog.toLowerCase().includes(selectedProgram.toLowerCase()))
       );
       
       setFilteredFirstChoice(filteredByProgram(topChoices));
@@ -165,11 +164,10 @@ const UniversityFinder = () => {
   // Filter programs based on search, field and city
   const filteredPrograms = programData.filter(program => {
     const matchesSearch = program.name.toLowerCase().includes(programSearchQuery.toLowerCase());
-    const matchesField = selectedField ? program.field_of_study === selectedField : false;
-    const matchesCity = selectedCity ? program.location === selectedCity : false;
+    const matchesField = selectedField ? program.field_of_study === selectedField : true;
+    const matchesCity = selectedCity ? program.location === selectedCity : true;
     
-    // Only show programs if a field or city filter is selected
-    return matchesSearch && (matchesField || matchesCity);
+    return matchesSearch && matchesField && matchesCity;
   });
 
   // Create a unique list of program names for the finder dropdown
@@ -250,7 +248,6 @@ const UniversityFinder = () => {
                       <Select 
                         onValueChange={(value) => setSelectedProgram(value)} 
                         value={selectedProgram}
-                        required
                       >
                         <SelectTrigger id="program-select" className="w-full bg-white pl-10">
                           <SelectValue placeholder="Select program" />
@@ -415,58 +412,52 @@ const UniversityFinder = () => {
                 </div>
               </div>
               
-              {!selectedField && !selectedCity ? (
-                <div className="text-center py-8">
-                  <p className="text-gray-600">Please select a field of study or city to see available programs.</p>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  <p className="text-sm text-gray-500 mb-2">Showing {filteredPrograms.length} of {programData.length} programs</p>
-                  {filteredPrograms.length > 0 ? filteredPrograms.map((program) => (
-                    <ExpandableSection 
-                      key={program.id} 
-                      title={program.name}
-                      className="hover:shadow-sm"
-                    >
-                      <div>
-                        <div className="mb-2">
-                          <span className="font-semibold">Degree Level:</span> {program.degree_level}
-                        </div>
-                        <div className="mb-2">
-                          <span className="font-semibold">Field of Study:</span> {program.field_of_study}
-                        </div>
-                        <div className="mb-2">
-                          <span className="font-semibold">Language:</span> {program.language}
-                        </div>
-                        {program.duration && (
-                          <div className="mb-2">
-                            <span className="font-semibold">Duration:</span> {program.duration}
-                          </div>
-                        )}
-                        {program.university_name && (
-                          <div className="mb-2">
-                            <span className="font-semibold">University:</span> {program.university_name}
-                          </div>
-                        )}
-                        {program.faculty && (
-                          <div className="mb-2">
-                            <span className="font-semibold">Faculty:</span> {program.faculty}
-                          </div>
-                        )}
-                        {program.location && (
-                          <div>
-                            <span className="font-semibold">Location:</span> {program.location}
-                          </div>
-                        )}
+              <div className="space-y-4">
+                <p className="text-sm text-gray-500 mb-2">Showing {filteredPrograms.length} of {programData.length} programs</p>
+                {filteredPrograms.length > 0 ? filteredPrograms.map((program) => (
+                  <ExpandableSection 
+                    key={program.id} 
+                    title={program.name}
+                    className="hover:shadow-sm"
+                  >
+                    <div>
+                      <div className="mb-2">
+                        <span className="font-semibold">Degree Level:</span> {program.degree_level}
                       </div>
-                    </ExpandableSection>
-                  )) : (
-                    <div className="text-center py-8">
-                      <p>No programs found matching your search criteria.</p>
+                      <div className="mb-2">
+                        <span className="font-semibold">Field of Study:</span> {program.field_of_study}
+                      </div>
+                      <div className="mb-2">
+                        <span className="font-semibold">Language:</span> {program.language}
+                      </div>
+                      {program.duration && (
+                        <div className="mb-2">
+                          <span className="font-semibold">Duration:</span> {program.duration}
+                        </div>
+                      )}
+                      {program.university_name && (
+                        <div className="mb-2">
+                          <span className="font-semibold">University:</span> {program.university_name}
+                        </div>
+                      )}
+                      {program.faculty && (
+                        <div className="mb-2">
+                          <span className="font-semibold">Faculty:</span> {program.faculty}
+                        </div>
+                      )}
+                      {program.location && (
+                        <div>
+                          <span className="font-semibold">Location:</span> {program.location}
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
-              )}
+                  </ExpandableSection>
+                )) : (
+                  <div className="text-center py-8">
+                    <p>No programs found matching your search criteria.</p>
+                  </div>
+                )}
+              </div>
             </div>
           </TabsContent>
         </Tabs>

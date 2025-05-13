@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 interface ExpandableCardProps {
@@ -26,6 +26,14 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
   
   // Check if this card should be open
   const isExpanded = openSectionId === cardId;
+  
+  // Effect to handle initial expanded state
+  useEffect(() => {
+    // Only set as open if initialExpanded is true and no other section is open
+    if (initialExpanded && !openSectionId) {
+      setOpenSectionId(cardId);
+    }
+  }, []); // Empty dependency array ensures this only runs once on mount
 
   const toggleExpand = () => {
     if (isExpanded) {

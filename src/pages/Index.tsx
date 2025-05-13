@@ -24,6 +24,12 @@ const Index = () => {
     description: "If you are nominated by HEC in February 2026, proceed with document attestation and the medical",
     linkTo: "/documents",
     date: "Until 15 April 2026"
+ }, {
+    title: "March - May 2025",
+    description: "The universities will get in touch with the nominated applicants directly to set a date and conduct the entrance exams from the middle of March until the end of May",
+    linkTo: "/visa",
+    date: "May - July 2025"
+  }, {
   }, {
     title: "Visa Process",
     description: "Apply for your student visa after acceptance",

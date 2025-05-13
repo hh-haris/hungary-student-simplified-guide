@@ -18,7 +18,7 @@ const Index = () => {
     title: "Apply via HEC & Tempus Portal",
     description: "Complete your applications on both the required portals: HEC and Tempus Foundation",
     linkTo: "/apply",
-    date: "December 2025 - 15 January 2026 (Deadline)"
+    date: "December 2025 - 15 January 2026 2 pm (CET) | Deadline"
   }, {
     title: "Document Verification",
     description: "Prepare and verify all required documentation",

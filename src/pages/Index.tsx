@@ -11,7 +11,7 @@ const Index = () => {
     linkTo: "/usat",
   }, {
     title: "Find Your University",
-    description: "Choose Hungarian universities that match your academic profile",
+    description: "Choose your university wisely, taking into account your program of study, academic performance, and your personal preferences.",
     linkTo: "/university-finder",
     date: "January - February 2025"
   }, {

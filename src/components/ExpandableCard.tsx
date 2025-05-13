@@ -9,20 +9,34 @@ interface ExpandableCardProps {
   className?: string;
 }
 
+// Use the same context pattern from ExpandableSection
+import { ExpandableSectionContext } from '@/components/ui/expandable-section';
+
+let cardCounter = 1000; // Start with different ID range than sections
+
 const ExpandableCard: React.FC<ExpandableCardProps> = ({
   title,
   children,
   initialExpanded = false,
   className = '',
 }) => {
-  const [isExpanded, setIsExpanded] = useState(initialExpanded);
+  // Generate a unique ID for this card
+  const [cardId] = useState(() => `card-${cardCounter++}`);
+  const { openSectionId, setOpenSectionId } = React.useContext(ExpandableSectionContext);
+  
+  // Check if this card should be open
+  const isExpanded = openSectionId === cardId;
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    if (isExpanded) {
+      setOpenSectionId(null);
+    } else {
+      setOpenSectionId(cardId);
+    }
   };
 
   return (
-    <div className={`border border-gray-200 rounded-lg overflow-hidden ${className}`}>
+    <div className={`border border-gray-200 rounded-lg overflow-hidden mb-4 ${className}`}>
       <button
         onClick={toggleExpand}
         className="flex items-center justify-between w-full p-4 text-left font-syne font-medium hover:bg-gray-50 transition-colors"

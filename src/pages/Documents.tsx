@@ -9,6 +9,7 @@ import DocumentAttestation from "@/components/documents/DocumentAttestation";
 import MedicalRequirements from "@/components/documents/MedicalRequirements";
 import DocumentFAQs from "@/components/documents/DocumentFAQs";
 import DocumentSidebar from "@/components/documents/DocumentSidebar";
+import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
 
 const Documents = () => {
   // Data for document attestation
@@ -85,51 +86,53 @@ const Documents = () => {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-off-white">
-      <Header />
-      <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <div className="mb-6">
-          <Link to="/apply" className="text-deep-teal hover:underline mb-2 inline-block">
-            &larr; Back to Apply for Scholarship
-          </Link>
-          <h1 className="font-syne font-bold text-3xl md:text-4xl mb-2">Document Verification & Medical Requirements</h1>
-          <p className="text-gray-600">
-            Complete guide to preparing, attesting, and submitting all required documents for your scholarship application
-          </p>
-        </div>
-        
-        <div className="grid gap-8 md:grid-cols-3">
-          {/* Main Content */}
-          <div className="md:col-span-2">
-            <Card className="bg-white shadow-sm">
-              <CardContent className="p-6">
-                <h2 className="font-syne font-semibold text-xl mb-6">Document Attestation Process</h2>
-                <DocumentAttestation steps={attestationSteps} />
-              </CardContent>
-            </Card>
-            
-            {/* Medical Requirements */}
-            <Card className="bg-white shadow-sm mt-8">
-              <CardContent className="p-6">
-                <h2 className="font-syne font-semibold text-xl mb-6">Medical Requirements</h2>
-                <MedicalRequirements medicalTests={medicalTests} />
-              </CardContent>
-            </Card>
-            
-            {/* FAQs Section with tabs */}
-            <div className="mt-8">
-              <DocumentFAQs generalFaqs={generalFaqs} technicalFaqs={technicalFaqs} />
-            </div>
+    <ExpandableSectionProvider>
+      <div className="min-h-screen flex flex-col bg-off-white">
+        <Header />
+        <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
+          <div className="mb-6">
+            <Link to="/apply" className="text-deep-teal hover:underline mb-2 inline-block">
+              &larr; Back to Apply for Scholarship
+            </Link>
+            <h1 className="font-syne font-bold text-3xl md:text-4xl mb-2">Document Verification & Medical Requirements</h1>
+            <p className="text-gray-600">
+              Complete guide to preparing, attesting, and submitting all required documents for your scholarship application
+            </p>
           </div>
           
-          {/* Right Sidebar */}
-          <div>
-            <DocumentSidebar />
+          <div className="grid gap-8 md:grid-cols-3">
+            {/* Main Content */}
+            <div className="md:col-span-2">
+              <Card className="bg-white shadow-sm">
+                <CardContent className="p-6">
+                  <h2 className="font-syne font-semibold text-xl mb-6">Document Attestation Process</h2>
+                  <DocumentAttestation steps={attestationSteps} />
+                </CardContent>
+              </Card>
+              
+              {/* Medical Requirements */}
+              <Card className="bg-white shadow-sm mt-8">
+                <CardContent className="p-6">
+                  <h2 className="font-syne font-semibold text-xl mb-6">Medical Requirements</h2>
+                  <MedicalRequirements medicalTests={medicalTests} />
+                </CardContent>
+              </Card>
+              
+              {/* FAQs Section with tabs */}
+              <div className="mt-8">
+                <DocumentFAQs generalFaqs={generalFaqs} technicalFaqs={technicalFaqs} />
+              </div>
+            </div>
+            
+            {/* Right Sidebar */}
+            <div>
+              <DocumentSidebar />
+            </div>
           </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+        </main>
+        <Footer />
+      </div>
+    </ExpandableSectionProvider>
   );
 };
 

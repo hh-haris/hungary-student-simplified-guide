@@ -123,7 +123,7 @@ const UniversityFinder = () => {
   }, [universitiesError]);
 
   useEffect(() => {
-    // Make program selection required again
+    // Make program selection required again but don't display "required" text
     const allApplied = fscMarks > 0 && usatScore >= 70 && !!selectedProgram;
     setAllFiltersApplied(allApplied);
     
@@ -196,9 +196,6 @@ const UniversityFinder = () => {
             <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
               <div className="flex justify-between mb-6">
                 <h2 className="font-syne font-semibold text-xl">Enter Your Details</h2>
-                <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
-                  Visit Official Site <ExternalLink className="h-4 w-4" />
-                </Button>
               </div>
 
               {loadingUniversities ? (
@@ -247,7 +244,7 @@ const UniversityFinder = () => {
                   </div>
 
                   <div>
-                    <Label htmlFor="program" className="mb-2 block">Program (Required)</Label>
+                    <Label htmlFor="program" className="mb-2 block">Program</Label>
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
                       <Select 
@@ -370,7 +367,12 @@ const UniversityFinder = () => {
           <TabsContent value="programs">
             <div className="bg-white rounded-lg shadow-sm p-5 mb-8">
               <div className="mb-6 space-y-4">
-                <Label htmlFor="program-search" className="mb-2 block">Search Programs</Label>
+                <div className="flex justify-between mb-4">
+                  <Label htmlFor="program-search" className="mb-2 block">Search Programs</Label>
+                  <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
+                    Visit Official Site <ExternalLink className="h-4 w-4" />
+                  </Button>
+                </div>
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input 
@@ -474,6 +476,7 @@ const UniversityFinder = () => {
   );
 };
 
+// This data represents the universities in Hungary
 const universityData: University[] = [
   {
     id: "1",

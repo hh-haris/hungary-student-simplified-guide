@@ -1,5 +1,4 @@
-
-import { Home, Search, FileText, User, Plane, FileCheck, Coffee, Gift, Sparkles } from 'lucide-react';
+import { Home, Search, FileText, User, Plane, Coffee, Gift, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -53,26 +52,10 @@ const Navigation = () => {
           </Link>
         </li>
         <li>
-          <Accordion type="single" collapsible className="w-full">
-            <AccordionItem value="apply" className="border-none">
-              <AccordionTrigger className="py-2 hover:text-accent-orange transition-colors">
-                <div className="flex items-center gap-3">
-                  <FileCheck size={20} />
-                  <span>Apply for Scholarships</span>
-                </div>
-              </AccordionTrigger>
-              <AccordionContent>
-                <ul className="pl-8 space-y-2 py-2">
-                  <li className="hover:text-accent-orange">
-                    <Link to="/apply/tempus">Tempus Portal</Link>
-                  </li>
-                  <li className="hover:text-accent-orange">
-                    <Link to="/apply/hec">HEC Portal</Link>
-                  </li>
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
+          <Link to="/apply" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
+            <FileText size={20} />
+            <span>Apply for Scholarships</span>
+          </Link>
         </li>
         <li>
           <Link to="/seniors" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
@@ -84,12 +67,6 @@ const Navigation = () => {
           <Link to="/visa" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
             <Plane size={20} />
             <span>Visa Process</span>
-          </Link>
-        </li>
-        <li>
-          <Link to="/documents" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
-            <FileText size={20} />
-            <span>Document & Medical Guide</span>
           </Link>
         </li>
         <li>

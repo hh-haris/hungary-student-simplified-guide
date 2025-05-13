@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -22,12 +21,10 @@ import VisaProcess from "./pages/VisaProcess";
 import FirstMonth from "./pages/FirstMonth";
 import AlternativeScholarships from "./pages/AlternativeScholarships";
 import LetterOfMotivation from "./pages/LetterOfMotivation";
-import AdminDashboard from "./pages/AdminDashboard";
 import UpcomingFeatures from "./pages/UpcomingFeatures";
 import NotFound from "./pages/NotFound";
 
 const App = () => {
-  // Create a QueryClient outside of the render function
   const [queryClient] = useState(() => new QueryClient());
   
   return (
@@ -59,9 +56,7 @@ const App = () => {
             <Route path="/alternative" element={<AlternativeScholarships />} />
             <Route path="/alternative-scholarships" element={<AlternativeScholarships />} />
             <Route path="/letter-of-motivation" element={<LetterOfMotivation />} />
-            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/upcoming-features" element={<UpcomingFeatures />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

@@ -227,7 +227,7 @@ const LetterOfMotivation = () => {
                     <SelectValue placeholder="All Programs" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Programs</SelectItem>
+                    <SelectItem value="all">All Programs</SelectItem>
                     <SelectItem value="Engineering">Engineering</SelectItem>
                     <SelectItem value="Medicine">Medicine</SelectItem>
                     <SelectItem value="Computer Science">Computer Science</SelectItem>

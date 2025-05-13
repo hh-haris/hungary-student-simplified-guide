@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDown } from 'lucide-react';
 
 interface ExpandableCardProps {
@@ -7,19 +7,76 @@ interface ExpandableCardProps {
   children: React.ReactNode;
   initialExpanded?: boolean;
   className?: string;
+  groupId?: string;
 }
+
+// Global state to track open cards by group
+const openCardsMap = new Map<string, string>();
 
 const ExpandableCard: React.FC<ExpandableCardProps> = ({
   title,
   children,
   initialExpanded = false,
   className = '',
+  groupId = 'default',
 }) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
+  const cardId = React.useId();
+
+  useEffect(() => {
+    // On mount, register this card if it's open by default
+    if (initialExpanded) {
+      openCardsMap.set(groupId, cardId);
+    }
+    
+    // Clean up when component unmounts
+    return () => {
+      if (openCardsMap.get(groupId) === cardId) {
+        openCardsMap.delete(groupId);
+      }
+    };
+  }, []);
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    const newExpandedState = !isExpanded;
+    
+    if (newExpandedState) {
+      // Close other cards in the same group
+      const currentlyOpenId = openCardsMap.get(groupId);
+      if (currentlyOpenId && currentlyOpenId !== cardId) {
+        // Notify other cards to close
+        const event = new CustomEvent('card-expanded', { 
+          detail: { groupId, newOpenId: cardId } 
+        });
+        document.dispatchEvent(event);
+      }
+      
+      // Set this one as open in the map
+      openCardsMap.set(groupId, cardId);
+    } else {
+      // Remove from map if it's closed and was the open one
+      if (openCardsMap.get(groupId) === cardId) {
+        openCardsMap.delete(groupId);
+      }
+    }
+    
+    setIsExpanded(newExpandedState);
   };
+
+  // Listen for events from other cards in the same group
+  useEffect(() => {
+    const handleCardExpanded = (e: Event) => {
+      const detail = (e as CustomEvent).detail;
+      if (detail.groupId === groupId && detail.newOpenId !== cardId) {
+        setIsExpanded(false);
+      }
+    };
+    
+    document.addEventListener('card-expanded', handleCardExpanded);
+    return () => {
+      document.removeEventListener('card-expanded', handleCardExpanded);
+    };
+  }, [groupId, cardId]);
 
   return (
     <div className={`border border-gray-200 rounded-lg overflow-hidden ${className}`}>

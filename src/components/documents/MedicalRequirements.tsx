@@ -14,7 +14,7 @@ interface MedicalRequirementsProps {
 const MedicalRequirements = ({ medicalTests }: MedicalRequirementsProps) => {
   return (
     <>
-      <ExpandableSection title="Required Medical Tests" defaultOpen={true}>
+      <ExpandableSection title="Required Medical Tests" defaultOpen={true} className="mb-4">
         <div className="mb-6">
           <div className="bg-gray-50 p-4 rounded-md mb-4">
             <h4 className="font-medium mb-2">General Information</h4>
@@ -42,7 +42,7 @@ const MedicalRequirements = ({ medicalTests }: MedicalRequirementsProps) => {
         </div>
       </ExpandableSection>
       
-      <ExpandableSection title="Submission Process">
+      <ExpandableSection title="Submission Process" className="mb-4">
         <ul className="space-y-2 list-disc pl-4 text-gray-700">
           <li>Medical certificates should be submitted with your visa application</li>
           <li>The certificate should not be older than 3 months at the time of visa application</li>
@@ -56,7 +56,7 @@ const MedicalRequirements = ({ medicalTests }: MedicalRequirementsProps) => {
         </div>
       </ExpandableSection>
       
-      <ExpandableSection title="Finding a Medical Center">
+      <ExpandableSection title="Finding a Medical Center" className="mb-4">
         <p className="text-gray-700 mb-3">
           It's recommended to get your medical examination done at a recognized medical center or hospital. Here are some options:
         </p>

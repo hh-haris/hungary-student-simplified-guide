@@ -7,7 +7,7 @@ import { ArrowRight, BookOpen, Bell } from "lucide-react";
 const Index = () => {
   const timelineSteps = [{
     title: "USAT",
-    description: "First step: Pass the Universities & Standardised Admissions Test",
+    description: "The USAT is a mandatory test for the Stipendium Hungaricum scholarship, based on which HEC will nominate candidates.",
     linkTo: "/usat",
     date: "November 2024 - January 2025"
   }, {

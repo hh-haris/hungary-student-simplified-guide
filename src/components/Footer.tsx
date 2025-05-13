@@ -1,8 +1,8 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ChevronDown } from 'lucide-react';
 
 const Footer = () => {
   const [showCommunityInfo, setShowCommunityInfo] = useState(false);
@@ -59,7 +59,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/alternative-scholarships" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                    <Link to="/alternative" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
                       Alternative Scholarships
                     </Link>
                   </li>
@@ -123,7 +123,7 @@ const Footer = () => {
                       </Link>
                     </li>
                     <li>
-                      <Link to="/alternative-scholarships" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
+                      <Link to="/alternative" className="text-sm text-gray-500 hover:text-deep-teal transition-colors">
                         Alternative Scholarships
                       </Link>
                     </li>
@@ -134,29 +134,28 @@ const Footer = () => {
           </div>
           
           <div>
-            <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="community" className="border-none">
-                <AccordionTrigger className="p-0 text-left font-syne font-bold text-lg">
-                  Join Our Community
-                </AccordionTrigger>
-                <AccordionContent>
-                  <div className="space-y-3 mt-3">
-                    <p className="text-sm text-gray-500">
-                      Connect with fellow students and get personalized assistance for your Stipendium Hungaricum application.
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      <span className="font-medium">Active members:</span> 1,200+
-                    </p>
-                    <p className="text-sm text-gray-500 mb-4">
-                      <span className="font-medium">Why join:</span> Get real-time updates, connect with seniors, and receive personalized guidance.
-                    </p>
-                    <Button className="bg-deep-teal hover:bg-deep-teal/90 text-white backdrop-blur-sm">
-                      Join WhatsApp Group
-                    </Button>
-                  </div>
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+            <h3 className="font-syne font-bold text-lg mb-4" onClick={() => setShowCommunityInfo(!showCommunityInfo)} style={{ cursor: 'pointer' }}>
+              Join Our Community
+              <span className="ml-2 text-xs">{showCommunityInfo ? '▲' : '▼'}</span>
+            </h3>
+            
+            {showCommunityInfo ? (
+              <div className="space-y-3 animate-fade-in">
+                <p className="text-sm text-gray-500 mb-2">
+                  Connect with fellow students and get personalized assistance for your Stipendium Hungaricum application.
+                </p>
+                <p className="text-sm text-gray-500 mb-2">
+                  <span className="font-medium">Active members:</span> 1,200+
+                </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  <span className="font-medium">Why join:</span> Get real-time updates, connect with seniors, and receive personalized guidance.
+                </p>
+              </div>
+            ) : (
+              <Button className="bg-deep-teal hover:bg-deep-teal/90 text-white backdrop-blur-sm">
+                Join WhatsApp Group
+              </Button>
+            )}
           </div>
         </div>
         

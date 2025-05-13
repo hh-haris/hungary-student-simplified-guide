@@ -10,7 +10,7 @@ const Index = () => {
     description: "The USAT is a mandatory test for the Stipendium Hungaricum scholarship, based on which HEC will nominate candidates.",
     linkTo: "/usat",
   }, {
-    title: "University Selection",
+    title: "Find Your University",
     description: "Choose Hungarian universities that match your academic profile",
     linkTo: "/university-finder",
     date: "January - February 2025"

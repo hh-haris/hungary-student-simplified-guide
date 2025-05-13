@@ -15,7 +15,7 @@ const Index = () => {
     linkTo: "/university-finder",
     date: "November - December 2025"
   }, {
-    title: "Apply via Tempus & HEC",
+    title: "Apply via HEC & Tempus Portal",
     description: "Complete your applications through both required portals",
     linkTo: "/apply",
     date: "February 2025"

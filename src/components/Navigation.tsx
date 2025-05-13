@@ -1,5 +1,5 @@
 
-import { Home, Search, FileText, User, Plane, FileCheck, Coffee, Gift } from 'lucide-react';
+import { Home, Search, FileText, User, Plane, FileCheck, Coffee, Gift, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -102,6 +102,12 @@ const Navigation = () => {
           <Link to="/alternative" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
             <Gift size={20} />
             <span>Alternative Scholarships</span>
+          </Link>
+        </li>
+        <li>
+          <Link to="/upcoming-features" className="flex items-center gap-3 py-2 hover:text-accent-orange transition-colors">
+            <Sparkles size={20} />
+            <span>Upcoming Features</span>
           </Link>
         </li>
       </ul>

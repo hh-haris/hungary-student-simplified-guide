@@ -33,7 +33,7 @@ const ExpandableCard: React.FC<ExpandableCardProps> = ({
     if (initialExpanded && !openSectionId) {
       setOpenSectionId(cardId);
     }
-  }, []); // Empty dependency array ensures this only runs once on mount
+  }, [initialExpanded, openSectionId, cardId, setOpenSectionId]); // Added all dependencies
 
   const toggleExpand = () => {
     if (isExpanded) {

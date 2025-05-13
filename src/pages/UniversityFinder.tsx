@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -10,12 +11,11 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
-import { AlertCircle, ExternalLink, Loader2, Search } from "lucide-react";
+import { AlertCircle, Loader2, Search } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ExpandableSection from "@/components/ui/expandable-section";
+import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
 
 // Define types for our data
 interface University {
@@ -29,42 +29,8 @@ interface University {
   image_url?: string;
 }
 
-interface Program {
-  id: string;
-  name: string;
-  degree_level: string;
-  field_of_study: string;
-  language: string;
-  credit_hours?: number;
-  duration?: string;
-  university_name?: string;
-  faculty?: string;
-  location?: string;
-}
-
 // Import the full program dataset
 import { fullProgramData } from "@/data/programsData";
-
-// Define all the available fields of study
-const availableFields = [
-  "Agricultural Sciences",
-  "Arts",
-  "Arts and Humanities",
-  "Computer Science",
-  "Economics",
-  "Education",
-  "Engineering",
-  "Health Sciences",
-  "Humanities",
-  "Informatics",
-  "Medical Sciences",
-  "Natural Sciences",
-  "Political Science",
-  "Social Sciences",
-  "Sports Science",
-  "Teacher Training",
-  "Theology"
-];
 
 const UniversityFinder = () => {
   const [fscMarks, setFscMarks] = useState(75);
@@ -76,12 +42,8 @@ const UniversityFinder = () => {
   const [filteredFirstChoice, setFilteredFirstChoice] = useState<University[]>([]);
   const [filteredSecondChoice, setFilteredSecondChoice] = useState<University[]>([]);
   const [allFiltersApplied, setAllFiltersApplied] = useState(false);
-  const [activeTab, setActiveTab] = useState("finder");
   
   // Search states
-  const [programSearchQuery, setProgramSearchQuery] = useState("");
-  const [selectedField, setSelectedField] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("");
   const [programFinderSearchQuery, setProgramFinderSearchQuery] = useState("");
 
   // Fetch universities from Supabase or use local data
@@ -102,12 +64,6 @@ const UniversityFinder = () => {
       }
     }
   });
-
-  // Use the full program dataset directly
-  const programData = fullProgramData;
-
-  // Extract unique cities from the university data
-  const allCities = [...new Set(universityData.map(uni => uni.city))].sort();
 
   // Show error toast if there are any fetch errors
   useEffect(() => {
@@ -158,20 +114,8 @@ const UniversityFinder = () => {
     }
   };
 
-  // Create unique lists for filters
-  const programFields = [...new Set(programData.map(p => p.field_of_study))].sort();
-  
-  // Filter programs based on search, field and city
-  const filteredPrograms = programData.filter(program => {
-    const matchesSearch = program.name.toLowerCase().includes(programSearchQuery.toLowerCase());
-    const matchesField = selectedField ? program.field_of_study === selectedField : true;
-    const matchesCity = selectedCity ? program.location === selectedCity : true;
-    
-    return matchesSearch && matchesField && matchesCity;
-  });
-
   // Create a unique list of program names for the finder dropdown
-  const uniquePrograms = [...new Set(programData.map(p => p.name))].sort();
+  const uniquePrograms = [...new Set(fullProgramData.map(p => p.name))].sort();
 
   // Filter programs for the finder search box
   const programsForFinder = uniquePrograms.filter(program => 
@@ -182,289 +126,192 @@ const UniversityFinder = () => {
     <div className="min-h-screen flex flex-col bg-off-white">
       <Header />
       <main className="flex-grow container mx-auto px-4 py-6 md:py-10">
-        <h1 className="font-syne font-bold text-3xl mb-8">University Database</h1>
+        <h1 className="font-syne font-bold text-3xl mb-8">University Finder</h1>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="w-full mb-6">
-            <TabsTrigger value="finder" className="flex-1">University Finder</TabsTrigger>
-            <TabsTrigger value="programs" className="flex-1">Programs</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="finder">
-            <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
-              <div className="flex justify-between mb-6">
-                <h2 className="font-syne font-semibold text-xl">Enter Your Details</h2>
+        <ExpandableSectionProvider>
+          <div className="bg-white rounded-lg shadow-sm p-5 mb-8 backdrop-blur-sm bg-white/70">
+            <div className="flex justify-between mb-6">
+              <h2 className="font-syne font-semibold text-xl">Enter Your Details</h2>
+            </div>
+
+            {loadingUniversities ? (
+              <div className="flex justify-center items-center py-8">
+                <Loader2 className="h-8 w-8 animate-spin text-deep-teal" />
+                <span className="ml-2">Loading data...</span>
               </div>
-
-              {loadingUniversities ? (
-                <div className="flex justify-center items-center py-8">
-                  <Loader2 className="h-8 w-8 animate-spin text-deep-teal" />
-                  <span className="ml-2">Loading data...</span>
+            ) : (
+              <div className="space-y-6">
+                <div>
+                  <Label className="mb-2 block">FSc Marks (%): {fscMarks}</Label>
+                  <Slider
+                    defaultValue={[75]}
+                    max={100}
+                    min={50}
+                    step={1}
+                    onValueChange={(val) => setFscMarks(val[0])}
+                    className="mb-2"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>50%</span>
+                    <span>100%</span>
+                  </div>
                 </div>
-              ) : (
-                <div className="space-y-6">
-                  <div>
-                    <Label className="mb-2 block">FSc Marks (%): {fscMarks}</Label>
-                    <Slider
-                      defaultValue={[75]}
-                      max={100}
-                      min={50}
-                      step={1}
-                      onValueChange={(val) => setFscMarks(val[0])}
-                      className="mb-2"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>50%</span>
-                      <span>100%</span>
-                    </div>
-                  </div>
 
-                  <div>
-                    <Label className="mb-2 block">USAT Score: {usatScore}</Label>
-                    <Slider
-                      defaultValue={[85]}
-                      max={100}
-                      min={70}
-                      step={1}
-                      onValueChange={(val) => setUsatScore(val[0])}
-                      className="mb-2"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500">
-                      <span>70</span>
-                      <span>100</span>
-                    </div>
-                    {showWarning && (
-                      <p className="text-amber-600 text-sm mt-1">
-                        <AlertCircle className="inline-block h-4 w-4 mr-1" />
-                        We recommend improving your USAT score to 75+ for better chances
-                      </p>
-                    )}
+                <div>
+                  <Label className="mb-2 block">USAT Score: {usatScore}</Label>
+                  <Slider
+                    defaultValue={[85]}
+                    max={100}
+                    min={70}
+                    step={1}
+                    onValueChange={(val) => setUsatScore(val[0])}
+                    className="mb-2"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>70</span>
+                    <span>100</span>
                   </div>
+                  {showWarning && (
+                    <p className="text-amber-600 text-sm mt-1">
+                      <AlertCircle className="inline-block h-4 w-4 mr-1" />
+                      We recommend improving your USAT score to 75+ for better chances
+                    </p>
+                  )}
+                </div>
 
-                  <div>
-                    <Label htmlFor="program" className="mb-2 block">Program</Label>
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
-                      <Select 
-                        onValueChange={(value) => setSelectedProgram(value)} 
-                        value={selectedProgram}
-                      >
-                        <SelectTrigger id="program-select" className="w-full bg-white pl-10">
-                          <SelectValue placeholder="Select program" />
-                        </SelectTrigger>
-                        <SelectContent className="max-h-[300px] bg-white">
-                          <Input
-                            placeholder="Search programs..."
-                            className="mb-2 sticky top-0"
-                            value={programFinderSearchQuery}
-                            onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
-                          />
-                          <ScrollArea className="h-[300px]">
-                            {programsForFinder.map((program) => (
-                              <SelectItem key={program} value={program}>{program}</SelectItem>
-                            ))}
-                          </ScrollArea>
-                        </SelectContent>
-                      </Select>
-                    </div>
+                <div>
+                  <Label htmlFor="program" className="mb-2 block">Program</Label>
+                  <div className="relative">
+                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
+                    <Select 
+                      onValueChange={(value) => setSelectedProgram(value)} 
+                      value={selectedProgram}
+                    >
+                      <SelectTrigger id="program-select" className="w-full bg-white pl-10">
+                        <SelectValue placeholder="Select program" />
+                      </SelectTrigger>
+                      <SelectContent className="max-h-[300px] bg-white">
+                        <Input
+                          placeholder="Search programs..."
+                          className="mb-2 sticky top-0"
+                          value={programFinderSearchQuery}
+                          onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
+                        />
+                        <ScrollArea className="h-[300px]">
+                          {programsForFinder.map((program) => (
+                            <SelectItem key={program} value={program}>{program}</SelectItem>
+                          ))}
+                        </ScrollArea>
+                      </SelectContent>
+                    </Select>
                   </div>
+                </div>
 
-                  <Button 
-                    className={`w-full ${
-                      allFiltersApplied 
-                        ? "bg-accent-orange hover:bg-accent-orange/90" 
-                        : "bg-gray-300 hover:bg-gray-300 cursor-not-allowed"
-                    } text-white`}
-                    onClick={handleFind}
-                    disabled={!allFiltersApplied}
-                  >
-                    Find Universities
-                  </Button>
+                <Button 
+                  className={`w-full ${
+                    allFiltersApplied 
+                      ? "bg-accent-orange hover:bg-accent-orange/90" 
+                      : "bg-gray-300 hover:bg-gray-300 cursor-not-allowed"
+                  } text-white`}
+                  onClick={handleFind}
+                  disabled={!allFiltersApplied}
+                >
+                  Find Universities
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {showResults && (
+            <div>
+              {showNominationWarning && (
+                <Alert className="mb-6 bg-red-50 border-red-200">
+                  <AlertCircle className="h-4 w-4 text-red-800" />
+                  <AlertDescription className="text-red-800">
+                    With a USAT score below 72, there are very low chances of nomination. We strongly recommend improving your score.
+                  </AlertDescription>
+                </Alert>
+              )}
+              {showWarning && !showNominationWarning && (
+                <Alert className="mb-6 bg-amber-50 border-amber-200">
+                  <AlertCircle className="h-4 w-4 text-amber-800" />
+                  <AlertDescription className="text-amber-800">
+                    We recommend improving your USAT score to 75+ to enhance your nomination chances for competitive programs.
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {filteredFirstChoice.length > 0 && (
+                <>
+                  <h2 className="font-syne font-semibold text-xl mb-4">First Preference Universities</h2>
+                  <div className="space-y-4 mb-8">
+                    {filteredFirstChoice.map((university) => (
+                      <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
+                        <CardContent className="p-5">
+                          <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
+                          <p className="text-light-teal mb-3">{university.city}</p>
+                          <p className="text-gray-600 mb-4">{university.intro}</p>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
+                            <Link to={`/universities/${getUniversityId(university.name)}`}>
+                              <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
+                            </Link>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </>
+              )}
+              
+              {filteredSecondChoice.length > 0 && (
+                <>
+                  <h2 className="font-syne font-semibold text-xl mb-4">Second Preference Universities</h2>
+                  <div className="space-y-4">
+                    {filteredSecondChoice.map((university) => (
+                      <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
+                        <CardContent className="p-5">
+                          <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
+                          <p className="text-light-teal mb-3">{university.city}</p>
+                          <p className="text-gray-600 mb-4">{university.intro}</p>
+                          <div className="flex justify-between items-center">
+                            <span className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
+                            <Link to={`/universities/${getUniversityId(university.name)}`}>
+                              <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
+                            </Link>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </>
+              )}
+
+              {filteredFirstChoice.length === 0 && filteredSecondChoice.length === 0 && (
+                <div className="text-center py-8">
+                  <h3 className="font-syne font-bold text-xl mb-3">No Matching Universities</h3>
+                  <p className="text-gray-600 mb-4">
+                    No universities match your criteria. Try adjusting your USAT score or program selection.
+                  </p>
                 </div>
               )}
             </div>
-
-            {showResults && (
-              <div>
-                {showNominationWarning && (
-                  <Alert className="mb-6 bg-red-50 border-red-200">
-                    <AlertCircle className="h-4 w-4 text-red-800" />
-                    <AlertDescription className="text-red-800">
-                      With a USAT score below 72, there are very low chances of nomination. We strongly recommend improving your score.
-                    </AlertDescription>
-                  </Alert>
-                )}
-                {showWarning && !showNominationWarning && (
-                  <Alert className="mb-6 bg-amber-50 border-amber-200">
-                    <AlertCircle className="h-4 w-4 text-amber-800" />
-                    <AlertDescription className="text-amber-800">
-                      We recommend improving your USAT score to 75+ to enhance your nomination chances for competitive programs.
-                    </AlertDescription>
-                  </Alert>
-                )}
-
-                {filteredFirstChoice.length > 0 && (
-                  <>
-                    <h2 className="font-syne font-semibold text-xl mb-4">First Preference Universities</h2>
-                    <div className="space-y-4 mb-8">
-                      {filteredFirstChoice.map((university) => (
-                        <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
-                          <CardContent className="p-5">
-                            <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
-                            <p className="text-light-teal mb-3">{university.city}</p>
-                            <p className="text-gray-600 mb-4">{university.intro}</p>
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
-                              <Link to={`/universities/${university.id}`}>
-                                <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
-                              </Link>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </>
-                )}
-                
-                {filteredSecondChoice.length > 0 && (
-                  <>
-                    <h2 className="font-syne font-semibold text-xl mb-4">Second Preference Universities</h2>
-                    <div className="space-y-4">
-                      {filteredSecondChoice.map((university) => (
-                        <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
-                          <CardContent className="p-5">
-                            <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
-                            <p className="text-light-teal mb-3">{university.city}</p>
-                            <p className="text-gray-600 mb-4">{university.intro}</p>
-                            <div className="flex justify-between items-center">
-                              <span className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
-                              <Link to={`/universities/${university.id}`}>
-                                <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
-                              </Link>
-                            </div>
-                          </CardContent>
-                        </Card>
-                      ))}
-                    </div>
-                  </>
-                )}
-
-                {filteredFirstChoice.length === 0 && filteredSecondChoice.length === 0 && (
-                  <div className="text-center py-8">
-                    <h3 className="font-syne font-bold text-xl mb-3">No Matching Universities</h3>
-                    <p className="text-gray-600 mb-4">
-                      No universities match your criteria. Try adjusting your USAT score or program selection.
-                    </p>
-                  </div>
-                )}
-              </div>
-            )}
-          </TabsContent>
-          
-          <TabsContent value="programs">
-            <div className="bg-white rounded-lg shadow-sm p-5 mb-8">
-              <div className="mb-6 space-y-4">
-                <div className="flex justify-between mb-4">
-                  <Label htmlFor="program-search" className="mb-2 block">Search Programs</Label>
-                  <Button variant="outline" className="flex items-center gap-1" onClick={() => window.open("https://studyinhungary.hu/study-in-hungary/menu/find-a-study-programme/study-finder.html", "_blank")}>
-                    Visit Official Site <ExternalLink className="h-4 w-4" />
-                  </Button>
-                </div>
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input 
-                    id="program-search" 
-                    placeholder="Search by program name..." 
-                    className="pl-10"
-                    value={programSearchQuery}
-                    onChange={(e) => setProgramSearchQuery(e.target.value)}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="field-filter">Field of Study</Label>
-                    <Select onValueChange={(value) => setSelectedField(value)} value={selectedField}>
-                      <SelectTrigger id="field-filter" className="w-full bg-white">
-                        <SelectValue placeholder="Select Field" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-[300px] bg-white">
-                        {availableFields.map(field => (
-                          <SelectItem key={field} value={field}>{field}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="city-filter">City</Label>
-                    <Select onValueChange={(value) => setSelectedCity(value)} value={selectedCity}>
-                      <SelectTrigger id="city-filter" className="w-full bg-white">
-                        <SelectValue placeholder="Select City" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-[300px] bg-white">
-                        {allCities.map(city => (
-                          <SelectItem key={city} value={city}>{city}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <p className="text-sm text-gray-500 mb-2">Showing {filteredPrograms.length} of {programData.length} programs</p>
-                {filteredPrograms.length > 0 ? filteredPrograms.map((program) => (
-                  <ExpandableSection 
-                    key={program.id} 
-                    title={program.name}
-                    className="hover:shadow-sm"
-                  >
-                    <div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Degree Level:</span> {program.degree_level}
-                      </div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Field of Study:</span> {program.field_of_study}
-                      </div>
-                      <div className="mb-2">
-                        <span className="font-semibold">Language:</span> {program.language}
-                      </div>
-                      {program.duration && (
-                        <div className="mb-2">
-                          <span className="font-semibold">Duration:</span> {program.duration}
-                        </div>
-                      )}
-                      {program.university_name && (
-                        <div className="mb-2">
-                          <span className="font-semibold">University:</span> {program.university_name}
-                        </div>
-                      )}
-                      {program.faculty && (
-                        <div className="mb-2">
-                          <span className="font-semibold">Faculty:</span> {program.faculty}
-                        </div>
-                      )}
-                      {program.location && (
-                        <div>
-                          <span className="font-semibold">Location:</span> {program.location}
-                        </div>
-                      )}
-                    </div>
-                  </ExpandableSection>
-                )) : (
-                  <div className="text-center py-8">
-                    <p>No programs found matching your search criteria.</p>
-                  </div>
-                )}
-              </div>
-            </div>
-          </TabsContent>
-        </Tabs>
+          )}
+        </ExpandableSectionProvider>
       </main>
       <Footer />
     </div>
   );
+};
+
+// Helper function to convert university name to URL slug
+const getUniversityId = (name: string): string => {
+  if (name.includes("Budapest University of Technology")) return "bme";
+  if (name.includes("University of Debrecen")) return "debrecen";
+  if (name.includes("University of Pécs")) return "pecs";
+  
+  // Default fallback - convert name to lowercase slug
+  return name.toLowerCase().replace(/\s+/g, '-');
 };
 
 // This data represents the universities in Hungary

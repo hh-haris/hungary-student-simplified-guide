@@ -52,7 +52,7 @@ const ExpandableSection: React.FC<ExpandableSectionProps> = ({
     if (defaultOpen && !openSectionId) {
       setOpenSectionId(sectionId);
     }
-  }, []); // Empty dependency array ensures this only runs once on mount
+  }, [defaultOpen, openSectionId, sectionId, setOpenSectionId]); // Added all dependencies
   
   const handleToggle = (open: boolean) => {
     if (open) {

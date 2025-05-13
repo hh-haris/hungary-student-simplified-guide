@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, BookOpen, Bell } from "lucide-react";
 const Index = () => {
   const timelineSteps = [{
-    title: "USAT",
+    title: "USAT Exam",
     description: "First step: Pass the Universities & Standardised Admissions Test",
     linkTo: "/usat",
     date: "November 2024 - January 2025"

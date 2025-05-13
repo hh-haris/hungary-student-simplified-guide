@@ -21,7 +21,7 @@ const Index = () => {
     date: "December 2025 - 15 January 2026 2 pm CET (Deadline)"
   }, {
     title: "Document Attestation",
-    description: "Prepare and verify all required documentation",
+    description: "If you are nominated by HEC in February 2026, proceed with document attestation and the medical",
     linkTo: "/documents",
     date: "February - March 2025"
   }, {

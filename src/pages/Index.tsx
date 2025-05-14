@@ -32,7 +32,7 @@ const Index = () => {
  
   }, {
     title: "Visa Process",
-    description: "Apply for your student visa after acceptance",
+    description: "Start your visa process once the Tempus Foundation makes the final scholarship decision and the award is granted.",
     linkTo: "/visa",
     date: "May - July 2025"
   }, {

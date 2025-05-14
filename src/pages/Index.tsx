@@ -51,7 +51,7 @@ const Index = () => {
             The Ultimate Guide to <span className="text-accent-orange">SH</span> Scholarship
           </h1>
           <p className="text-gray-700 max-w-2xl mx-auto mb-8">
-            A comprehensive guide for Pakistani students applying to the Stipendium Hungaricum scholarship program.
+            This guidance website helps students in this group by offering complete support—from knowing nothing to settling in during their first month in Hungary.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Button asChild className="bg-accent-orange hover:bg-accent-orange/90 text-white rounded-full shadow-md backdrop-blur-sm">

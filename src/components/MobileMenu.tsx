@@ -24,7 +24,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     { name: "Visa Process", path: "/visa" },
     { name: "Document & Medical Guide", path: "/documents" },
     { name: "First Month in Hungary", path: "/first-month" },
-    { name: "Alternative Scholarships", path: "/alternative" },
+    { name: "Alternative Scholarships", path: "/alternative-scholarships" },
   ];
 
   return (

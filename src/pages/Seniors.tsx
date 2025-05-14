@@ -24,7 +24,7 @@ const seniors = [
     advice: "No Data",
     background: "From Haripur",
     email: null,
-    whatsapp: "+9234567890",
+    whatsapp: "No Data",
     availableInGroup: true,
     isAdmin: false,
     inHungary: true

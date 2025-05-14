@@ -47,7 +47,7 @@ const UsatGuide = () => {
       title: "First USAT",
       details: {
         startDate: "November 15, 2024",
-        startDate: "November 15, 2024",
+        endDate: "November 15, 2024",
       }
     },
     {

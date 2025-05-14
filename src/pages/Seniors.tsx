@@ -43,8 +43,8 @@ const seniors = [
     advice: "No Data",
     background: "No Data",
     email: "No Data",
-    whatsapp: null,
-    availableInGroup: false,
+    whatsapp: false,
+    availableInGroup: true,
     isAdmin: false,
     inHungary: true
   },

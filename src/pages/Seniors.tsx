@@ -409,7 +409,7 @@ const Seniors = () => {
           <div className="backdrop-blur-sm bg-white/40 rounded-lg p-6 border border-gray-100 max-w-3xl mx-auto">
             <div className="flex items-center justify-center mb-4">
               <Heart className="h-5 w-5 text-accent-orange mr-2" />
-              <h2 className="font-syne font-medium text-xl">In the Eyes of the Creator</h2>
+              <h2 className="font-syne font-medium text-xl">Meet the Creator</h2>
             </div>
             <p className="text-center text-gray-700 italic">
               "Created to simplify access to higher education in Hungary for Pakistani students."

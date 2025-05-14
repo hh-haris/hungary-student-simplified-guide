@@ -61,7 +61,6 @@ const UsatGuide = () => {
     {
       id: "3-usat",
       title: "Third USAT",
-      date: "January 2025",
       details: {
         startDate: "January 10, 2025",
         endDate: "January 15, 2025",
@@ -71,7 +70,6 @@ const UsatGuide = () => {
     {
       id: "4-usat",
       title: "Fourth USAT",
-      date: "February 2025",
       details: {
         endDate: "January 31, 2025",
         notes: "Results will be available on the HEC portal. You'll receive an email notification."

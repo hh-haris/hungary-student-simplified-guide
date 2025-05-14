@@ -48,7 +48,7 @@ const Index = () => {
       <section className="bg-gradient-to-r from-deep-teal/5 to-accent-orange/5 py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-syne font-bold text-4xl md:text-5xl mb-6 text-deep-teal">
-            Your Path to <span className="text-accent-orange">Hungarian</span> Education
+            The Ultimate Guide to <span className="text-accent-orange">SH</span> Scholarship
           </h1>
           <p className="text-gray-700 max-w-2xl mx-auto mb-8">
             A comprehensive guide for Pakistani students applying to the Stipendium Hungaricum scholarship program.

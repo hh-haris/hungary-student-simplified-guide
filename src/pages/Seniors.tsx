@@ -412,7 +412,7 @@ const Seniors = () => {
               <h2 className="font-syne font-medium text-xl">Meet the Creator</h2>
             </div>
             <p className="text-center text-gray-700 italic">
-              "Created to simplify access to higher education in Hungary for Pakistani students."
+              "I built this website with a sincere intention to help students, expecting no credit. When I joined the group, it had very few members and most of us knew almost nothing about the SH scholarship."
             </p>
           </div>
         </div>

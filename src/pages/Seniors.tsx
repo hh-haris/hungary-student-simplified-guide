@@ -311,7 +311,7 @@ const Seniors = () => {
         <div>
           <h2 className="font-syne font-bold text-2xl mb-4 text-deep-teal flex items-center">
             <Users className="h-6 w-6 mr-2 text-accent-orange" />
-            Current Students
+            Our Seniors in Hungary
           </h2>
           
           <div className="grid gap-6 md:grid-cols-2">

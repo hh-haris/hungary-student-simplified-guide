@@ -12,7 +12,7 @@ const seniors = [
   
   {
     id: 2,
-    name: "sabahat aly",
+    name: "Sabahat aly",
     picture: "/placeholder.svg", // Using placeholder
     program: "No Data",
     university: "University of Debrecen",

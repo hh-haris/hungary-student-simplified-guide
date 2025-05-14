@@ -54,25 +54,24 @@ const UsatGuide = () => {
       id: "2-usat",
       title: "Second USAT",
       details: {
-        endDate: "December 20, 2024",
-        notes: "All registrations must be completed by this date. No extensions will be provided."
+        startDate: "November 15, 2024",
+        endDate: "November 15, 2024",
       }
     },
     {
       id: "3-usat",
       title: "Third USAT",
       details: {
-        startDate: "January 10, 2025",
-        endDate: "January 15, 2025",
-        notes: "Exact test date and time will be communicated via your roll number slip."
+        startDate: "November 15, 2024",
+        endDate: "November 15, 2024",
       }
     },
     {
       id: "4-usat",
       title: "Fourth USAT",
       details: {
-        endDate: "January 31, 2025",
-        notes: "Results will be available on the HEC portal. You'll receive an email notification."
+       startDate: "November 15, 2024",
+        endDate: "November 15, 2024",
       }
     }
   ];

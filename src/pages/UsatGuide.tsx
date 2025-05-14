@@ -46,7 +46,7 @@ const UsatGuide = () => {
       id: "1-usat",
       title: "First USAT",
       details: {
-        startDate: "November 15, 2024"
+        startDate: "November 15, 2024",
         startDate: "November 15, 2024",
       }
     },

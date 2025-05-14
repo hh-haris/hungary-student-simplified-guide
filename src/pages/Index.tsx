@@ -34,7 +34,7 @@ const Index = () => {
     title: "Visa Process",
     description: "Start your visa process once the Tempus Foundation makes the final scholarship decision and the award is granted.",
     linkTo: "/visa",
-    date: "August 2026"
+    date: "August - November 2026"
   }, {
     title: "Prepare for Hungary",
     description: "After receiving your visa, prepare for your journey by booking your ticket and completing all necessary steps. This includes what to do before departure and what to take care of after arriving in Hungary.",

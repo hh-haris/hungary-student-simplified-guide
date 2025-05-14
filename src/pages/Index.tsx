@@ -11,7 +11,7 @@ const Index = () => {
     linkTo: "/usat",
   }, {
     title: "Find Your University",
-    description: "Choose your university wisely, taking into account your program of study, academic performance, and your personal preferences.",
+    description: "Choose your university carefully by considering your desired program, your USAT marks, and your personal goals or preferences to make the best decision.",
     linkTo: "/university-finder",
     date: "November - December 2025"
   }, {

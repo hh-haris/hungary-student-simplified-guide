@@ -39,7 +39,7 @@ const Index = () => {
     title: "Prepare for Hungary",
     description: "After receiving your visa, prepare for your journey by booking your ticket and completing all necessary steps. This includes what to do before departure and what to take care of after arriving in Hungary.",
     linkTo: "/first-month",
-    date: "September - October 2025"
+    date: "September - October 2026"
   }];
   return <div className="min-h-screen flex flex-col bg-off-white">
       <Header />

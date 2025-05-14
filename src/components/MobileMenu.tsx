@@ -19,7 +19,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen, onClose }) => {
     { name: "Home", path: "/" },
     { name: "USAT Guide", path: "/usat" },
     { name: "University Finder", path: "/university-finder" },
-    { name: "Apply for Scholarships", path: "/apply/tempus" },
+    { name: "Apply for Scholarships", path: "/apply" },
     { name: "Seniors Section", path: "/seniors" },
     { name: "Visa Process", path: "/visa" },
     { name: "Document & Medical Guide", path: "/documents" },

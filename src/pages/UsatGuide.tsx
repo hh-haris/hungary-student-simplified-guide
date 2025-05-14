@@ -135,8 +135,7 @@ const UsatGuide = () => {
           <section className="mb-8">
             <h1 className="font-syne font-bold text-3xl mb-4">USAT Guide</h1>
             <p className="text-gray-700 mb-3">
-              The Universities & Standardised Admissions Test (USAT) is a mandatory exam for Pakistani students 
-              applying to the Stipendium Hungaricum scholarship program.
+             The Undergraduate Studies Admission Test (USAT) is a standardized pre admission assessment for undergraduate programs in universities across Pakistan. It is also a mandatory test for the Stipendium Hungaricum Scholarship, as HEC uses USAT scores to nominate candidates for the program.
             </p>
             
             <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">

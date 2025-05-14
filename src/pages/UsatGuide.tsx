@@ -47,7 +47,7 @@ const UsatGuide = () => {
       title: "First USAT",
       details: {
         startDate: "November 15, 2024",
-        notes: "Registration opens on the HEC portal. Create your account early to avoid last-minute issues."
+        startDate: "November 15, 2024",
       }
     },
     {

@@ -92,28 +92,6 @@ const seniors = [
     experience: "The Hungarian education system is rigorous but fair. The practical components of engineering courses are particularly valuable for career development.",
     timesApplied: 2
   },
-  {
-    id: 7,
-    name: "Aisha Malik",
-    picture: "/placeholder.svg", // Using placeholder
-    program: "International Relations",
-    university: "Corvinus University of Budapest",
-    yearApplied: 2021,
-    currentYear: "3rd Year",
-    fscMarks: 90,
-    usatScore: 84,
-    challenges: "Cultural adjustment and homesickness during the first semester",
-    advice: "Participate in international student events to make friends. Join a student organization related to your interests to build a support network.",
-    background: "Social Sciences from LUMS",
-    email: "aisha.malik@outlook.com",
-    whatsapp: "+9278901234",
-    availableInGroup: true,
-    isAdmin: true,
-    inHungary: false,
-    adminStory: "I started the online support group for Pakistani students in Hungary after noticing the need for a centralized information platform.",
-    experience: "Hungary offers a unique perspective on European politics and international relations. My program has excellent professors with diplomatic experience.",
-    timesApplied: 1
-  }
 ];
 
 // Mock universities and programs for filtering

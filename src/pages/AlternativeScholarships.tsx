@@ -35,61 +35,13 @@ const AlternativeScholarships = () => {
       competitiveness: "high"
     },
     {
-      id: "gsk",
-      name: "Global Korea Scholarship (GKS)",
-      country: "South Korea",
-      deadline: "February-March",
-      funding: "Full",
-      website: "https://www.studyinkorea.go.kr/en/sub/gks/allnew_invite.do",
-      description: "The Global Korea Scholarship (GKS) is a Korean government scholarship program designed to attract international students to Korean universities for undergraduate and graduate studies.",
-      benefits: [
-        "Full tuition fee",
-        "Settlement allowance",
-        "Monthly stipend",
-        "Research allowance",
-        "Medical insurance",
-        "Korean language training"
-      ],
-      eligibility: [
-        "Non-Korean citizens with parents of non-Korean citizenship",
-        "Bachelor's applicants: High school graduates under 25",
-        "Master's/PhD applicants: Bachelor's/Master's degree holders under 40",
-        "Good academic standing (GPA above 80%)"
-      ],
-      applicationProcess: "Apply through the Korean Embassy in Pakistan or directly to a designated Korean university.",
-      competitiveness: "high"
-    },
-    {
-      id: "mext",
-      name: "Japanese MEXT Scholarship",
-      country: "Japan",
-      deadline: "April-May",
-      funding: "Full",
-      website: "https://www.pk.emb-japan.go.jp/itpr_en/scholarshipmext.html",
-      description: "The MEXT (Ministry of Education, Culture, Sports, Science and Technology) Scholarship offers Pakistani students the opportunity to study at Japanese universities as undergraduate or graduate students.",
-      benefits: [
-        "Exemption from tuition fees",
-        "Monthly allowance",
-        "Round-trip air ticket",
-        "Japanese language training"
-      ],
-      eligibility: [
-        "Pakistani nationals in excellent academic standing",
-        "Undergraduate: Age under 24, completed 12 years of education",
-        "Graduate: Age under 35, bachelor's degree or equivalent",
-        "Good Japanese or English language skills"
-      ],
-      applicationProcess: "Apply through the Embassy of Japan in Pakistan. Selection includes written exams and interviews.",
-      competitiveness: "very high"
-    },
-    {
       id: "opendoors",
       name: "Open Doors: Russia Scholarship Project",
       country: "Russia",
-      deadline: "December-January",
+      deadline: "No Data",
       funding: "Full",
       website: "https://od.globaluni.ru/en/",
-      description: "The Open Doors Russian Scholarship Project is an international competition for prospective master's and doctoral students. Winners are granted free tuition at leading Russian universities.",
+      description: "No Data",
       benefits: [
         "Tuition-free study at top Russian universities",
         "Option to study in English or Russian",

@@ -36,7 +36,7 @@ const Index = () => {
     linkTo: "/visa",
     date: "August 2026"
   }, {
-    title: "Prepare for Hungary",
+    title: "Preparation and Arrival in Hungary",
     description: "After receiving your visa, prepare for your journey by booking your ticket and completing all necessary steps. This includes what to do before departure and what to take care of after arriving in Hungary.",
     linkTo: "/first-month",
     date: "September - October 2026"

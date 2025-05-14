@@ -89,7 +89,7 @@ const seniors = [
     inHungary: true,
     adminStory: "No Data",
     experience: "No Data",
-    timesApplied: 2
+    timesApplied: 1
   },
 ];
 

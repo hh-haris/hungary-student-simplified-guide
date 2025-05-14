@@ -412,7 +412,8 @@ const Seniors = () => {
               <h2 className="font-syne font-medium text-xl">Meet the Creator</h2>
             </div>
             <p className="text-center text-gray-700 italic">
-              "I built this website with a sincere intention to help students, expecting no credit. When I joined the group, it had very few members and most of us knew almost nothing about the SH scholarship."
+              "I built this website with a sincere intention to help students, expecting no credit. When I joined the group, it had very few members and most of us knew almost nothing about the SH scholarship. We had so many questions"dumbest questions 🙃" but they were real concerns at the time. Thankfully, seniors and admins like Sahabat Aly and Muneeb were always there to guide us. I took my first USAT in February 2025 and scored 65 on my first attempt. Unfortunately, HEC awarded lower essay scores to many students and my final score ended up at 70, I narrowly missed nomination.
+With support from Muneeb bhai and other seniors, I continue working to complete and improve this site for the everyone."
             </p>
           </div>
         </div>

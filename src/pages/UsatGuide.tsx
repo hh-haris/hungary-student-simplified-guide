@@ -59,8 +59,8 @@ const UsatGuide = () => {
       }
     },
     {
-      id: "test-dates",
-      title: "Test Dates",
+      id: "3-usat",
+      title: "Third USAT",
       date: "January 2025",
       details: {
         startDate: "January 10, 2025",

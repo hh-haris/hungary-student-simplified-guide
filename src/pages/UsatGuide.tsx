@@ -53,7 +53,6 @@ const UsatGuide = () => {
     {
       id: "2-usat",
       title: "Second USAT",
-      date: "December 2024",
       details: {
         endDate: "December 20, 2024",
         notes: "All registrations must be completed by this date. No extensions will be provided."

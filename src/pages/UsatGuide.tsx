@@ -43,7 +43,7 @@ const UsatGuide = () => {
 
   const usatTimelineSteps = [
     {
-      id: "first-usat",
+      id: "1-usat",
       title: "First USAT",
       details: {
         startDate: "November 15, 2024",
@@ -51,8 +51,8 @@ const UsatGuide = () => {
       }
     },
     {
-      id: "registration-deadline",
-      title: "Registration Deadline",
+      id: "2-usat",
+      title: "Second USAT",
       date: "December 2024",
       details: {
         endDate: "December 20, 2024",

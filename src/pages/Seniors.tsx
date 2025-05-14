@@ -9,25 +9,7 @@ import { Mail, MessageSquare, User, MapPin, Award, Heart, Users } from "lucide-r
 
 // Mock seniors data
 const seniors = [
-  {
-    id: 1,
-    name: "Muneeb",
-    picture: null, // No profile picture
-    program: "No Data",
-    university: "No Data",
-    yearApplied: 2025,
-    currentYear: "Currently in Pakistan",
-    fscMarks: 00,
-    usatScore: 00,
-    challenges: "No Data",
-    advice: "No Data",
-    background: "No Data",
-    email: "no data",
-    whatsapp: null,
-    availableInGroup: true,
-    isAdmin: false,
-    inHungary: true
-  },
+  
   {
     id: 2,
     name: "Fatima Zahra",

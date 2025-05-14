@@ -26,7 +26,7 @@ const Index = () => {
     date: "Until 15 April 2026"
  }, {
     title: "March - May 2025",
-    description: "Universities will contact nominated applicants directly to schedule entrance exams. Check your chosen university’s page for full details and past exam PDFs, if applicable.",
+    description: "Universities will contact nominated applicants directly to schedule entrance exams. Check your chosen university’s page for full details and past exam PDFs.",
     date: "May - July 2026"
  
   }, {

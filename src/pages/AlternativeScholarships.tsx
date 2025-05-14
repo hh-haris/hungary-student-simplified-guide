@@ -56,54 +56,6 @@ const AlternativeScholarships = () => {
       applicationProcess: "Two-stage online competition: portfolio submission and online testing.",
       competitiveness: "medium"
     },
-    {
-      id: "turkiye",
-      name: "Türkiye Scholarships",
-      country: "Türkiye",
-      deadline: "January-February",
-      funding: "Full",
-      website: "https://www.turkiyeburslari.gov.tr/",
-      description: "Türkiye Scholarships is a government-funded, competitive scholarship program for international students to pursue undergraduate and postgraduate studies at Turkish universities.",
-      benefits: [
-        "Full tuition coverage",
-        "Monthly stipend",
-        "Accommodation support",
-        "Health insurance",
-        "Turkish language course",
-        "Air tickets"
-      ],
-      eligibility: [
-        "International students with strong academic backgrounds",
-        "Undergraduate: Minimum 70% in high school",
-        "Postgraduate: Minimum 75% in previous degree",
-        "Age limits: Undergraduate (under 21), Master's (under 30), PhD (under 35)"
-      ],
-      applicationProcess: "Online application through the Türkiye Scholarships website.",
-      competitiveness: "high"
-    },
-    {
-      id: "fulbright",
-      name: "Fulbright Foreign Student Program",
-      country: "United States",
-      deadline: "May-June",
-      funding: "Full",
-      website: "https://pk.usembassy.gov/education-culture/programs/fulbright-program/",
-      description: "The Fulbright Program offers grants for Pakistani students to pursue master's or PhD studies in the United States. It's highly competitive and prestigious.",
-      benefits: [
-        "Tuition fees",
-        "Living stipend",
-        "Health insurance",
-        "Round-trip airfare"
-      ],
-      eligibility: [
-        "Pakistani citizens residing in Pakistan",
-        "Minimum 16 years of education with excellent academic record",
-        "Strong English language skills",
-        "Leadership potential"
-      ],
-      applicationProcess: "Apply through the USEFP (United States Educational Foundation in Pakistan). Selection includes tests and interviews.",
-      competitiveness: "very high"
-    }
   ];
 
   const competitivenessColor = (level: string) => {

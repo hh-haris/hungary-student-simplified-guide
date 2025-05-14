@@ -43,7 +43,7 @@ const UsatGuide = () => {
 
   const usatTimelineSteps = [
     {
-      id: "registration-open",
+      id: "First USAT",
       title: "Registration Opens",
       date: "November 2024",
       details: {

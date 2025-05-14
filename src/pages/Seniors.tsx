@@ -18,7 +18,7 @@ const seniors = [
     university: "University of Debrecen",
     yearApplied: 2024,
     currentYear: "1st Year",
-    fscMarks: 05,
+    fscMarks: 50,
     usatScore: 72,
     challenges: "Medical terminology in English and adjusting to clinical rotations",
     advice: "For medical programs, focus heavily on biology and chemistry for USAT. The interview is crucial, so practice your English speaking skills.",

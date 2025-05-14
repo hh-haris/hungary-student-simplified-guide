@@ -37,7 +37,7 @@ const Index = () => {
     date: "August 2026"
   }, {
     title: "Prepare for Hungary",
-    description: "Essential tips for your first month abroad",
+    description: "After receiving your visa, prepare for your journey by booking your ticket and completing all necessary steps. This includes what to do before departure and what to take care of after arriving in Hungary.",
     linkTo: "/first-month",
     date: "August 2025"
   }];

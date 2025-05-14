@@ -139,8 +139,7 @@ const AlternativeScholarships = () => {
               <div>
                 <h3 className="font-syne font-medium text-lg text-yellow-800 mb-1">Important Note</h3>
                 <p className="text-yellow-700">
-                  These scholarships are highly competitive. We recommend applying to multiple programs to increase your chances 
-                  of studying abroad. Each scholarship has different requirements and deadlines, so start preparing early.
+                  Although there are many undergraduate scholarships like GKS, MEXT, Türkiye Bursları, Azerbaijan, and Singapore, I understand the struggle of having average FSc marks. That’s why I won’t list scholarships that require very high scores. Below are two options that are more accessible—and if I find more, I’ll be sure to add them.
                 </p>
               </div>
             </div>

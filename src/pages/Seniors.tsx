@@ -30,25 +30,6 @@ const seniors = [
     inHungary: true
   },
   {
-    id: 3,
-    name: "Muhammad Usman",
-    picture: "/placeholder.svg", // Using placeholder
-    program: "Civil Engineering",
-    university: "Budapest University of Technology and Economics",
-    yearApplied: 2021,
-    currentYear: "3rd Year",
-    fscMarks: 87,
-    usatScore: 77,
-    challenges: "Technical language barrier in specialized engineering courses",
-    advice: "Engineering students should focus on mathematics and physics for USAT. BME has a strong engineering program but requires consistent hard work.",
-    background: "Engineering background from UET Lahore",
-    email: "m.usman@outlook.com",
-    whatsapp: "+9245678901",
-    availableInGroup: true,
-    isAdmin: false,
-    inHungary: true
-  },
-  {
     id: 4,
     name: "Sarah Ahmed",
     picture: "/placeholder.svg", // Using placeholder

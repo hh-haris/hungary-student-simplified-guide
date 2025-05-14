@@ -31,10 +31,10 @@ const seniors = [
   },
   {
     id: 4,
-    name: "Sarah Ahmed",
+    name: "Abdullah Saleem",
     picture: "/placeholder.svg", // Using placeholder
-    program: "Economics",
-    university: "Corvinus University of Budapest",
+    program: "BBA",
+    university: "University of Pecs",
     yearApplied: 2023,
     currentYear: "1st Year",
     fscMarks: 92,

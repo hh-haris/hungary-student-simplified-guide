@@ -66,7 +66,7 @@ const Index = () => {
       
       <main className="flex-grow container mx-auto px-4 py-8 md:py-16">
         <section>
-          <h2 className="font-syne font-bold text-2xl md:text-3xl mb-8 text-center">Application Timeline</h2>
+          <h2 className="font-syne font-bold text-2xl md:text-3xl mb-8 text-center">SH 2025-26 Timeline</h2>
           <div className="max-w-3xl mx-auto relative">
             {/* Timeline track */}
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-accent-orange/20"></div>

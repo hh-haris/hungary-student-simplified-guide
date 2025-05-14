@@ -11,7 +11,7 @@ import { Mail, MessageSquare, User, MapPin, Award, Heart, Users } from "lucide-r
 const seniors = [
   {
     id: 1,
-    name: "Ali Hassan",
+    name: "Muneeb",
     picture: null, // No profile picture
     program: "Computer Science",
     university: "Budapest University of Technology and Economics",

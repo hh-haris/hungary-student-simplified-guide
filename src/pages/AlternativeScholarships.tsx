@@ -15,10 +15,10 @@ const AlternativeScholarships = () => {
       id: "csc",
       name: "Chinese Government Scholarship (CSC)",
       country: "China",
-      deadline: "January-March (varies by country)",
+      deadline: "No Data",
       funding: "Full",
-      website: "https://www.campuschina.org/",
-      description: "The Chinese Government Scholarship program provides full or partial funding for international students to study in China for undergraduate, master's, or doctoral degrees.",
+      website: "nodata",
+      description: "No Data",
       benefits: [
         "Tuition waiver",
         "Accommodation on campus",

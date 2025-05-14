@@ -15,7 +15,7 @@ const seniors = [
     picture: null, // No profile picture
     program: "No Data",
     university: "No Data",
-    yearApplied: 2024 & 2025,
+    yearApplied: 2025,
     currentYear: "Currently in Pakistan",
     fscMarks: 00,
     usatScore: 00,

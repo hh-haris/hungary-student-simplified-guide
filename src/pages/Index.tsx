@@ -76,7 +76,7 @@ const Index = () => {
           </div>
           
           <div className="text-center mt-8">
-            <Button asChild variant="outline" className="backdrop-blur-sm bg-white/60 hover:bg-white/90 border border-gray-200 shadow-sm">
+            <Button asChild variant="outline" className="backdrop-blur-sm bg-white/70 hover:bg-white/90 border border-gray-200 shadow-sm">
               
             </Button>
           </div>

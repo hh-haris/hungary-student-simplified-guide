@@ -28,7 +28,7 @@ const Index = () => {
     title: "March - May 2025",
     description: "Universities will contact nominated applicants directly to schedule entrance exams. Check your chosen university’s page for full details and past exam PDFs.",
     date: "May - July 2026"
- 
+    linkTo: "/university-finder",
   }, {
     title: "Visa Process",
     description: "Start your visa process once the Tempus Foundation makes the final scholarship decision and the award is granted.",

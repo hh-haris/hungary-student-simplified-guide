@@ -26,7 +26,7 @@ const Index = () => {
     date: "Until 15 April 2026"
  }, {
     title: "March - May 2025",
-    description: "The universities will get in touch with the nominated applicants directly to set a date and conduct the entrance exams from the middle of March until the end of May."
+    description: "The universities will get in touch with the nominated applicants directly to set a date and conduct the entrance exams from the middle of March until the end of May.",
     description: "Visit your chosen university’s individual page for complete details and to access PDFs of past entrance exams, if applicable.",
     date: "May - July 2026"
  

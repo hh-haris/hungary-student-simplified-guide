@@ -16,7 +16,7 @@ const Index = () => {
     date: "November - December 2025"
   }, {
     title: "Apply via HEC & Tempus Portal",
-    description: "Complete your applications on both the required portals: HEC and Tempus Foundation.",
+    description: "Make sure to complete your applications on both required portals. HEC and Tempus Foundation portal both are essential for the scholarship process.",
     linkTo: "/apply",
     date: "December 2025 - 15 January 2026 (Deadline)"
   }, {

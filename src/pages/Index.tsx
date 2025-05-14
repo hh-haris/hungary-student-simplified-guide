@@ -7,7 +7,7 @@ import { ArrowRight, BookOpen, Bell } from "lucide-react";
 const Index = () => {
   const timelineSteps = [{
     title: "USAT",
-    description: "The USAT is a mandatory test for the Stipendium Hungaricum scholarship, based on which HEC will nominate candidates.",
+    description: "The USAT is a mandatory test for the Stipendium Hungaricum Scholarship. HEC uses the test scores to evaluate and nominate eligible candidates for the program.",
     linkTo: "/usat",
   }, {
     title: "Find Your University",

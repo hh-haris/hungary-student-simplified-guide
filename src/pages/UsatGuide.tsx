@@ -43,8 +43,8 @@ const UsatGuide = () => {
 
   const usatTimelineSteps = [
     {
-      id: "First USAT",
-      title: "Registration Opens",
+      id: "first-usat",
+      title: "First USAT",
       date: "November 2024",
       details: {
         startDate: "November 15, 2024",
@@ -140,7 +140,7 @@ const UsatGuide = () => {
             
             <div className="bg-amber-50 border border-amber-200 p-4 rounded-md mb-6">
               <p className="text-amber-800 font-medium">
-                <strong>Disclaimer:</strong> All students can take any USAT category except medical students. Still, it is strongly advised to choose the same category you studied in FSc to avoid any complications.
+                <strong>Disclaimer:</strong> All students can take any USAT category except medical students. Still, it s strongly advised to choose the same category you studied in FSc to avoid any complications.
               </p>
             </div>
 

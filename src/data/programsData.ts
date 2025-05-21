@@ -187,5 +187,72 @@ export const fullProgramData: Program[] = [
     university_name: "Hungarian University of Agriculture and Life Sciences",
     faculty: "Institute for Wildlife Management and Nature Conservation",
     location: "Gödöllő"
+  },
+    {
+    id: "17",
+    name: "Environmental Design",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Budapest Metropolitan University",
+    faculty: "Faculty of Art and Creative Industries",
+    location: "Budapest"
+  },
+  {
+    id: "18",
+    name: "Film and Media Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Hungarian University of Agriculture and Life Sciences",
+    faculty: "Rippl-Rónai Institute of Arts and Theatre",
+    location: "Kaposvár"
+  },
+  {
+    id: "19",
+    name: "Film and Media Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Budapest Metropolitan University",
+    faculty: "Faculty of Art and Creative Industries",
+    location: "Budapest"
+  },
+  {
+    id: "20",
+    name: "Music Culture",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eszterházy Károly Catholic University",
+    faculty: "Faculty of Arts and Humanities",
+    location: "Eger"
+  },
+  {
+    id: "21",
+    name: "Music Culture [Choir Singer]",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Nyíregyháza",
+    faculty: "Institute of Music",
+    location: "Nyíregyháza"
+  },
+  {
+    id: "22",
+    name: "Visual Representation",
+    degree_level: "Bachelor",
+    field_of_study: "Art Education",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eszterházy Károly Catholic University",
+    faculty: "Faculty of Arts and Humanities",
+    location: "Eger"
   }
+  
 ];

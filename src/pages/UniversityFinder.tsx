@@ -180,32 +180,52 @@ const UniversityFinder = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="program" className="mb-2 block">Program</Label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
-                    <Select 
-                      onValueChange={(value) => setSelectedProgram(value)} 
-                      value={selectedProgram}
-                    >
-                      <SelectTrigger id="program-select" className="w-full bg-white pl-10">
-                        <SelectValue placeholder="Select program" />
-                      </SelectTrigger>
-                      <SelectContent className="max-h-[300px] bg-white">
-                        <Input
-                          placeholder="Search programs..."
-                          className="mb-2 sticky top-0"
-                          value={programFinderSearchQuery}
-                          onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
-                        />
-                        <ScrollArea className="h-[300px]">
-                          {programsForFinder.map((program) => (
-                            <SelectItem key={program} value={program}>{program}</SelectItem>
-                          ))}
-                        </ScrollArea>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
+                <Label htmlFor="program" className="mb-2 block text-sm font-medium text-gray-700">
+  Program
+</Label>
+
+<div className="relative w-full max-w-md">
+  {/* Select Dropdown */}
+  <Select onValueChange={(value) => setSelectedProgram(value)} value={selectedProgram}>
+    <SelectTrigger
+      id="program-select"
+      className="w-full pl-10 pr-4 py-2 border rounded-lg shadow-sm bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none"
+    >
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+      <SelectValue placeholder="Select program" />
+    </SelectTrigger>
+
+    <SelectContent className="bg-white border mt-1 rounded-md shadow-lg w-full z-50">
+      {/* Sticky Search Input */}
+      <div className="sticky top-0 z-10 bg-white p-2 border-b">
+        <Input
+          placeholder="Search programs..."
+          value={programFinderSearchQuery}
+          onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
+          className="w-full px-3 py-2 rounded-md border text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+      </div>
+
+      {/* Scrollable List */}
+      <ScrollArea className="h-[250px]">
+        {programsForFinder.length > 0 ? (
+          programsForFinder.map((program) => (
+            <SelectItem
+              key={program}
+              value={program}
+              className="px-4 py-2 cursor-pointer hover:bg-blue-50 text-sm"
+            >
+              {program}
+            </SelectItem>
+          ))
+        ) : (
+          <div className="p-4 text-sm text-gray-500">No programs found</div>
+        )}
+      </ScrollArea>
+    </SelectContent>
+  </Select>
+</div>
+
 
                 <Button 
                   className={`w-full ${

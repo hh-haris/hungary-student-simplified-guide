@@ -1,3 +1,4 @@
+// src/pages/UniversityFinder.tsx
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -9,7 +10,7 @@ interface University {
 
 const UniversityFinder: React.FC = () => {
   const [universities, setUniversities] = useState<University[]>([]);
-  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [country, setCountry] = useState<string>('United States');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -17,54 +18,50 @@ const UniversityFinder: React.FC = () => {
     const fetchUniversities = async () => {
       setLoading(true);
       setError(null);
+
       try {
-        const response = await axios.get<University[]>(
-          `http://universities.hipolabs.com/search?name=${searchTerm}`
+        const response = await axios.get(
+          `http://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`
         );
         setUniversities(response.data);
       } catch (err) {
-        setError('Failed to fetch universities. Please try again.');
+        setError('Failed to fetch universities.');
+        console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    if (searchTerm) {
-      fetchUniversities();
-    } else {
-      setUniversities([]);
-    }
-  }, [searchTerm]);
+    fetchUniversities();
+  }, [country]);
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+    <div style={{ padding: '2rem' }}>
       <h1>University Finder</h1>
+
+      <label htmlFor="country">Select a country: </label>
       <input
+        id="country"
         type="text"
-        placeholder="Search for a university"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        style={{
-          padding: '0.5rem',
-          fontSize: '1rem',
-          width: '100%',
-          maxWidth: '400px',
-          marginBottom: '1rem'
-        }}
+        value={country}
+        onChange={(e) => setCountry(e.target.value)}
       />
+
       {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <ul>
-        {universities.map((university, index) => (
-          <li key={index} style={{ marginBottom: '1rem' }}>
-            <strong>{university.name}</strong> - {university.country}
-            <br />
-            <a href={university.web_pages[0]} target="_blank" rel="noopener noreferrer">
-              Visit Website
-            </a>
-          </li>
-        ))}
-      </ul>
+
+      {!loading && !error && (
+        <ul>
+          {universities.map((uni, index) => (
+            <li key={index}>
+              <strong>{uni.name}</strong> - {uni.country}{' '}
+              <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer">
+                Visit Website
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };

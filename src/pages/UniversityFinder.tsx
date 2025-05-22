@@ -1,67 +1,59 @@
-// src/pages/UniversityFinder.tsx
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-interface University {
-  name: string;
-  country: string;
-  web_pages: string[];
-}
-
 const UniversityFinder: React.FC = () => {
-  const [universities, setUniversities] = useState<University[]>([]);
-  const [country, setCountry] = useState<string>('United States');
-  const [loading, setLoading] = useState<boolean>(false);
+  const [country, setCountry] = useState('');
+  const [universities, setUniversities] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchUniversities = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchUniversities = async () => {
+    if (!country.trim()) {
+      setError('Please enter a country name.');
+      return;
+    }
 
-      try {
-        const response = await axios.get(
-          `http://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`
-        );
-        setUniversities(response.data);
-      } catch (err) {
-        setError('Failed to fetch universities.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    setLoading(true);
+    setError(null);
+    setUniversities([]);
 
-    fetchUniversities();
-  }, [country]);
+    try {
+      const response = await axios.get(
+        `https://universities.hipolabs.com/search?country=${encodeURIComponent(country)}`
+      );
+      setUniversities(response.data);
+    } catch (err) {
+      setError('Failed to fetch universities. Please try again.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div style={{ padding: '2rem' }}>
+    <div style={{ padding: 20 }}>
       <h1>University Finder</h1>
-
-      <label htmlFor="country">Select a country: </label>
       <input
-        id="country"
         type="text"
+        placeholder="Enter country name"
         value={country}
         onChange={(e) => setCountry(e.target.value)}
+        style={{ padding: 8, width: '300px', marginRight: 10 }}
       />
+      <button onClick={fetchUniversities} disabled={loading}>
+        {loading ? 'Searching...' : 'Search'}
+      </button>
 
-      {loading && <p>Loading...</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
-      {!loading && !error && (
-        <ul>
-          {universities.map((uni, index) => (
-            <li key={index}>
-              <strong>{uni.name}</strong> - {uni.country}{' '}
-              <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer">
-                Visit Website
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul>
+        {universities.map((uni) => (
+          <li key={uni.name}>
+            <strong>{uni.name}</strong> — {uni.country} <br />
+            Website: <a href={uni.web_pages[0]} target="_blank" rel="noopener noreferrer">{uni.web_pages[0]}</a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

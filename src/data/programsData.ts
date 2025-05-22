@@ -912,5 +912,192 @@ export const fullProgramData: Program[] = [
     university_name: "Eötvös Loránd University",
     faculty: "Bárczi Gusztáv Faculty of Special Needs Education",
     location: "Budapest"
+  },
+    {
+    id: "83",
+    name: "Business Informatics",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "Dennis Gabor University",
+    faculty: "",
+    location: "Budapest"
+  },
+  {
+    id: "84",
+    name: "Business Informatics",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "Eszterházy Károly Catholic University",
+    faculty: "Faculty of Informatics",
+    location: "Eger"
+  },
+  {
+    id: "85",
+    name: "Business Informatics",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "University of Debrecen",
+    faculty: "Faculty of Informatics",
+    location: "Debrecen"
+  },
+  {
+    id: "86",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Faculty of Informatics",
+    location: "Budapest"
+  },
+  {
+    id: "87",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eszterházy Károly Catholic University",
+    faculty: "Faculty of Informatics",
+    location: "Eger"
+  },
+  {
+    id: "88",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Debrecen",
+    faculty: "Faculty of Informatics",
+    location: "Debrecen"
+  },
+  {
+    id: "89",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Nyíregyháza",
+    faculty: "Institute of Mathematics and Computer Sciences",
+    location: "Nyíregyháza"
+  },
+  {
+    id: "90",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "91",
+    name: "Computer Science",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Szeged",
+    faculty: "Faculty of Science and Informatics",
+    location: "Szeged"
+  },
+  {
+    id: "92",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "Budapest University of Technology and Economics",
+    faculty: "Faculty of Electrical Engineering and Informatics",
+    location: "Budapest"
+  },
+  {
+    id: "93",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "Dennis Gabor University",
+    faculty: "",
+    location: "Budapest"
+  },
+  {
+    id: "94",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "John von Neumann University",
+    faculty: "GAMF Faculty of Engineering and Computer Science",
+    location: "Kecskemét"
+  },
+  {
+    id: "95",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "Obuda University",
+    faculty: "John von Neumann Faculty of Informatics",
+    location: "Budapest"
+  },
+  {
+    id: "96",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "University of Debrecen",
+    faculty: "Faculty of Informatics",
+    location: "Debrecen"
+  },
+  {
+    id: "97",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "University of Dunaújváros",
+    faculty: "Institute of Information Technology",
+    location: "Dunaújváros"
+  },
+  {
+    id: "98",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "University of Miskolc",
+    faculty: "Faculty of Mechanical Engineering and Informatics",
+    location: "Miskolc"
+  },
+  {
+    id: "99",
+    name: "Computer Science Engineering",
+    degree_level: "Bachelor",
+    field_of_study: "Computer Science and IT",
+    language: "English",
+    duration: "7 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Engineering and Information Technology",
+    location: "Pécs"
   }
 ];

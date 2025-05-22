@@ -628,5 +628,3 @@ export const fullProgramData: Program[] = [
     location: "Budapest"
   }
 ];
-  
-];

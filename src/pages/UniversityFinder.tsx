@@ -1,65 +1,72 @@
-import React from "react";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Input } from "@/components/ui/input";
-import { Search } from "lucide-react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 
-type Props = {
-  selectedProgram: string;
-  setSelectedProgram: (program: string) => void;
-  programsForFinder: string[];
-  programFinderSearchQuery: string;
-  setProgramFinderSearchQuery: (query: string) => void;
-};
+interface University {
+  name: string;
+  country: string;
+  web_pages: string[];
+}
 
-export const ProgramFinder = ({
-  selectedProgram,
-  setSelectedProgram,
-  programsForFinder,
-  programFinderSearchQuery,
-  setProgramFinderSearchQuery,
-}: Props) => {
+const UniversityFinder: React.FC = () => {
+  const [universities, setUniversities] = useState<University[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchUniversities = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await axios.get<University[]>(
+          `http://universities.hipolabs.com/search?name=${searchTerm}`
+        );
+        setUniversities(response.data);
+      } catch (err) {
+        setError('Failed to fetch universities. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (searchTerm) {
+      fetchUniversities();
+    } else {
+      setUniversities([]);
+    }
+  }, [searchTerm]);
+
   return (
-    <div>
-      <Label
-        htmlFor="program"
-        className="mb-2 block text-sm font-medium text-gray-700"
-      >
-        Program
-      </Label>
-      <div className="relative">
-        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
-        <Select
-          onValueChange={(value) => setSelectedProgram(value)}
-          value={selectedProgram}
-        >
-          <SelectTrigger id="program-select" className="w-full bg-white pl-10">
-            <SelectValue placeholder="Select program" />
-          </SelectTrigger>
-          <SelectContent className="max-h-[300px] bg-white">
-            <Input
-              placeholder="Search programs..."
-              className="mb-2 sticky top-0"
-              value={programFinderSearchQuery}
-              onChange={(e) => setProgramFinderSearchQuery(e.target.value)}
-            />
-            <ScrollArea className="h-[300px]">
-              {programsForFinder.map((program) => (
-                <SelectItem key={program} value={program}>
-                  {program}
-                </SelectItem>
-              ))}
-            </ScrollArea>
-          </SelectContent>
-        </Select>
-      </div>
+    <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+      <h1>University Finder</h1>
+      <input
+        type="text"
+        placeholder="Search for a university"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        style={{
+          padding: '0.5rem',
+          fontSize: '1rem',
+          width: '100%',
+          maxWidth: '400px',
+          marginBottom: '1rem'
+        }}
+      />
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <ul>
+        {universities.map((university, index) => (
+          <li key={index} style={{ marginBottom: '1rem' }}>
+            <strong>{university.name}</strong> - {university.country}
+            <br />
+            <a href={university.web_pages[0]} target="_blank" rel="noopener noreferrer">
+              Visit Website
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
+
+export default UniversityFinder;

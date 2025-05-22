@@ -252,7 +252,7 @@ export const fullProgramData: Program[] = [
     university_name: "Eszterházy Károly Catholic University",
     faculty: "Faculty of Arts and Humanities",
     location: "Eger"
-  }
+  },
   {
     id: "23",
     name: "Animation",

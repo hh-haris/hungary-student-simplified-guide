@@ -16,7 +16,6 @@ import { toast } from "@/components/ui/use-toast";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExpandableSectionProvider } from "@/components/ui/expandable-section";
 
-// Define types for our data
 interface University {
   id: string;
   name: string;
@@ -28,7 +27,6 @@ interface University {
   image_url?: string;
 }
 
-// Import the full program dataset
 import { fullProgramData } from "@/data/programsData";
 
 const UniversityFinder = () => {
@@ -41,11 +39,8 @@ const UniversityFinder = () => {
   const [filteredFirstChoice, setFilteredFirstChoice] = useState<University[]>([]);
   const [filteredSecondChoice, setFilteredSecondChoice] = useState<University[]>([]);
   const [allFiltersApplied, setAllFiltersApplied] = useState(false);
-  
-  // Search states
   const [programFinderSearchQuery, setProgramFinderSearchQuery] = useState("");
 
-  // Fetch universities from Supabase or use local data
   const { data: universities, isLoading: loadingUniversities, error: universitiesError } = useQuery({
     queryKey: ['universities'],
     queryFn: async () => {
@@ -54,17 +49,15 @@ const UniversityFinder = () => {
           .from('universities')
           .select('*')
           .order('name');
-        
         if (error) throw error;
-        return data as University[] || universityData;
+        return (data ?? universityData) as University[];
       } catch (error) {
         console.error("Error fetching universities:", error);
-        return universityData; // Use local data as fallback
+        return universityData;
       }
     }
   });
 
-  // Show error toast if there are any fetch errors
   useEffect(() => {
     if (universitiesError) {
       toast({
@@ -77,34 +70,27 @@ const UniversityFinder = () => {
   }, [universitiesError]);
 
   useEffect(() => {
-    // Make program selection required again but don't display "required" text
-    const allApplied = fscMarks > 0 && usatScore >= 70 && !!selectedProgram;
+    const allApplied = fscMarks > 0 && usatScore >= 70 && selectedProgram !== "";
     setAllFiltersApplied(allApplied);
-    
-    // Set warnings based on USAT score
     setShowWarning(usatScore < 75);
     setShowNominationWarning(usatScore < 72);
   }, [fscMarks, usatScore, selectedProgram]);
 
   const handleFind = () => {
-    if (!allFiltersApplied) {
-      return;
-    }
-    
+    if (!allFiltersApplied) return;
+
     setShowResults(true);
-    
-    const uniData = universities || universityData;
-    
-    // Filter universities based on USAT score
+    const uniData = universities ?? universityData;
+
     const topChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score >= 73);
     const secondaryChoices = uniData.filter(uni => uni.min_usat_score <= usatScore && uni.min_usat_score < 73);
-    
-    // Further filter by selected program if one is chosen
+
     if (selectedProgram) {
-      const filteredByProgram = (unis: University[]) => unis.filter(uni => 
-        uni.programs.some(prog => prog.toLowerCase().includes(selectedProgram.toLowerCase()))
-      );
-      
+      const filteredByProgram = (unis: University[]) =>
+        unis.filter(uni =>
+          uni.programs.some(prog => prog.toLowerCase().includes(selectedProgram.toLowerCase()))
+        );
+
       setFilteredFirstChoice(filteredByProgram(topChoices));
       setFilteredSecondChoice(filteredByProgram(secondaryChoices));
     } else {
@@ -113,11 +99,9 @@ const UniversityFinder = () => {
     }
   };
 
-  // Create a unique list of program names for the finder dropdown
   const uniquePrograms = [...new Set(fullProgramData.map(p => p.name))].sort();
 
-  // Filter programs for the finder search box
-  const programsForFinder = uniquePrograms.filter(program => 
+  const programsForFinder = uniquePrograms.filter(program =>
     program.toLowerCase().includes(programFinderSearchQuery.toLowerCase())
   );
 
@@ -182,8 +166,8 @@ const UniversityFinder = () => {
                   <Label htmlFor="program" className="mb-2 block">Program</Label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400 z-10" />
-                    <Select 
-                      onValueChange={(value) => setSelectedProgram(value)} 
+                    <Select
+                      onValueChange={(value) => setSelectedProgram(value)}
                       value={selectedProgram}
                     >
                       <SelectTrigger id="program-select" className="w-full bg-white pl-10">
@@ -206,12 +190,12 @@ const UniversityFinder = () => {
                   </div>
                 </div>
 
-                <Button 
-                  className={w-full ${
-                    allFiltersApplied 
-                      ? "bg-accent-orange hover:bg-accent-orange/90" 
-                      : "bg-gray-300 hover:bg-gray-300 cursor-not-allowed"
-                  } text-white}
+                <Button
+                  className={`w-full ${
+                    allFiltersApplied
+                      ? "bg-accent-orange hover:bg-accent-orange/90"
+                      : "bg-gray-300 cursor-not-allowed"
+                  } text-white`}
                   onClick={handleFind}
                   disabled={!allFiltersApplied}
                 >
@@ -246,15 +230,32 @@ const UniversityFinder = () => {
                   <div className="space-y-4 mb-8">
                     {filteredFirstChoice.map((university) => (
                       <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
-                        <CardContent className="p-5">
-                          <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
-                          <p className="text-light-teal mb-3">{university.city}</p>
-                          <p className="text-gray-600 mb-4">{university.intro}</p>
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm bg-green-100 text-green-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
-                            <Link to={/universities/${getUniversityId(university.name)}}>
-                              <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
-                            </Link>
+                        <CardContent className="flex flex-col md:flex-row md:items-center md:space-x-6">
+                          {university.image_url && (
+                            <img
+                              src={university.image_url}
+                              alt={university.name}
+                              className="w-full md:w-48 h-32 object-cover rounded-md mb-4 md:mb-0"
+                              loading="lazy"
+                            />
+                          )}
+                          <div>
+                            <h3 className="font-syne font-bold text-lg">{university.name}</h3>
+                            <p className="text-sm italic mb-1">{university.city}</p>
+                            <p className="text-sm mb-2 line-clamp-2">{university.intro}</p>
+                            <p className="text-xs font-semibold text-deep-teal">
+                              Minimum USAT Score Required: {university.min_usat_score}
+                            </p>
+                            {university.website && (
+                              <a
+                                href={university.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-accent-orange hover:underline text-sm"
+                              >
+                                Visit Website
+                              </a>
+                            )}
                           </div>
                         </CardContent>
                       </Card>
@@ -262,22 +263,39 @@ const UniversityFinder = () => {
                   </div>
                 </>
               )}
-              
+
               {filteredSecondChoice.length > 0 && (
                 <>
                   <h2 className="font-syne font-semibold text-xl mb-4">Second Preference Universities</h2>
                   <div className="space-y-4">
                     {filteredSecondChoice.map((university) => (
-                      <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/70">
-                        <CardContent className="p-5">
-                          <h3 className="font-syne font-bold text-xl mb-1">{university.name}</h3>
-                          <p className="text-light-teal mb-3">{university.city}</p>
-                          <p className="text-gray-600 mb-4">{university.intro}</p>
-                          <div className="flex justify-between items-center">
-                            <span className="text-sm bg-amber-100 text-amber-800 px-2 py-1 rounded-full">USAT requirement: {university.min_usat_score}+</span>
-                            <Link to={/universities/${getUniversityId(university.name)}}>
-                              <Button className="bg-deep-teal hover:bg-deep-teal/90">View Details</Button>
-                            </Link>
+                      <Card key={university.id} className="hover:shadow-md transition-shadow backdrop-blur-sm bg-white/50">
+                        <CardContent className="flex flex-col md:flex-row md:items-center md:space-x-6">
+                          {university.image_url && (
+                            <img
+                              src={university.image_url}
+                              alt={university.name}
+                              className="w-full md:w-48 h-32 object-cover rounded-md mb-4 md:mb-0"
+                              loading="lazy"
+                            />
+                          )}
+                          <div>
+                            <h3 className="font-syne font-bold text-lg">{university.name}</h3>
+                            <p className="text-sm italic mb-1">{university.city}</p>
+                            <p className="text-sm mb-2 line-clamp-2">{university.intro}</p>
+                            <p className="text-xs font-semibold text-deep-teal">
+                              Minimum USAT Score Required: {university.min_usat_score}
+                            </p>
+                            {university.website && (
+                              <a
+                                href={university.website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-accent-orange hover:underline text-sm"
+                              >
+                                Visit Website
+                              </a>
+                            )}
                           </div>
                         </CardContent>
                       </Card>
@@ -287,12 +305,7 @@ const UniversityFinder = () => {
               )}
 
               {filteredFirstChoice.length === 0 && filteredSecondChoice.length === 0 && (
-                <div className="text-center py-8">
-                  <h3 className="font-syne font-bold text-xl mb-3">No Matching Universities</h3>
-                  <p className="text-gray-600 mb-4">
-                    No universities match your criteria. Try adjusting your USAT score or program selection.
-                  </p>
-                </div>
+                <p className="text-center text-gray-600 mt-8">No universities match your criteria. Try adjusting your inputs.</p>
               )}
             </div>
           )}
@@ -303,126 +316,6 @@ const UniversityFinder = () => {
   );
 };
 
-// Helper function to convert university name to URL slug
-const getUniversityId = (name: string): string => {
-  if (name.includes("Budapest University of Technology")) return "bme";
-  if (name.includes("University of Debrecen")) return "debrecen";
-  if (name.includes("University of Pécs")) return "pecs";
-  
-  // Default fallback - convert name to lowercase slug
-  return name.toLowerCase().replace(/\s+/g, '-');
-};
-
-// This data represents the universities in Hungary
-const universityData: University[] = [
-  {
-    id: "1",
-    name: "Budapest University of Technology and Economics",
-    city: "Budapest",
-    intro: "Leading technical university in Hungary with strong engineering and IT programs.",
-    min_usat_score: 75,
-    programs: ["Computer Science", "Mechanical Engineering", "Civil Engineering", "Chemical Engineering", "Electrical Engineering", "Engineering Management", "Physicist Engineering", "Physics", "Mathematics", "Vehicle Engineering", "Transportation Engineering", "Professional Pilot", "Logistics Engineering"],
-    image_url: "https://picsum.photos/id/1/800/400"
-  },
-  {
-    id: "2",
-    name: "University of Debrecen",
-    city: "Debrecen",
-    intro: "One of the largest universities with comprehensive programs including medical sciences.",
-    min_usat_score: 70,
-    programs: ["Agribusiness and Rural Development Engineering", "Agricultural Engineering", "Business Administration and Management", "Computer Science", "Computer Science Engineering", "Engineering Management", "English and American Studies", "Mechanical Engineering", "Mechatronics Engineering", "Precision Agricultural Engineering", "Psychology", "Vehicle Engineering", "Biology", "Biochemical Engineering", "Biotechnology", "Business Informatics", "Chemistry", "Earth Sciences", "Electrical Engineering", "Nursing and Patient Care", "Physics", "Contemporary Music", "Performance"],
-    image_url: "https://picsum.photos/id/2/800/400"
-  },
-  {
-    id: "3",
-    name: "University of Szeged",
-    city: "Szeged",
-    intro: "Prestigious university with strong research focus and diverse academic programs.",
-    min_usat_score: 72,
-    programs: ["Agricultural Engineering", "Business Administration and Management", "Computer Science", "English and American Studies", "Nurse", "Nursing and Patient Care", "Performance", "Psychology", "Tourism and Catering", "Biochemical Engineer"],
-    image_url: "https://picsum.photos/id/3/800/400"
-  },
-  {
-    id: "4",
-    name: "Corvinus University of Budapest",
-    city: "Budapest",
-    intro: "Leading institution for business, economics and social sciences in Central Europe.",
-    min_usat_score: 74,
-    programs: ["Applied Economics", "Business Administration and Management", "Communication and Media Studies", "Data Science in Business", "International Business Economics", "International Relations", "Philosophy, Politics, Economy"],
-    image_url: "https://picsum.photos/id/4/800/400"
-  },
-  {
-    id: "5",
-    name: "Eötvös Loránd University",
-    city: "Budapest",
-    intro: "Hungary's largest university with a wide range of programs across various disciplines.",
-    min_usat_score: 73,
-    programs: ["Computer Science", "Early Childhood Education", "English and American Studies", "Finance and Accounting", "International Business Economics", "International relations", "Kindergarten Education", "Mechanical Engineering", "Pedagogy", "Psychology", "Sociology", "Special Needs Education"],
-    image_url: "https://picsum.photos/id/5/800/400"
-  },
-  {
-    id: "6",
-    name: "University of Pécs",
-    city: "Pécs",
-    intro: "One of Hungary's oldest universities with strong medical and arts programs.",
-    min_usat_score: 71,
-    programs: ["Archaeology", "Architectural Engineering", "Biology", "Biotechnology", "Business Administration and Management", "Chemistry", "Civil Engineering", "Classical Musical Instrumental Performance", "Communication and Media Studies", "Computer Science", "Computer Science Engineering", "Designer Making", "Earth Sciences", "English and American Studies", "Geography", "International Relations", "Kindergarten Education", "Liberal Arts", "Mathematics", "Musical Creative Arts and Musicology", "Pedagogy", "Performance", "Physical Training", "Physics", "Psychology", "Roma Studies", "Social Work"],
-    image_url: "https://picsum.photos/id/6/800/400"
-  },
-  {
-    id: "7",
-    name: "Hungarian University of Agriculture and Life Sciences",
-    city: "Gödöllő",
-    intro: "Leading institution in agricultural sciences and research.",
-    min_usat_score: 70,
-    programs: ["Agricultural Engineering", "Business Administration and Management", "Environmental Engineering", "Food Engineering", "Horticultural Engineering", "Landscape Management and Garden Construction Engineering", "Mechanical Engineering", "Tourism and Catering", "Wildlife Management Engineering", "Film and Media Studies"],
-    image_url: "https://picsum.photos/id/7/800/400"
-  },
-  {
-    id: "8",
-    name: "Széchenyi István University",
-    city: "Győr",
-    intro: "Major university focusing on engineering, economics, and health sciences.",
-    min_usat_score: 72,
-    programs: ["Agricultural Engineering", "Agricultural Water Management and Environmental Technology Engineering", "Business Administration and Management", "Civil Engineering", "Food Engineering", "International Business Economics", "International Relations", "Logistics Engineering", "Mechanical Engineering", "Sociology", "Tourism and Catering", "Vehicle Engineering"],
-    image_url: "https://picsum.photos/id/8/800/400"
-  },
-  {
-    id: "9",
-    name: "University of Miskolc",
-    city: "Miskolc",
-    intro: "Technical university with a focus on engineering and technology.",
-    min_usat_score: 71,
-    programs: ["Business Administration and Management", "Computer Science Engineering", "English and American Studies", "Logistics Engineering", "Materials Engineering", "Mechanical Engineering", "Nursing and Patient Care", "Performance", "Vehicle Engineering"],
-    image_url: "https://picsum.photos/id/9/800/400"
-  },
-  {
-    id: "10",
-    name: "Semmelweis University",
-    city: "Budapest",
-    intro: "Hungary's leading medical university with world-renowned healthcare programs.",
-    min_usat_score: 78,
-    programs: ["Conductive Education", "Health Care and Disease Prevention", "Medical Diagnostic Analysis", "Nursing and Patient Care"],
-    image_url: "https://picsum.photos/id/10/800/400"
-  },
-  {
-    id: "11",
-    name: "Budapest Metropolitan University",
-    city: "Budapest",
-    intro: "Modern university specializing in creative arts, business and communication.",
-    min_usat_score: 70,
-    programs: ["Animation", "Enviromental Design", "Film and Media Studies", "Graphic Design"],
-    image_url: "https://picsum.photos/id/11/800/400"
-  },
-  {
-    id: "12",
-    name: "University of Nyíregyháza",
-    city: "Nyíregyháza",
-    intro: "Regional university with strong focus on teacher training and applied sciences.",
-    min_usat_score: 70,
-    programs: ["Agricultural Engineering", "Biology", "Business Administration and Management", "Computer Science", "English and American Studies", "Mechanical Engineering", "Music Culture", "Professional Pilot", "Vehicle Engineering"],
-    image_url: "https://picsum.photos/id/12/800/400"
-  }
-];
-
 export default UniversityFinder;
+
+// You should have the universityData and fullProgramData arrays or imports elsewhere in your code.

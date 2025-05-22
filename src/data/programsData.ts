@@ -626,5 +626,293 @@ export const fullProgramData: Program[] = [
     university_name: "Hungarian University of Fine Arts",
     faculty: "University of Fine Arts",
     location: "Budapest"
+  },
+  {
+    id: "57",
+    name: "Archaeology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "58",
+    name: "Circus Arts",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Budapest Circus Arts and Contemporary Dance College",
+    faculty: "",
+    location: "Budapest"
+  },
+  {
+    id: "59",
+    name: "Dance and Rehearsal Coaching [Theatrical Dances]",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Budapest Circus Arts and Contemporary Dance College",
+    faculty: "",
+    location: "Budapest"
+  },
+  {
+    id: "60",
+    name: "Dance [Contemporary Dance]",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Budapest Circus Arts and Contemporary Dance College",
+    faculty: "",
+    location: "Budapest"
+  },
+  {
+    id: "61",
+    name: "Early Childhood Education",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Faculty of Primary and Pre-School Education",
+    location: "Budapest"
+  },
+  {
+    id: "62",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Faculty of Humanities",
+    location: "Budapest"
+  },
+  {
+    id: "63",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eszterházy Károly Catholic University",
+    faculty: "Faculty of Arts and Humanities",
+    location: "Eger"
+  },
+  {
+    id: "64",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Pázmány Péter Catholic University",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Budapest"
+  },
+  {
+    id: "65",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Debrecen",
+    faculty: "Faculty of Humanities",
+    location: "Debrecen"
+  },
+  {
+    id: "66",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Miskolc",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Miskolc"
+  },
+  {
+    id: "67",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Nyíregyháza",
+    faculty: "Institute of Languages and Literature",
+    location: "Nyíregyháza"
+  },
+  {
+    id: "68",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pannonia",
+    faculty: "Faculty of Humanities",
+    location: "Veszprém"
+  },
+  {
+    id: "69",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "70",
+    name: "English and American Studies",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Szeged",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Szeged"
+  },
+  {
+    id: "71",
+    name: "History",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Pázmány Péter Catholic University",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Budapest"
+  },
+  {
+    id: "72",
+    name: "Liberal Arts with majors: Art History, Classical Studies, Ethics, Film and Visual Studies, Philosophy",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "73",
+    name: "Pedagogy",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Faculty of Education and Psychology",
+    location: "Budapest"
+  },
+  {
+    id: "74",
+    name: "Pedagogy [Intercultural Educational Assistant]",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "75",
+    name: "Psychology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Faculty of Education and Psychology",
+    location: "Budapest"
+  },
+  {
+    id: "76",
+    name: "Psychology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "Károli Gáspár University of the Reformed Church in Hungary",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Budapest"
+  },
+  {
+    id: "77",
+    name: "Psychology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "1 or 2 semesters",
+    university_name: "Károli Gáspár University of the Reformed Church in Hungary",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Budapest"
+  },
+  {
+    id: "78",
+    name: "Psychology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Debrecen",
+    faculty: "Faculty of Humanities",
+    location: "Debrecen"
+  },
+  {
+    id: "79",
+    name: "Psychology",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "80",
+    name: "Roma Studies [Boyash Language and Culture]",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "81",
+    name: "Roma Studies [Romani Language and Culture]",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "6 semesters",
+    university_name: "University of Pécs",
+    faculty: "Faculty of Humanities and Social Sciences",
+    location: "Pécs"
+  },
+  {
+    id: "82",
+    name: "Special Needs Education",
+    degree_level: "Bachelor",
+    field_of_study: "Arts and Humanities",
+    language: "English",
+    duration: "8 semesters",
+    university_name: "Eötvös Loránd University",
+    faculty: "Bárczi Gusztáv Faculty of Special Needs Education",
+    location: "Budapest"
   }
+];
+  
 ];

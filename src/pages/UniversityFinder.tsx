@@ -426,8 +426,3 @@ const universityData: University[] = [
 ];
 
 export default UniversityFinder;
-
-
-
-2/2
-

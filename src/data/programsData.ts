@@ -10,7 +10,6 @@ interface Program {
   location: string;
 }
 
-// Full program data with 17 programs under Agriculture Studies
 export const fullProgramData: Program[] = [
   {
     id: "1",

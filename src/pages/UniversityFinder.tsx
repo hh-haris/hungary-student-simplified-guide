@@ -313,7 +313,7 @@ const UniversityFinder = () => {
       </main>
       <Footer />
     </div>
-  )
+  );
 };
 
 export default UniversityFinder;

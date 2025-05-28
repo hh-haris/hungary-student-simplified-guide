@@ -1,5 +1,4 @@
 
-import { supabase } from "@/integrations/supabase/client";
 import { fullProgramData } from "@/data/programsData";
 
 // Sample universities
